@@ -1,0 +1,2437 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1200,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "name": "OLE-Monitor_MaintranceMonitoring",
+        "connectionString": "Provider=SQLNCLI11;Data Source=SRV70001\\NODE;Initial Catalog=MaintranceMonitoring;Integrated Security=SSPI;Persist Security Info=false;Application Name=SSAS-SqlDeep_MaintranceMonitoring;",
+        "impersonationMode": "impersonateServiceAccount",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "Branch",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "common_BranchTypeRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "common_BranchTypeRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "BranchName",
+            "dataType": "string",
+            "sourceColumn": "BranchName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "BranchNumber",
+            "dataType": "string",
+            "sourceColumn": "BranchNumber",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "BranchSiteId",
+            "dataType": "string",
+            "sourceColumn": "BranchSiteId"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Branch",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       common_BranchTypeRef,",
+                "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                "       BranchName,",
+                "       BranchNumber",
+                "FROM [Common].[Branch] WITH (READPAST)",
+                "WHERE Enabled = 1",
+                "      AND EnabledJobHistory = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       common_BranchTypeRef,",
+                  "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                  "       BranchName,",
+                  "       BranchNumber",
+                  "FROM [Common].[Branch] WITH (READPAST)",
+                  "WHERE Enabled = 1",
+                  "      AND EnabledJobHistory = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledJobHistory = 1;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Branch"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledJobHistory = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "dataCategory": "Time",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "GregorianDate",
+            "dataType": "dateTime",
+            "isKey": true,
+            "sourceColumn": "GregorianDate",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "PersianYearInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianYearInt",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "PersianMonthNo",
+            "dataType": "int64",
+            "sourceColumn": "PersianMonthNo",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDayInMonth",
+            "dataType": "int64",
+            "sourceColumn": "PersianDayInMonth",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDayOfWeekInt",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "PersianDayOfWeekInt",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDate",
+            "dataType": "string",
+            "sourceColumn": "PersianDate",
+            "sortByColumn": "ID_Sort_Desc",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "PersianYearMonthInt",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "PersianYearMonthInt",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianYearMonthStr",
+            "dataType": "string",
+            "sourceColumn": "PersianYearMonthStr",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "PersianWeekOfMonthNo",
+            "dataType": "int64",
+            "sourceColumn": "PersianWeekOfMonthNo",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianWeekOfYearNo",
+            "dataType": "int64",
+            "sourceColumn": "PersianWeekOfYearNo",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianSeasonInt",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "PersianSeasonInt",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianMonthName",
+            "dataType": "string",
+            "sourceColumn": "PersianMonthName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianDayOfWeekName",
+            "dataType": "string",
+            "sourceColumn": "PersianDayOfWeekName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianWeekOfMonthName",
+            "dataType": "string",
+            "sourceColumn": "PersianWeekOfMonthName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianWeekOfYearName",
+            "dataType": "string",
+            "sourceColumn": "PersianWeekOfYearName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianSeason",
+            "dataType": "string",
+            "sourceColumn": "PersianSeason",
+            "sortByColumn": "PersianSeasonInt",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "ID_Sort_Desc",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID_Sort_Desc"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDate",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "DECLARE @myMinID INT",
+                "DECLARE @myMaxID INT",
+                "SELECT @myMinID = MIN( Common_Date_RunRef ),@myMaxID = MAX( Common_Date_RunRef ) FROM MaintranceJob.JobHistory WITH (READPAST)",
+                "SELECT ID,",
+                "       ID * -1 AS ID_Sort_Desc,",
+                "       GregorianDate,",
+                "       PersianDate,",
+                "       PersianYearInt,",
+                "       PersianMonthNo,",
+                "       PersianDayInMonth,",
+                "       PersianDayOfWeekInt,",
+                "       PersianYearMonthInt,",
+                "       PersianYearMonthStr,",
+                "       PersianWeekOfMonthNo,",
+                "       PersianWeekOfYearNo,",
+                "       PersianSeasonInt,",
+                "       PersianMonthName,",
+                "       PersianDayOfWeekName,",
+                "       PersianWeekOfMonthName,",
+                "       PersianWeekOfYearName,",
+                "       PersianSeason",
+                "FROM [Common].[DimDate] WITH (READPAST)",
+                "WHERE ID >= @myMinID",
+                "      AND ID <= @myMaxID;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+                  "DECLARE @myMaxID INT",
+                  "SELECT @myMinID = MIN( Common_Date_RunRef ),@myMaxID = MAX( Common_Date_RunRef ) FROM MaintranceJob.JobHistory WITH (READPAST)",
+                  "SELECT ID,",
+                  "       ID * -1 AS ID_Sort_Desc,",
+                  "       GregorianDate,",
+                  "       PersianDate,",
+                  "       PersianYearInt,",
+                  "       PersianMonthNo,",
+                  "       PersianDayInMonth,",
+                  "       PersianDayOfWeekInt,",
+                  "       PersianYearMonthInt,",
+                  "       PersianYearMonthStr,",
+                  "       PersianWeekOfMonthNo,",
+                  "       PersianWeekOfYearNo,",
+                  "       PersianSeasonInt,",
+                  "       PersianMonthName,",
+                  "       PersianDayOfWeekName,",
+                  "       PersianWeekOfMonthName,",
+                  "       PersianWeekOfYearName,",
+                  "       PersianSeason",
+                  "FROM [Common].[DimDate] WITH (READPAST)",
+                  "WHERE ID >= @myMinID",
+                  "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Date_RunRef ),@myMaxID = MAX( Common_Date_RunRef ) FROM MaintranceJob.JobHistory WITH (READPAST)",
+              "SELECT ID,",
+              "       ID * -1 AS ID_Sort_Desc,",
+              "       GregorianDate,",
+              "       PersianDate,",
+              "       PersianYearInt,",
+              "       PersianMonthNo,",
+              "       PersianDayInMonth,",
+              "       PersianDayOfWeekInt,",
+              "       PersianYearMonthInt,",
+              "       PersianYearMonthStr,",
+              "       PersianWeekOfMonthNo,",
+              "       PersianWeekOfYearNo,",
+              "       PersianSeasonInt,",
+              "       PersianMonthName,",
+              "       PersianDayOfWeekName,",
+              "       PersianWeekOfMonthName,",
+              "       PersianWeekOfYearName,",
+              "       PersianSeason",
+              "FROM [Common].[DimDate] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimDate"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Date_RunRef ),@myMaxID = MAX( Common_Date_RunRef ) FROM MaintranceJob.JobHistory WITH (READPAST)",
+              "SELECT ID,",
+              "       ID * -1 AS ID_Sort_Desc,",
+              "       GregorianDate,",
+              "       PersianDate,",
+              "       PersianYearInt,",
+              "       PersianMonthNo,",
+              "       PersianDayInMonth,",
+              "       PersianDayOfWeekInt,",
+              "       PersianYearMonthInt,",
+              "       PersianYearMonthStr,",
+              "       PersianWeekOfMonthNo,",
+              "       PersianWeekOfYearNo,",
+              "       PersianSeasonInt,",
+              "       PersianMonthName,",
+              "       PersianDayOfWeekName,",
+              "       PersianWeekOfMonthName,",
+              "       PersianWeekOfYearName,",
+              "       PersianSeason",
+              "FROM [Common].[DimDate] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimTime",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Hour24",
+            "dataType": "int64",
+            "sourceColumn": "Hour24",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Minute",
+            "dataType": "int64",
+            "sourceColumn": "Minute",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Second",
+            "dataType": "int64",
+            "sourceColumn": "Second",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "FullTimeString24",
+            "dataType": "string",
+            "sourceColumn": "FullTimeString24",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "FullTime",
+            "dataType": "dateTime",
+            "isHidden": true,
+            "sourceColumn": "FullTime",
+            "formatString": "General Date",
+            "sourceProviderType": "145"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimTime",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "DECLARE @myMinID INT",
+                "DECLARE @myMaxID INT",
+                "SELECT @myMinID = MIN( Common_Time_RunRef ),@myMaxID = MAX( Common_Time_RunRef ) FROM MaintranceJob.JobHistory WITH (READPAST)",
+                "SELECT ID,",
+                "       Hour24,",
+                "       Minute,",
+                "       Second,",
+                "       FullTimeString24,",
+                "       FullTime",
+                "FROM [Common].[DimTime] WITH (READPAST)",
+                "WHERE ID >= @myMinID",
+                "      AND ID <= @myMaxID;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+                  "DECLARE @myMaxID INT",
+                  "SELECT @myMinID = MIN( Common_Time_RunRef ),@myMaxID = MAX( Common_Time_RunRef ) FROM MaintranceJob.JobHistory WITH (READPAST)",
+                  "SELECT ID,",
+                  "       Hour24,",
+                  "       Minute,",
+                  "       Second,",
+                  "       FullTimeString24,",
+                  "       FullTime",
+                  "FROM [Common].[DimTime] WITH (READPAST)",
+                  "WHERE ID >= @myMinID",
+                  "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Time_RunRef ),@myMaxID = MAX( Common_Time_RunRef ) FROM MaintranceJob.JobHistory WITH (READPAST)",
+              "SELECT ID,",
+              "       Hour24,",
+              "       Minute,",
+              "       Second,",
+              "       FullTimeString24,",
+              "       FullTime",
+              "FROM [Common].[DimTime] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimTime"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Time_RunRef ),@myMaxID = MAX( Common_Time_RunRef ) FROM MaintranceJob.JobHistory WITH (READPAST)",
+              "SELECT ID,",
+              "       Hour24,",
+              "       Minute,",
+              "       Second,",
+              "       FullTimeString24,",
+              "       FullTime",
+              "FROM [Common].[DimTime] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "JobHistory",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "BigInt"
+          },
+          {
+            "name": "Common_BranchRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_BranchRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_Date_RunRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Date_RunRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_Time_RunRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Time_RunRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceJob_JobStatusRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "MaintranceJob_JobStatusRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "CategoryCode",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "CategoryCode",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "CategoryName",
+            "dataType": "string",
+            "sourceColumn": "CategoryName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "JobName",
+            "dataType": "string",
+            "sourceColumn": "JobName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Duration",
+            "dataType": "double",
+            "sourceColumn": "Duration",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Step",
+            "dataType": "int64",
+            "sourceColumn": "Step",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "StepName",
+            "dataType": "string",
+            "sourceColumn": "StepName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Message",
+            "dataType": "string",
+            "sourceColumn": "Message",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "type": "calculated",
+            "name": "Branch",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(Branch[BranchName])"
+          },
+          {
+            "type": "calculated",
+            "name": "Date",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(DimDate[PersianDate])"
+          },
+          {
+            "type": "calculated",
+            "name": "Time",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(DimTime[FullTimeString24])"
+          },
+          {
+            "type": "calculated",
+            "name": "Job Status",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(JobStatus[Caption])"
+          },
+          {
+            "name": "DurationTime",
+            "dataType": "dateTime",
+            "sourceColumn": "DurationTime",
+            "formatString": "HH:mm:ss",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"DateTimeCustom\"><DateTimes><DateTime LCID=\"1033\" Group=\"LongTime\" FormatString=\"HH:mm:ss\" /></DateTimes></Format>"
+              }
+            ]
+          },
+          {
+            "type": "calculated",
+            "name": "Job Status Color",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(JobStatus[JobStatusColor])"
+          },
+          {
+            "name": "JobStatus_LastRef",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "JobStatus_LastRef"
+          },
+          {
+            "type": "calculated",
+            "name": "Job Last Status Color",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(JobHistory_Last[Job Status Color])"
+          },
+          {
+            "type": "calculated",
+            "name": "Job Last Status",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(JobHistory_Last[Job Status])"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "JobHistory-Partiotion01",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 1",
+                "      AND myJobHistory.Common_BranchRef < 250;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 1",
+                  "      AND myJobHistory.Common_BranchRef < 250;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion02",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 250",
+                "      AND myJobHistory.Common_BranchRef < 500;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 250",
+                  "      AND myJobHistory.Common_BranchRef < 500;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion03",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 500",
+                "      AND myJobHistory.Common_BranchRef < 750;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 500",
+                  "      AND myJobHistory.Common_BranchRef < 750;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion04",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 750",
+                "      AND myJobHistory.Common_BranchRef < 1000;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 750",
+                  "      AND myJobHistory.Common_BranchRef < 1000;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion05",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 1000",
+                "      AND myJobHistory.Common_BranchRef < 1250;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 1000",
+                  "      AND myJobHistory.Common_BranchRef < 1250;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion06",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 1250",
+                "      AND myJobHistory.Common_BranchRef < 1500;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 1250",
+                  "      AND myJobHistory.Common_BranchRef < 1500;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion07",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 1500",
+                "      AND myJobHistory.Common_BranchRef < 1750;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 1500",
+                  "      AND myJobHistory.Common_BranchRef < 1750;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion08",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 1750",
+                "      AND myJobHistory.Common_BranchRef < 2000;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 1750",
+                  "      AND myJobHistory.Common_BranchRef < 2000;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion09",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 2000",
+                "      AND myJobHistory.Common_BranchRef < 2250;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 2000",
+                  "      AND myJobHistory.Common_BranchRef < 2250;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion10",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 2250",
+                "      AND myJobHistory.Common_BranchRef < 2500;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 2250",
+                  "      AND myJobHistory.Common_BranchRef < 2500;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion11",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 2500",
+                "      AND myJobHistory.Common_BranchRef < 2750;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 2500",
+                  "      AND myJobHistory.Common_BranchRef < 2750;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion12",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 2750",
+                "      AND myJobHistory.Common_BranchRef < 3000;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 2750",
+                  "      AND myJobHistory.Common_BranchRef < 3000;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "JobHistory-Partiotion13",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT myJobHistory.ID,",
+                "       myJobHistory.Common_BranchRef,",
+                "       myJobHistory.Common_Date_RunRef,",
+                "       myJobHistory.Common_Time_RunRef,",
+                "       myJobHistory.MaintranceJob_JobStatusRef,",
+                "       myJobHistory.CategoryCode,",
+                "       myJobHistory.CategoryName,",
+                "       myJobHistory.JobName,",
+                "       myJobHistory.Duration,",
+                "       myJobHistory.Step,",
+                "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                "       myJobHistory.Message,",
+                "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1",
+                "      AND myJobHistory.Common_BranchRef >= 3000"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+                  "       myJobHistory.Common_BranchRef,",
+                  "       myJobHistory.Common_Date_RunRef,",
+                  "       myJobHistory.Common_Time_RunRef,",
+                  "       myJobHistory.MaintranceJob_JobStatusRef,",
+                  "       myJobHistory.CategoryCode,",
+                  "       myJobHistory.CategoryName,",
+                  "       myJobHistory.JobName,",
+                  "       myJobHistory.Duration,",
+                  "       myJobHistory.Step,",
+                  "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+                  "       myJobHistory.Message,",
+                  "       DATEADD( SECOND, Duration, '1900-01-01' ) AS DurationTime,",
+                  "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+                  "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                  "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1",
+                  "      AND myJobHistory.Common_BranchRef >= 3000</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "measures": [
+          {
+            "name": "DurationTime_AVG",
+            "expression": "Format(AVERAGE(JobHistory[DurationTime]), \"HH:MM: SS\")",
+            "formatString": "HH:mm:ss",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"DateTimeCustom\"><DateTimes><DateTime LCID=\"1033\" Group=\"LongTime\" FormatString=\"HH:mm:ss\" /></DateTimes></Format>"
+              }
+            ]
+          },
+          {
+            "name": "DurationTime_MAX",
+            "expression": "Format(MAX(JobHistory[DurationTime]), \"HH:MM: SS\")"
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT myJobHistory.ID,",
+              "       myJobHistory.Common_BranchRef,",
+              "       myJobHistory.Common_Date_RunRef,",
+              "       myJobHistory.Common_Time_RunRef,",
+              "       myJobHistory.MaintranceJob_JobStatusRef,",
+              "       myJobHistory.CategoryCode,",
+              "       myJobHistory.CategoryName,",
+              "       myJobHistory.JobName,",
+              "       myJobHistory.Duration,",
+              "       myJobHistory.Step,",
+              "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+              "       myJobHistory.Message,",
+              "       CAST(CAST(DATEADD( SECOND, Duration, '1900-01-01' ) AS TIME(0)) AS VARCHAR(8)) AS DurationTime,",
+              "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+              "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+              "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+              "WHERE myBranch.Enabled = 1",
+              "      AND myJobHistory.Common_BranchRef >= 1",
+              "      AND myJobHistory.Common_BranchRef < 250;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "JobHistory"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceJob"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT myJobHistory.ID,",
+              "       myJobHistory.Common_BranchRef,",
+              "       myJobHistory.Common_Date_RunRef,",
+              "       myJobHistory.Common_Time_RunRef,",
+              "       myJobHistory.MaintranceJob_JobStatusRef,",
+              "       myJobHistory.CategoryCode,",
+              "       myJobHistory.CategoryName,",
+              "       myJobHistory.JobName,",
+              "       myJobHistory.Duration,",
+              "       myJobHistory.Step,",
+              "       CONCAT( myJobHistory.Step, '-', myJobHistory.StepName ) AS StepName,",
+              "       myJobHistory.Message,",
+              "       CAST(CAST(DATEADD( SECOND, Duration, '1900-01-01' ) AS TIME(0)) AS VARCHAR(8)) AS DurationTime,",
+              "       CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef",
+              "FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+              "INNER JOIN Common.Branch AS myBranch ON myBranch.ID = myJobHistory.Common_BranchRef",
+              "WHERE myBranch.Enabled = 1",
+              "      AND myJobHistory.Common_BranchRef >= 1",
+              "      AND myJobHistory.Common_BranchRef < 250;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "JobStatus",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Code",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Code",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "JobStatusColor",
+            "dataType": "string",
+            "sourceColumn": "JobStatusColor"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "JobStatus",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Code,",
+                "       Caption,",
+                "       CASE",
+                "           WHEN Code = 0 THEN 'Red'",
+                "           WHEN Code = 1 THEN 'LightGreen'",
+                "           WHEN Code = 2 THEN 'Orange'",
+                "           WHEN Code = 3 THEN '#118DFF' --Blue",
+                "           ELSE 'Yellow'",
+                "       END JobStatusColor",
+                "FROM [MaintranceJob].[JobStatus] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Code,",
+                  "       Caption,",
+                  "       CASE",
+                  "           WHEN Code = 0 THEN 'Red'",
+                  "           WHEN Code = 1 THEN 'LightGreen'",
+                  "           WHEN Code = 2 THEN 'Orange'",
+                  "           WHEN Code = 3 THEN '#118DFF' --Blue",
+                  "           ELSE 'Yellow'",
+                  "       END JobStatusColor",
+                  "FROM [MaintranceJob].[JobStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Code,",
+              "       Caption,",
+              "       CASE",
+              "           WHEN Code = 0 THEN 'Red'",
+              "           WHEN Code = 1 THEN 'LightGreen'",
+              "           WHEN Code = 2 THEN 'Orange'",
+              "           WHEN Code = 3 THEN '#118DFF' --Blue",
+              "           ELSE 'Yellow'",
+              "       END JobStatusColor",
+              "FROM [MaintranceJob].[JobStatus] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "JobStatus"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceJob"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Code,",
+              "       Caption,",
+              "       CASE",
+              "           WHEN Code = 0 THEN 'Red'",
+              "           WHEN Code = 1 THEN 'LightGreen'",
+              "           WHEN Code = 2 THEN 'Orange'",
+              "           WHEN Code = 3 THEN '#118DFF' --Blue",
+              "           ELSE 'Yellow'",
+              "       END JobStatusColor",
+              "FROM [MaintranceJob].[JobStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "BranchType",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "BranchType",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [Common].[BranchType] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [Common].[BranchType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [Common].[BranchType] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "BranchType"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [Common].[BranchType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "System",
+        "columns": [
+          {
+            "name": "RefreshDatetime",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshDatetime",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "name": "PersianRefreshDatetime",
+            "dataType": "string",
+            "sourceColumn": "PersianRefreshDatetime",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "RefreshDate",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshDate",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "name": "PersianRefreshDate",
+            "dataType": "string",
+            "sourceColumn": "PersianRefreshDate",
+            "sourceProviderType": "VarChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "System",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT GETDATE() AS RefreshDatetime,",
+                "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+                "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+                "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT GETDATE() AS RefreshDatetime,",
+                  "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+                  "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+                  "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT GETDATE() AS RefreshDatetime,",
+              "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+              "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+              "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "System"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT GETDATE() AS RefreshDatetime,",
+              "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+              "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+              "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "JobStatus_Last",
+        "isHidden": true,
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Code",
+            "dataType": "int64",
+            "sourceColumn": "Code",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "JobStatusColor",
+            "dataType": "string",
+            "sourceColumn": "JobStatusColor",
+            "sourceProviderType": "VarChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "JobStatus_Last",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Code,",
+                "       Caption,",
+                "       CASE",
+                "           WHEN Code = 0 THEN 'Red'",
+                "           WHEN Code = 1 THEN 'LightGreen'",
+                "           WHEN Code = 2 THEN 'Orange'",
+                "           WHEN Code = 3 THEN '#118DFF' --Blue",
+                "           ELSE 'Yellow'",
+                "       END JobStatusColor",
+                "FROM [MaintranceJob].[JobStatus] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Code,",
+                  "       Caption,",
+                  "       CASE",
+                  "           WHEN Code = 0 THEN 'Red'",
+                  "           WHEN Code = 1 THEN 'LightGreen'",
+                  "           WHEN Code = 2 THEN 'Orange'",
+                  "           WHEN Code = 3 THEN '#118DFF' --Blue",
+                  "           ELSE 'Yellow'",
+                  "       END JobStatusColor",
+                  "FROM [MaintranceJob].[JobStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Code,",
+              "       Caption,",
+              "       CASE",
+              "           WHEN Code = 0 THEN 'Red'",
+              "           WHEN Code = 1 THEN 'LightGreen'",
+              "           WHEN Code = 2 THEN 'Orange'",
+              "           WHEN Code = 3 THEN '#118DFF' --Blue",
+              "           ELSE 'Yellow'",
+              "       END JobStatusColor",
+              "FROM [MaintranceJob].[JobStatus] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "JobStatus_Last"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Code,",
+              "       Caption,",
+              "       CASE",
+              "           WHEN Code = 0 THEN 'Red'",
+              "           WHEN Code = 1 THEN 'LightGreen'",
+              "           WHEN Code = 2 THEN 'Orange'",
+              "           WHEN Code = 3 THEN '#118DFF' --Blue",
+              "           ELSE 'Yellow'",
+              "       END JobStatusColor",
+              "FROM [MaintranceJob].[JobStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "JobHistory_Last",
+        "isHidden": true,
+        "columns": [
+          {
+            "name": "Common_BranchRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_BranchRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_Date_RunRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Date_RunRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_Time_RunRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Time_RunRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "JobName",
+            "dataType": "string",
+            "sourceColumn": "JobName",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "MaintranceJob_JobStatusRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "MaintranceJob_JobStatusRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "JobStatus_LastRef",
+            "dataType": "string",
+            "sourceColumn": "JobStatus_LastRef"
+          },
+          {
+            "type": "calculated",
+            "name": "Job Status Color",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(JobStatus_Last[JobStatusColor])"
+          },
+          {
+            "type": "calculated",
+            "name": "Job Status",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(JobStatus_Last[Caption])"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "JobStatus_Last-Partiotion01",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "\tSELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef, myJobHistory.JobName, myJobHistory.Common_Date_RunRef ORDER BY myJobHistory.Common_Time_RunRef DESC) AS RowNumber,",
+                "\t\t   myJobHistory.Common_BranchRef,",
+                "\t\t   myJobHistory.Common_Date_RunRef,",
+                "\t\t   myJobHistory.Common_Time_RunRef,",
+                "\t\t   myJobHistory.JobName,",
+                "\t\t   myJobHistory.MaintranceJob_JobStatusRef",
+                "\tFROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "\tWHERE myJobHistory.Common_BranchRef >= 1",
+                "\t\t  AND myJobHistory.Common_BranchRef < 250",
+                ")",
+                "SELECT CONCAT(Common_BranchRef,'_',JobName,'_',Common_Date_RunRef) AS JobStatus_LastRef, Common_BranchRef, Common_Date_RunRef, Common_Time_RunRef, JobName, MaintranceJob_JobStatusRef ",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion02",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 250",
+                "          AND myJobHistory.Common_BranchRef < 500",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion03",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 500",
+                "          AND myJobHistory.Common_BranchRef < 750",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion04",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 750",
+                "          AND myJobHistory.Common_BranchRef < 1000",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion05",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 1000",
+                "          AND myJobHistory.Common_BranchRef < 1250",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion06",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 1250",
+                "          AND myJobHistory.Common_BranchRef < 1500",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion07",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 1500",
+                "          AND myJobHistory.Common_BranchRef < 1750",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion08",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 1750",
+                "          AND myJobHistory.Common_BranchRef < 2000",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion09",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 2000",
+                "          AND myJobHistory.Common_BranchRef < 2250",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion10",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 2250",
+                "          AND myJobHistory.Common_BranchRef < 2500",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion11",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 2500",
+                "          AND myJobHistory.Common_BranchRef < 2750",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion12",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 2750",
+                "          AND myJobHistory.Common_BranchRef < 3000",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          },
+          {
+            "name": "JobStatus_Last-Partiotion13",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myJobStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef,",
+                "                                           myJobHistory.JobName,",
+                "                                           myJobHistory.Common_Date_RunRef",
+                "                              ORDER BY myJobHistory.Common_Time_RunRef DESC",
+                "                             ) AS RowNumber,",
+                "           myJobHistory.Common_BranchRef,",
+                "           myJobHistory.Common_Date_RunRef,",
+                "           myJobHistory.Common_Time_RunRef,",
+                "           myJobHistory.JobName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+                "    WHERE myJobHistory.Common_BranchRef >= 3000",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', JobName, '_', Common_Date_RunRef ) AS JobStatus_LastRef,",
+                "       Common_BranchRef,",
+                "       Common_Date_RunRef,",
+                "       Common_Time_RunRef,",
+                "       JobName,",
+                "       MaintranceJob_JobStatusRef",
+                "FROM myJobStatusCTE",
+                "WHERE RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              ";WITH myJobStatusCTE",
+              "AS",
+              "(",
+              "\tSELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef, myJobHistory.JobName, myJobHistory.Common_Date_RunRef ORDER BY myJobHistory.Common_Time_RunRef DESC) AS RowNumber,",
+              "\t\t   myJobHistory.Common_BranchRef,",
+              "\t\t   myJobHistory.Common_Date_RunRef,",
+              "\t\t   myJobHistory.Common_Time_RunRef,",
+              "\t\t   myJobHistory.JobName,",
+              "\t\t   myJobHistory.MaintranceJob_JobStatusRef",
+              "\tFROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+              "\tWHERE myJobHistory.Common_BranchRef >= 1",
+              "\t\t  AND myJobHistory.Common_BranchRef < 250",
+              ")",
+              "SELECT CONCAT(Common_BranchRef,'_',JobName,'_',Common_Date_RunRef) AS JobStatus_LastRef, Common_BranchRef, Common_Date_RunRef, Common_Time_RunRef, JobName, MaintranceJob_JobStatusRef ",
+              "FROM myJobStatusCTE",
+              "WHERE RowNumber = 1"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "JobHistory_Last"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>;WITH myJobStatusCTE",
+              "AS",
+              "(",
+              "\tSELECT ROW_NUMBER() OVER (PARTITION BY myJobHistory.Common_BranchRef, myJobHistory.JobName, myJobHistory.Common_Date_RunRef ORDER BY myJobHistory.Common_Time_RunRef DESC) AS RowNumber,",
+              "\t\t   myJobHistory.Common_BranchRef,",
+              "\t\t   myJobHistory.Common_Date_RunRef,",
+              "\t\t   myJobHistory.Common_Time_RunRef,",
+              "\t\t   myJobHistory.JobName,",
+              "\t\t   myJobHistory.MaintranceJob_JobStatusRef",
+              "\tFROM MaintranceJob.JobHistory AS myJobHistory WITH (READPAST)",
+              "\tWHERE myJobHistory.Common_BranchRef >= 1",
+              "\t\t  AND myJobHistory.Common_BranchRef < 250",
+              ")",
+              "SELECT CONCAT(Common_BranchRef,'_',JobName,'_',Common_Date_RunRef) AS JobStatus_LastRef, Common_BranchRef, Common_Date_RunRef, Common_Time_RunRef, JobName, MaintranceJob_JobStatusRef ",
+              "FROM myJobStatusCTE",
+              "WHERE RowNumber = 1</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "e053fe38-221d-44fc-b048-8811d5d8cf49",
+        "fromTable": "JobHistory",
+        "fromColumn": "Common_BranchRef",
+        "toTable": "Branch",
+        "toColumn": "ID"
+      },
+      {
+        "name": "ed22af6a-c9c9-48d9-b676-d7cb9f59e2a3",
+        "fromTable": "JobHistory",
+        "fromColumn": "Common_Date_RunRef",
+        "toTable": "DimDate",
+        "toColumn": "ID"
+      },
+      {
+        "name": "7bb82a11-2b03-4c3c-9f09-e4d11cb7c0a7",
+        "fromTable": "JobHistory",
+        "fromColumn": "Common_Time_RunRef",
+        "toTable": "DimTime",
+        "toColumn": "ID"
+      },
+      {
+        "name": "6226135f-ee58-4ad5-b3f7-20dd1a1021a3",
+        "fromTable": "JobHistory",
+        "fromColumn": "MaintranceJob_JobStatusRef",
+        "toTable": "JobStatus",
+        "toColumn": "ID"
+      },
+      {
+        "name": "fb92073c-b352-439f-baa6-63d18b73e78d",
+        "fromTable": "Branch",
+        "fromColumn": "common_BranchTypeRef",
+        "toTable": "BranchType",
+        "toColumn": "ID"
+      },
+      {
+        "name": "3126800c-8633-451e-b42a-1c9c174359ac",
+        "fromTable": "JobHistory_Last",
+        "fromColumn": "MaintranceJob_JobStatusRef",
+        "toTable": "JobStatus_Last",
+        "toColumn": "ID"
+      },
+      {
+        "name": "caece5d5-4619-4200-8e65-0513d7830fa6",
+        "fromTable": "JobHistory",
+        "fromColumn": "JobStatus_LastRef",
+        "toTable": "JobHistory_Last",
+        "toColumn": "JobStatus_LastRef"
+      }
+    ],
+    "roles": [
+      {
+        "name": "Read_ALL",
+        "modelPermission": "read",
+        "members": [
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}

@@ -1,0 +1,892 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1200,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "name": "OLE-Monitor_MaintranceMonitoring",
+        "connectionString": "Data Source=SRV70001\\NODE;Persist Security Info=false;Integrated Security=SSPI;Initial Catalog=MaintranceMonitoring;Application Name=SSAS-SqlDeep_MaintranceMonitoring;Provider=SQLNCLI11",
+        "impersonationMode": "impersonateServiceAccount",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "Branch",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "common_BranchTypeRef",
+            "dataType": "int64",
+            "sourceColumn": "common_BranchTypeRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "BranchName",
+            "dataType": "string",
+            "sourceColumn": "BranchName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "BranchNumber",
+            "dataType": "string",
+            "sourceColumn": "BranchNumber",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "BranchSiteId",
+            "dataType": "string",
+            "sourceColumn": "BranchSiteId"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Branch",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       common_BranchTypeRef,",
+                "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                "       BranchName,",
+                "       BranchNumber",
+                "FROM [Common].[Branch] WITH (READPAST)",
+                "WHERE Enabled = 1",
+                "      AND EnabledReplicationDistributionAgent = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       common_BranchTypeRef,",
+                  "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                  "       BranchName,",
+                  "       BranchNumber",
+                  "FROM [Common].[Branch] WITH (READPAST)",
+                  "WHERE Enabled = 1",
+                  "      AND EnabledReplicationDistributionAgent = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledReplicationDistributionAgent = 1;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Branch"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledReplicationDistributionAgent = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "BranchType",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "BranchType",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [Common].[BranchType] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [Common].[BranchType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [Common].[BranchType] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "BranchType"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [Common].[BranchType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Publication",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Publication",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [MaintranceReplication].[Publication] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [MaintranceReplication].[Publication] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[Publication] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Publication"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceReplication"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[Publication] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Publisher",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Publisher",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [MaintranceReplication].[Publisher] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [MaintranceReplication].[Publisher] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[Publisher] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Publisher"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceReplication"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[Publisher] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "PublisherDB",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "PublisherDB",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [MaintranceReplication].[PublisherDB] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [MaintranceReplication].[PublisherDB] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[PublisherDB] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "PublisherDB"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceReplication"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[PublisherDB] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Subscriber",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Subscriber",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [MaintranceReplication].[Subscriber] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [MaintranceReplication].[Subscriber] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[Subscriber] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Subscriber"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceReplication"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[Subscriber] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SubscriberDB",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SubscriberDB",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [MaintranceReplication].[SubscriberDB] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [MaintranceReplication].[SubscriberDB] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[SubscriberDB] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SubscriberDB"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceReplication"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceReplication].[SubscriberDB] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SubscriptionPendingCommand",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_BranchRef",
+            "dataType": "int64",
+            "sourceColumn": "Common_BranchRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceReplication_PublicationRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceReplication_PublicationRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceReplication_SubscriberRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceReplication_SubscriberRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceReplication_SubscriberDBRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceReplication_SubscriberDBRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceReplication_PublisherDBRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceReplication_PublisherDBRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceReplication_PublisherRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceReplication_PublisherRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceReplication_SubscriptionTypeRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceReplication_SubscriptionTypeRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PendingCommandCount",
+            "dataType": "int64",
+            "sourceColumn": "PendingCommandCount",
+            "formatString": "#,0",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "EstimatedProcessTime",
+            "dataType": "string",
+            "sourceColumn": "EstimatedProcessTime"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SubscriptionPendingCommand",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ROW_NUMBER() OVER (ORDER BY mySubscriptionPendingCommand.Common_BranchRef) AS ID,",
+                "       mySubscriptionPendingCommand.Common_BranchRef,",
+                "       mySubscriptionPendingCommand.MaintranceReplication_PublicationRef,",
+                "       mySubscriptionPendingCommand.MaintranceReplication_SubscriberRef,",
+                "       mySubscriptionPendingCommand.MaintranceReplication_SubscriberDBRef,",
+                "       mySubscriptionPendingCommand.MaintranceReplication_PublisherDBRef,",
+                "       mySubscriptionPendingCommand.MaintranceReplication_PublisherRef,",
+                "       mySubscriptionPendingCommand.MaintranceReplication_SubscriptionTypeRef,",
+                "       mySubscriptionPendingCommand.PendingCommandCount,",
+                "       CAST(CAST(DATEADD( SECOND, mySubscriptionPendingCommand.EstimatedProcessTimeSecond, '00:00:00' ) AS TIME) AS VARCHAR(8)) EstimatedProcessTime",
+                "FROM [MaintranceReplication].[SubscriptionPendingCommand] AS mySubscriptionPendingCommand WITH (NOLOCK)",
+                "INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = mySubscriptionPendingCommand.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ROW_NUMBER() OVER (ORDER BY mySubscriptionPendingCommand.Common_BranchRef) AS ID,",
+                  "       mySubscriptionPendingCommand.Common_BranchRef,",
+                  "       mySubscriptionPendingCommand.MaintranceReplication_PublicationRef,",
+                  "       mySubscriptionPendingCommand.MaintranceReplication_SubscriberRef,",
+                  "       mySubscriptionPendingCommand.MaintranceReplication_SubscriberDBRef,",
+                  "       mySubscriptionPendingCommand.MaintranceReplication_PublisherDBRef,",
+                  "       mySubscriptionPendingCommand.MaintranceReplication_PublisherRef,",
+                  "       mySubscriptionPendingCommand.MaintranceReplication_SubscriptionTypeRef,",
+                  "       mySubscriptionPendingCommand.PendingCommandCount,",
+                  "       CAST(CAST(DATEADD( SECOND, mySubscriptionPendingCommand.EstimatedProcessTimeSecond, '00:00:00' ) AS TIME) AS VARCHAR(8)) EstimatedProcessTime",
+                  "FROM [MaintranceReplication].[SubscriptionPendingCommand] AS mySubscriptionPendingCommand WITH (NOLOCK)",
+                  "INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = mySubscriptionPendingCommand.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ROW_NUMBER() OVER (ORDER BY mySubscriptionPendingCommand.Common_BranchRef) AS ID,",
+              "       mySubscriptionPendingCommand.Common_BranchRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_PublicationRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_SubscriberRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_SubscriberDBRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_PublisherDBRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_PublisherRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_SubscriptionTypeRef,",
+              "       mySubscriptionPendingCommand.PendingCommandCount,",
+              "       CAST(CAST(DATEADD( SECOND, mySubscriptionPendingCommand.EstimatedProcessTimeSecond, '00:00:00' ) AS TIME) AS VARCHAR(8)) EstimatedProcessTime",
+              "FROM [MaintranceReplication].[SubscriptionPendingCommand] AS mySubscriptionPendingCommand WITH (NOLOCK)",
+              "INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = mySubscriptionPendingCommand.Common_BranchRef",
+              "WHERE myBranch.Enabled = 1;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SubscriptionPendingCommand"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceReplication"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ROW_NUMBER() OVER (ORDER BY mySubscriptionPendingCommand.Common_BranchRef) AS ID,",
+              "       mySubscriptionPendingCommand.Common_BranchRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_PublicationRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_SubscriberRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_SubscriberDBRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_PublisherDBRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_PublisherRef,",
+              "       mySubscriptionPendingCommand.MaintranceReplication_SubscriptionTypeRef,",
+              "       mySubscriptionPendingCommand.PendingCommandCount,",
+              "       CAST(CAST(DATEADD( SECOND, mySubscriptionPendingCommand.EstimatedProcessTimeSecond, '00:00:00' ) AS TIME) AS VARCHAR(8)) EstimatedProcessTime",
+              "FROM [MaintranceReplication].[SubscriptionPendingCommand] AS mySubscriptionPendingCommand WITH (NOLOCK)",
+              "INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = mySubscriptionPendingCommand.Common_BranchRef",
+              "WHERE myBranch.Enabled = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SubscriptionType",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Code",
+            "dataType": "int64",
+            "sourceColumn": "Code",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Name",
+            "dataType": "string",
+            "sourceColumn": "Name",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SubscriptionType",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [MaintranceReplication].[SubscriptionType].* FROM [MaintranceReplication].[SubscriptionType] ",
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [MaintranceReplication].[SubscriptionType].* FROM [MaintranceReplication].[SubscriptionType] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SubscriptionType"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceReplication"
+          }
+        ]
+      },
+      {
+        "name": "System",
+        "columns": [
+          {
+            "name": "RefreshDatetime",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshDatetime",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "name": "PersianRefreshDatetime",
+            "dataType": "string",
+            "sourceColumn": "PersianRefreshDatetime",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "RefreshDate",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshDate",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "name": "PersianRefreshDate",
+            "dataType": "string",
+            "sourceColumn": "PersianRefreshDate",
+            "sourceProviderType": "VarChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "System",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT GETDATE() AS RefreshDatetime,",
+                "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+                "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+                "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT GETDATE() AS RefreshDatetime,",
+                  "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+                  "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+                  "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT GETDATE() AS RefreshDatetime,",
+              "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+              "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+              "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "System"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT GETDATE() AS RefreshDatetime,",
+              "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+              "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+              "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "b0ea9f29-9a8c-4c7f-951a-16d587a858e3",
+        "fromTable": "Branch",
+        "fromColumn": "common_BranchTypeRef",
+        "toTable": "BranchType",
+        "toColumn": "ID"
+      },
+      {
+        "name": "bf982e03-7899-47d2-82e6-ddd179eaa5e5",
+        "fromTable": "SubscriptionPendingCommand",
+        "fromColumn": "Common_BranchRef",
+        "toTable": "Branch",
+        "toColumn": "ID"
+      },
+      {
+        "name": "6865a769-8580-46e9-8c6a-511a59603d6d",
+        "fromTable": "SubscriptionPendingCommand",
+        "fromColumn": "MaintranceReplication_PublicationRef",
+        "toTable": "Publication",
+        "toColumn": "ID"
+      },
+      {
+        "name": "6c01e73c-4a13-42a6-95e8-293b8ca385fc",
+        "fromTable": "SubscriptionPendingCommand",
+        "fromColumn": "MaintranceReplication_PublisherRef",
+        "toTable": "Publisher",
+        "toColumn": "ID"
+      },
+      {
+        "name": "7c57b469-250c-4387-a75c-b02a1ec51b78",
+        "fromTable": "SubscriptionPendingCommand",
+        "fromColumn": "MaintranceReplication_PublisherDBRef",
+        "toTable": "PublisherDB",
+        "toColumn": "ID"
+      },
+      {
+        "name": "46a7979e-5bb2-45e1-a858-c7f11ac17c16",
+        "fromTable": "SubscriptionPendingCommand",
+        "fromColumn": "MaintranceReplication_SubscriberRef",
+        "toTable": "Subscriber",
+        "toColumn": "ID"
+      },
+      {
+        "name": "ad55e8f1-39dd-4dfe-8424-15ee7022664c",
+        "fromTable": "SubscriptionPendingCommand",
+        "fromColumn": "MaintranceReplication_SubscriberDBRef",
+        "toTable": "SubscriberDB",
+        "toColumn": "ID"
+      },
+      {
+        "name": "ff4b6019-bd03-4e22-82d2-9856e58e037a",
+        "fromTable": "SubscriptionPendingCommand",
+        "fromColumn": "MaintranceReplication_SubscriptionTypeRef",
+        "toTable": "SubscriptionType",
+        "toColumn": "ID"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}

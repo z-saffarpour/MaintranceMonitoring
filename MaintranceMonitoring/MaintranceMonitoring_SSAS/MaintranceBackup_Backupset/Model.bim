@@ -1,0 +1,1105 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1200,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "name": "OLE-Monitor_MaintranceMonitoring",
+        "connectionString": "Data Source=SRV70001\\NODE;Persist Security Info=false;Integrated Security=SSPI;Initial Catalog=MaintranceMonitoring;Application Name=SSAS-SqlDeep_MaintranceMonitoring;Provider=SQLNCLI11",
+        "impersonationMode": "impersonateServiceAccount",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "Branch",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "common_BranchTypeRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "common_BranchTypeRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "BranchName",
+            "dataType": "string",
+            "sourceColumn": "BranchName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "BranchNumber",
+            "dataType": "string",
+            "sourceColumn": "BranchNumber",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "BranchSiteId",
+            "dataType": "string",
+            "sourceColumn": "BranchSiteId"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Branch",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       common_BranchTypeRef,",
+                "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                "       BranchName,",
+                "       BranchNumber",
+                "FROM [Common].[Branch] WITH (READPAST)",
+                "WHERE Enabled = 1",
+                "      AND EnabledBackupset = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       common_BranchTypeRef,",
+                  "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                  "       BranchName,",
+                  "       BranchNumber",
+                  "FROM [Common].[Branch] WITH (READPAST)",
+                  "WHERE Enabled = 1",
+                  "      AND EnabledBackupset = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledBackupset = 1;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Branch"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledBackupset = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "GregorianDate",
+            "dataType": "dateTime",
+            "sourceColumn": "GregorianDate",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "PersianYearInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianYearInt",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "PersianMonthNo",
+            "dataType": "int64",
+            "sourceColumn": "PersianMonthNo",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDayInMonth",
+            "dataType": "int64",
+            "sourceColumn": "PersianDayInMonth",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDayOfWeekInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianDayOfWeekInt",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDate",
+            "dataType": "string",
+            "sourceColumn": "PersianDate",
+            "sortByColumn": "ID_Sort_Desc",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "PersianYearMonthInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianYearMonthInt",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianYearMonthStr",
+            "dataType": "string",
+            "sourceColumn": "PersianYearMonthStr",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "PersianWeekOfMonthNo",
+            "dataType": "int64",
+            "sourceColumn": "PersianWeekOfMonthNo",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianWeekOfYearNo",
+            "dataType": "int64",
+            "sourceColumn": "PersianWeekOfYearNo",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianSeasonInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianSeasonInt",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianMonthName",
+            "dataType": "string",
+            "sourceColumn": "PersianMonthName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianDayOfWeekName",
+            "dataType": "string",
+            "sourceColumn": "PersianDayOfWeekName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianWeekOfMonthName",
+            "dataType": "string",
+            "sourceColumn": "PersianWeekOfMonthName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianWeekOfYearName",
+            "dataType": "string",
+            "sourceColumn": "PersianWeekOfYearName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianSeason",
+            "dataType": "string",
+            "sourceColumn": "PersianSeason",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "ID_Sort_Desc",
+            "dataType": "int64",
+            "sourceColumn": "ID_Sort_Desc"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDate",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       ID * -1 AS ID_Sort_Desc,",
+                "       GregorianDate,",
+                "       PersianDate,",
+                "       PersianYearInt,",
+                "       PersianMonthNo,",
+                "       PersianDayInMonth,",
+                "       PersianDayOfWeekInt,",
+                "       PersianYearMonthInt,",
+                "       PersianYearMonthStr,",
+                "       PersianWeekOfMonthNo,",
+                "       PersianWeekOfYearNo,",
+                "       PersianSeasonInt,",
+                "       PersianMonthName,",
+                "       PersianDayOfWeekName,",
+                "       PersianWeekOfMonthName,",
+                "       PersianWeekOfYearName,",
+                "       PersianSeason",
+                "FROM [Common].[DimDate] WITH (READPAST)",
+                "WHERE ID >= ( SELECT MIN( Common_Date_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) )",
+                "      AND ID <= ( SELECT MAX( Common_Date_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) );"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       ID * -1 AS ID_Sort_Desc,",
+                  "       GregorianDate,",
+                  "       PersianDate,",
+                  "       PersianYearInt,",
+                  "       PersianMonthNo,",
+                  "       PersianDayInMonth,",
+                  "       PersianDayOfWeekInt,",
+                  "       PersianYearMonthInt,",
+                  "       PersianYearMonthStr,",
+                  "       PersianWeekOfMonthNo,",
+                  "       PersianWeekOfYearNo,",
+                  "       PersianSeasonInt,",
+                  "       PersianMonthName,",
+                  "       PersianDayOfWeekName,",
+                  "       PersianWeekOfMonthName,",
+                  "       PersianWeekOfYearName,",
+                  "       PersianSeason",
+                  "FROM [Common].[DimDate] WITH (READPAST)",
+                  "WHERE ID >= ( SELECT MIN( Common_Date_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) )",
+                  "      AND ID <= ( SELECT MAX( Common_Date_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) );</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       ID * -1 AS ID_Sort_Desc,",
+              "       GregorianDate,",
+              "       PersianDate,",
+              "       PersianYearInt,",
+              "       PersianMonthNo,",
+              "       PersianDayInMonth,",
+              "       PersianDayOfWeekInt,",
+              "       PersianYearMonthInt,",
+              "       PersianYearMonthStr,",
+              "       PersianWeekOfMonthNo,",
+              "       PersianWeekOfYearNo,",
+              "       PersianSeasonInt,",
+              "       PersianMonthName,",
+              "       PersianDayOfWeekName,",
+              "       PersianWeekOfMonthName,",
+              "       PersianWeekOfYearName,",
+              "       PersianSeason",
+              "FROM [Common].[DimDate] WITH (READPAST)",
+              "WHERE ID >= ( SELECT MIN( Common_Date_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) )",
+              "      AND ID <= ( SELECT MAX( Common_Date_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) );"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimDate"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       ID * -1 AS ID_Sort_Desc,",
+              "       GregorianDate,",
+              "       PersianDate,",
+              "       PersianYearInt,",
+              "       PersianMonthNo,",
+              "       PersianDayInMonth,",
+              "       PersianDayOfWeekInt,",
+              "       PersianYearMonthInt,",
+              "       PersianYearMonthStr,",
+              "       PersianWeekOfMonthNo,",
+              "       PersianWeekOfYearNo,",
+              "       PersianSeasonInt,",
+              "       PersianMonthName,",
+              "       PersianDayOfWeekName,",
+              "       PersianWeekOfMonthName,",
+              "       PersianWeekOfYearName,",
+              "       PersianSeason",
+              "FROM [Common].[DimDate] WITH (READPAST)",
+              "WHERE ID >= ( SELECT MIN( Common_Date_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) )",
+              "      AND ID <= ( SELECT MAX( Common_Date_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) );</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimTime",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Hour24",
+            "dataType": "int64",
+            "sourceColumn": "Hour24",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Minute",
+            "dataType": "int64",
+            "sourceColumn": "Minute",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Second",
+            "dataType": "int64",
+            "sourceColumn": "Second",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "FullTimeString24",
+            "dataType": "string",
+            "sourceColumn": "FullTimeString24",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "FullTime",
+            "dataType": "dateTime",
+            "sourceColumn": "FullTime",
+            "formatString": "General Date",
+            "sourceProviderType": "145"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimTime",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Hour24,",
+                "       Minute,",
+                "       Second,",
+                "       FullTimeString24,",
+                "       FullTime",
+                "FROM [Common].[DimTime] WITH (READPAST)",
+                "WHERE ID >= ( SELECT MIN( Common_Time_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) )",
+                "      AND ID <= ( SELECT MAX( Common_Time_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) );"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Hour24,",
+                  "       Minute,",
+                  "       Second,",
+                  "       FullTimeString24,",
+                  "       FullTime",
+                  "FROM [Common].[DimTime] WITH (READPAST)",
+                  "WHERE ID >= ( SELECT MIN( Common_Time_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) )",
+                  "      AND ID <= ( SELECT MAX( Common_Time_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) );</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Hour24,",
+              "       Minute,",
+              "       Second,",
+              "       FullTimeString24,",
+              "       FullTime",
+              "FROM [Common].[DimTime] WITH (READPAST)",
+              "WHERE ID >= ( SELECT MIN( Common_Time_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) )",
+              "      AND ID <= ( SELECT MAX( Common_Time_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) );"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimTime"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Hour24,",
+              "       Minute,",
+              "       Second,",
+              "       FullTimeString24,",
+              "       FullTime",
+              "FROM [Common].[DimTime] WITH (READPAST)",
+              "WHERE ID >= ( SELECT MIN( Common_Time_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) )",
+              "      AND ID <= ( SELECT MAX( Common_Time_BackupStartRef ) FROM MaintranceBackup.Backupset WITH (READPAST) );</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Backupset",
+        "columns": [
+          {
+            "name": "Common_BranchRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_BranchRef"
+          },
+          {
+            "name": "MaintranceBackup_BackupTypeRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "MaintranceBackup_BackupTypeRef"
+          },
+          {
+            "name": "DatabaseName",
+            "dataType": "string",
+            "sourceColumn": "DatabaseName"
+          },
+          {
+            "name": "RecoveryModel",
+            "dataType": "string",
+            "sourceColumn": "RecoveryModel"
+          },
+          {
+            "name": "DatabaseVersion",
+            "dataType": "int64",
+            "sourceColumn": "DatabaseVersion"
+          },
+          {
+            "name": "IsSingleUser",
+            "dataType": "boolean",
+            "sourceColumn": "IsSingleUser"
+          },
+          {
+            "name": "BackupSetId",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "BackupSetId"
+          },
+          {
+            "name": "MediaSetId",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "MediaSetId"
+          },
+          {
+            "name": "BackupName",
+            "dataType": "string",
+            "sourceColumn": "BackupName"
+          },
+          {
+            "name": "BackupDescription",
+            "dataType": "string",
+            "sourceColumn": "BackupDescription"
+          },
+          {
+            "name": "Common_Date_BackupStartRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Date_BackupStartRef"
+          },
+          {
+            "name": "Common_Date_BackupFinishRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Date_BackupFinishRef"
+          },
+          {
+            "name": "Common_Date_BackupExpirationRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Date_BackupExpirationRef"
+          },
+          {
+            "name": "Common_Time_BackupStartRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Time_BackupStartRef"
+          },
+          {
+            "name": "Common_Time_BackupFinishTimeRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Time_BackupFinishTimeRef"
+          },
+          {
+            "name": "Common_Time_BackupExpirationRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Time_BackupExpirationRef"
+          },
+          {
+            "name": "BackupSize",
+            "dataType": "double",
+            "isHidden": true,
+            "sourceColumn": "BackupSize"
+          },
+          {
+            "name": "CompressedBackupSize",
+            "dataType": "int64",
+            "sourceColumn": "CompressedBackupSize"
+          },
+          {
+            "name": "IsCopyOnly",
+            "dataType": "boolean",
+            "sourceColumn": "IsCopyOnly"
+          },
+          {
+            "name": "HasBackupChecksums",
+            "dataType": "boolean",
+            "sourceColumn": "HasBackupChecksums"
+          },
+          {
+            "name": "CompressedBackupSize_KB",
+            "dataType": "double",
+            "sourceColumn": "CompressedBackupSize_KB"
+          },
+          {
+            "name": "CompressedBackupSize_MB",
+            "dataType": "double",
+            "sourceColumn": "CompressedBackupSize_MB"
+          },
+          {
+            "name": "CompressedBackupSize_GB",
+            "dataType": "double",
+            "sourceColumn": "CompressedBackupSize_GB"
+          },
+          {
+            "name": "Color",
+            "dataType": "string",
+            "sourceColumn": "Color"
+          },
+          {
+            "name": "IsInternalDisaster",
+            "dataType": "boolean",
+            "sourceColumn": "IsInternalDisaster"
+          },
+          {
+            "name": "IsTransfered",
+            "dataType": "boolean",
+            "sourceColumn": "IsTransfered"
+          },
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID"
+          },
+          {
+            "type": "calculated",
+            "name": "Backup PersianDatetime",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "CONCATENATE(RELATED(DimDate[PersianDate]),CONCATENATE(\" \", RELATED(DimTime[FullTimeString24])))"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Backupset",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ROW_NUMBER()OVER(ORDER BY myBackupset.Common_BranchRef,myBackupset.DatabaseName,myBackupset.Common_Date_BackupStartRef, myBackupset.Common_Time_BackupStartRef) AS ID,",
+                "       myBackupset.Common_BranchRef,",
+                "       myBackupset.MaintranceBackup_BackupTypeRef,",
+                "       CASE MIN( myBackupType.Name ) OVER (PARTITION BY myBackupset.Common_BranchRef, DatabaseName, myBackupset.Common_Date_BackupStartRef ORDER BY myBackupset.Common_Time_BackupStartRef ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING )",
+                "           WHEN 'D' THEN 'LightGreen'",
+                "           WHEN 'I' THEN 'Yellow'",
+                "           WHEN 'L' THEN 'Red' --Red",
+                "       END AS Color,",
+                "       myBackupset.DatabaseName,",
+                "       myBackupset.RecoveryModel,",
+                "       myBackupset.DatabaseVersion,",
+                "       myBackupset.IsSingleUser,",
+                "       myBackupset.BackupSetId,",
+                "       myBackupset.MediaSetId,",
+                "       myBackupset.BackupName,",
+                "       myBackupset.BackupDescription,",
+                "       myBackupset.Common_Date_BackupStartRef,",
+                "       myBackupset.Common_Date_BackupFinishRef,",
+                "       myBackupset.Common_Date_BackupExpirationRef,",
+                "       myBackupset.Common_Time_BackupStartRef,",
+                "       myBackupset.Common_Time_BackupFinishTimeRef,",
+                "       myBackupset.Common_Time_BackupExpirationRef,",
+                "       myBackupset.BackupSize,",
+                "       myBackupset.CompressedBackupSize,",
+                "       myBackupset.CompressedBackupSize / 1024.0 AS CompressedBackupSize_KB,",
+                "       myBackupset.CompressedBackupSize / 1024.0 / 1024.0 AS CompressedBackupSize_MB,",
+                "       myBackupset.CompressedBackupSize / 1024.0 / 1024.0 / 1024.0 AS CompressedBackupSize_GB,",
+                "       myBackupset.IsCopyOnly,",
+                "       myBackupset.HasBackupChecksums,",
+                "       CAST(myBackupset.IsInternalDisaster AS BIT) AS IsInternalDisaster,",
+                "       CAST(myBackupset.IsTransfered AS BIT) AS IsTransfered",
+                "FROM MaintranceBackup.Backupset AS myBackupset WITH (READPAST)",
+                "INNER JOIN MaintranceBackup.BackupType AS myBackupType WITH (READPAST) ON myBackupType.ID = myBackupset.MaintranceBackup_BackupTypeRef",
+                "INNER JOIN Common.Branch AS myBranch WITH(READPAST) ON myBranch.ID = myBackupset.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ROW_NUMBER()OVER(ORDER BY myBackupset.Common_BranchRef,myBackupset.DatabaseName,myBackupset.Common_Date_BackupStartRef, myBackupset.Common_Time_BackupStartRef) AS ID,",
+                  "       myBackupset.Common_BranchRef,",
+                  "       myBackupset.MaintranceBackup_BackupTypeRef,",
+                  "       CASE MIN( myBackupType.Name ) OVER (PARTITION BY myBackupset.Common_BranchRef, DatabaseName, myBackupset.Common_Date_BackupStartRef ORDER BY myBackupset.Common_Time_BackupStartRef ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING )",
+                  "           WHEN 'D' THEN 'LightGreen'",
+                  "           WHEN 'I' THEN 'Yellow'",
+                  "           WHEN 'L' THEN 'Red' --Red",
+                  "       END AS Color,",
+                  "       myBackupset.DatabaseName,",
+                  "       myBackupset.RecoveryModel,",
+                  "       myBackupset.DatabaseVersion,",
+                  "       myBackupset.IsSingleUser,",
+                  "       myBackupset.BackupSetId,",
+                  "       myBackupset.MediaSetId,",
+                  "       myBackupset.BackupName,",
+                  "       myBackupset.BackupDescription,",
+                  "       myBackupset.Common_Date_BackupStartRef,",
+                  "       myBackupset.Common_Date_BackupFinishRef,",
+                  "       myBackupset.Common_Date_BackupExpirationRef,",
+                  "       myBackupset.Common_Time_BackupStartRef,",
+                  "       myBackupset.Common_Time_BackupFinishTimeRef,",
+                  "       myBackupset.Common_Time_BackupExpirationRef,",
+                  "       myBackupset.BackupSize,",
+                  "       myBackupset.CompressedBackupSize,",
+                  "       myBackupset.CompressedBackupSize / 1024.0 AS CompressedBackupSize_KB,",
+                  "       myBackupset.CompressedBackupSize / 1024.0 / 1024.0 AS CompressedBackupSize_MB,",
+                  "       myBackupset.CompressedBackupSize / 1024.0 / 1024.0 / 1024.0 AS CompressedBackupSize_GB,",
+                  "       myBackupset.IsCopyOnly,",
+                  "       myBackupset.HasBackupChecksums,",
+                  "       CAST(myBackupset.IsInternalDisaster AS BIT) AS IsInternalDisaster,",
+                  "       CAST(myBackupset.IsTransfered AS BIT) AS IsTransfered",
+                  "FROM MaintranceBackup.Backupset AS myBackupset WITH (READPAST)",
+                  "INNER JOIN MaintranceBackup.BackupType AS myBackupType WITH (READPAST) ON myBackupType.ID = myBackupset.MaintranceBackup_BackupTypeRef",
+                  "INNER JOIN Common.Branch AS myBranch WITH(READPAST) ON myBranch.ID = myBackupset.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ROW_NUMBER()OVER(ORDER BY myBackupset.Common_BranchRef,myBackupset.DatabaseName,myBackupset.Common_Date_BackupStartRef, myBackupset.Common_Time_BackupStartRef) AS ID,",
+              "       myBackupset.Common_BranchRef,",
+              "       myBackupset.MaintranceBackup_BackupTypeRef,",
+              "       CASE MIN( myBackupType.Name ) OVER (PARTITION BY myBackupset.Common_BranchRef, DatabaseName, myBackupset.Common_Date_BackupStartRef ORDER BY myBackupset.Common_Time_BackupStartRef ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING )",
+              "           WHEN 'D' THEN 'LightGreen'",
+              "           WHEN 'I' THEN 'Yellow'",
+              "           WHEN 'L' THEN 'Red' --Red",
+              "       END AS Color,",
+              "       myBackupset.DatabaseName,",
+              "       myBackupset.RecoveryModel,",
+              "       myBackupset.DatabaseVersion,",
+              "       myBackupset.IsSingleUser,",
+              "       myBackupset.BackupSetId,",
+              "       myBackupset.MediaSetId,",
+              "       myBackupset.BackupName,",
+              "       myBackupset.BackupDescription,",
+              "       myBackupset.Common_Date_BackupStartRef,",
+              "       myBackupset.Common_Date_BackupFinishRef,",
+              "       myBackupset.Common_Date_BackupExpirationRef,",
+              "       myBackupset.Common_Time_BackupStartRef,",
+              "       myBackupset.Common_Time_BackupFinishTimeRef,",
+              "       myBackupset.Common_Time_BackupExpirationRef,",
+              "       myBackupset.BackupSize,",
+              "       myBackupset.CompressedBackupSize,",
+              "       myBackupset.CompressedBackupSize / 1024.0 AS CompressedBackupSize_KB,",
+              "       myBackupset.CompressedBackupSize / 1024.0 / 1024.0 AS CompressedBackupSize_MB,",
+              "       myBackupset.CompressedBackupSize / 1024.0 / 1024.0 / 1024.0 AS CompressedBackupSize_GB,",
+              "       myBackupset.IsCopyOnly,",
+              "       myBackupset.HasBackupChecksums,",
+              "       CAST(myBackupset.IsInternalDisaster AS BIT) AS IsInternalDisaster,",
+              "       CAST(myBackupset.IsTransfered AS BIT) AS IsTransfered",
+              "FROM MaintranceBackup.Backupset AS myBackupset WITH (READPAST)",
+              "INNER JOIN MaintranceBackup.BackupType AS myBackupType WITH (READPAST) ON myBackupType.ID = myBackupset.MaintranceBackup_BackupTypeRef",
+              "INNER JOIN Common.Branch AS myBranch WITH(READPAST) ON myBranch.ID = myBackupset.Common_BranchRef",
+              "WHERE myBranch.Enabled = 1"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Backupset"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceBackup"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ROW_NUMBER()OVER(ORDER BY myBackupset.Common_BranchRef,myBackupset.DatabaseName,myBackupset.Common_Date_BackupStartRef, myBackupset.Common_Time_BackupStartRef) AS ID,",
+              "       myBackupset.Common_BranchRef,",
+              "       myBackupset.MaintranceBackup_BackupTypeRef,",
+              "       CASE MIN( myBackupType.Name ) OVER (PARTITION BY myBackupset.Common_BranchRef, DatabaseName, myBackupset.Common_Date_BackupStartRef ORDER BY myBackupset.Common_Time_BackupStartRef ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING )",
+              "           WHEN 'D' THEN 'LightGreen'",
+              "           WHEN 'I' THEN 'Yellow'",
+              "           WHEN 'L' THEN 'Red' --Red",
+              "       END AS Color,",
+              "       myBackupset.DatabaseName,",
+              "       myBackupset.RecoveryModel,",
+              "       myBackupset.DatabaseVersion,",
+              "       myBackupset.IsSingleUser,",
+              "       myBackupset.BackupSetId,",
+              "       myBackupset.MediaSetId,",
+              "       myBackupset.BackupName,",
+              "       myBackupset.BackupDescription,",
+              "       myBackupset.Common_Date_BackupStartRef,",
+              "       myBackupset.Common_Date_BackupFinishRef,",
+              "       myBackupset.Common_Date_BackupExpirationRef,",
+              "       myBackupset.Common_Time_BackupStartRef,",
+              "       myBackupset.Common_Time_BackupFinishTimeRef,",
+              "       myBackupset.Common_Time_BackupExpirationRef,",
+              "       myBackupset.BackupSize,",
+              "       myBackupset.CompressedBackupSize,",
+              "       myBackupset.CompressedBackupSize / 1024.0 AS CompressedBackupSize_KB,",
+              "       myBackupset.CompressedBackupSize / 1024.0 / 1024.0 AS CompressedBackupSize_MB,",
+              "       myBackupset.CompressedBackupSize / 1024.0 / 1024.0 / 1024.0 AS CompressedBackupSize_GB,",
+              "       myBackupset.IsCopyOnly,",
+              "       myBackupset.HasBackupChecksums,",
+              "       CAST(myBackupset.IsInternalDisaster AS BIT) AS IsInternalDisaster,",
+              "       CAST(myBackupset.IsTransfered AS BIT) AS IsTransfered",
+              "FROM MaintranceBackup.Backupset AS myBackupset WITH (READPAST)",
+              "INNER JOIN MaintranceBackup.BackupType AS myBackupType WITH (READPAST) ON myBackupType.ID = myBackupset.MaintranceBackup_BackupTypeRef",
+              "INNER JOIN Common.Branch AS myBranch WITH(READPAST) ON myBranch.ID = myBackupset.Common_BranchRef",
+              "WHERE myBranch.Enabled = 1</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "BackupType",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "CaptionSort",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "CaptionSort",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "BackupType",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption,",
+                "       CaptionSort",
+                "FROM [MaintranceBackup].[BackupType] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption,",
+                  "       CaptionSort",
+                  "FROM [MaintranceBackup].[BackupType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption,",
+              "       CaptionSort",
+              "FROM [MaintranceBackup].[BackupType] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "BackupType"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceBackup"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption,",
+              "       CaptionSort",
+              "FROM [MaintranceBackup].[BackupType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "BranchType",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "BranchType",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [Common].[BranchType] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [Common].[BranchType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [Common].[BranchType] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "BranchType"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [Common].[BranchType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "System",
+        "columns": [
+          {
+            "name": "RefreshDatetime",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshDatetime",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "name": "PersianRefreshDatetime",
+            "dataType": "string",
+            "sourceColumn": "PersianRefreshDatetime",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "RefreshDate",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshDate",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "name": "PersianRefreshDate",
+            "dataType": "string",
+            "sourceColumn": "PersianRefreshDate",
+            "sourceProviderType": "VarChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "System",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT GETDATE() AS RefreshDatetime,",
+                "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+                "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+                "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT GETDATE() AS RefreshDatetime,",
+                  "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+                  "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+                  "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT GETDATE() AS RefreshDatetime,",
+              "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+              "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+              "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "System"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT GETDATE() AS RefreshDatetime,",
+              "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+              "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+              "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "5e0a3a88-a3eb-431e-8e59-2b00dacd719c",
+        "fromTable": "Branch",
+        "fromColumn": "common_BranchTypeRef",
+        "toTable": "BranchType",
+        "toColumn": "ID"
+      },
+      {
+        "name": "d5a3eefb-0ff5-47c6-823e-7bf3a12ef95e",
+        "fromTable": "Backupset",
+        "fromColumn": "Common_BranchRef",
+        "toTable": "Branch",
+        "toColumn": "ID"
+      },
+      {
+        "name": "7b5985e9-3879-4532-a8a2-2d61d364b4d6",
+        "fromTable": "Backupset",
+        "fromColumn": "Common_Date_BackupStartRef",
+        "toTable": "DimDate",
+        "toColumn": "ID"
+      },
+      {
+        "name": "42e6d8e5-6817-4344-8a55-d7d703e31cef",
+        "fromTable": "Backupset",
+        "fromColumn": "Common_Time_BackupStartRef",
+        "toTable": "DimTime",
+        "toColumn": "ID"
+      },
+      {
+        "name": "f2e8f173-c8a7-4d6d-a89a-d9e698f7961c",
+        "fromTable": "Backupset",
+        "fromColumn": "MaintranceBackup_BackupTypeRef",
+        "toTable": "BackupType",
+        "toColumn": "ID"
+      }
+    ],
+    "roles": [
+      {
+        "name": "Read_ALL",
+        "modelPermission": "read",
+        "members": [
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}
