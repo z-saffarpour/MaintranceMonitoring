@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MaintranceMonitoring/MaintranceMonitoring/DB/MaintranceMonitoring2017/bin/Debug
+/MaintranceMonitoring/MaintranceMonitoring/DB/MaintranceMonitoring2017/obj/Debug
+/MaintranceMonitoring/MaintranceMonitoring/DB/MaintranceMonitoring2017/MaintranceMonitoring2017.jfm
+/MaintranceMonitoring/MaintranceMonitoring/DB/MaintranceMonitoringTempDB2017/bin/Debug
+/MaintranceMonitoring/MaintranceMonitoring/DB/MaintranceMonitoringTempDB2017/obj/Debug
+/MaintranceMonitoring/MaintranceMonitoring/DB/MaintranceMonitoringTempDB2017/MaintranceMonitoringTempDB2017.jfm
+/MaintranceMonitoring/MaintranceMonitoring/SSIS/MaintranceMonitoring2017/bin/Development
+/MaintranceMonitoring/MaintranceMonitoring/SSIS/MaintranceMonitoring2017/obj/Development

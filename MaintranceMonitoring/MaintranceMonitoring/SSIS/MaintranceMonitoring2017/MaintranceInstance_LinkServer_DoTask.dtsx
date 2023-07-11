@@ -1,0 +1,1468 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/13/2020 1:38:30 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="OK001P6273"
+  DTS:CreatorName="Saffarpour.Zahra"
+  DTS:DTSID="{6606D5AB-2F50-4D3B-8010-904092CBA8D3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.694.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="MaintranceInstance_LinkServer_DoTask"
+  DTS:PackageType="5"
+  DTS:VersionBuild="593"
+  DTS:VersionGUID="{986A8C96-9E4F-4CDF-B2F7-B4CFA81C114D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OLE-Branch]"
+      DTS:CreationName="OLEDB"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{3E85F49E-5812-49EB-BFAD-D071B782FD9B}"
+      DTS:ObjectName="OLE-Branch">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Data Source=" +  @[$Package::BranchServerIP]  +";"+ (UPPER( @[$Package::BranchAuthenticationType]  ) == "SQL"?"User ID="+ @[$Package::BranchUserName] +";Password=" + @[$Package::BranchPassword] :"Integrated Security=SSPI")+";Initial Catalog="+ @[$Package::BranchDatabase] +";Provider=SQLNCLI11.1;Auto Translate=False;Application Name=SSIS-SqlDeep_MaintranceMonitoring-"+ @[$Package::PackageName] +";"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=myIP\myInstance,myPort;Initial Catalog=master;Integrated Security=SSPI;Provider=SQLNCLI11.1;Auto Translate=False;Application Name=SSIS-SqlDeep_MaintranceMonitoring-LinkServer_HQ;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:Description="Windows,SQL"
+      DTS:DTSID="{5C8FB6CA-F48D-452C-8CAF-A2A604ECD925}"
+      DTS:ObjectName="BranchAuthenticationType"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">myAuthentication</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{2AB6A955-9DF7-473F-A255-10D6110D0BBB}"
+      DTS:ObjectName="BranchDatabase"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">master</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:DTSID="{49BCACCF-7B63-4B50-8B65-E667D748B8E1}"
+      DTS:ObjectName="BranchKey"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{E11FC383-EE91-4937-8217-85AC2198ACB1}"
+      DTS:ObjectName="BranchPassword"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">myPassword</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{297556E8-0C23-4250-8443-F8ABB7768691}"
+      DTS:ObjectName="BranchServerIP"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">myIP\myInstance,myPort</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{00A3F3E3-35C4-44B9-9802-B190CD382F44}"
+      DTS:ObjectName="BranchUserName"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">myUsername</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{CC9248B3-E0E4-4DAF-B6F9-EA573370842B}"
+      DTS:ObjectName="PackageName"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">LinkServer_HQ</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{88AAFCB3-706E-4352-AEC2-C61968CF338B}"
+      DTS:ObjectName="PackageTable"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">[MaintranceInstance].[LinkServer_HQ]</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BDC40EE4-206B-4347-9C32-CC1F97160C49}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT myServer.name COLLATE SQL_Latin1_General_CP1256_CI_AS AS LinkServerName,&#xA;       myLinkServerLogin.remote_name COLLATE SQL_Latin1_General_CP1256_CI_AS AS LoginRemoteName,&#xA;       myServer.product COLLATE SQL_Latin1_General_CP1256_CI_AS AS Product,&#xA;       myServer.provider COLLATE SQL_Latin1_General_CP1256_CI_AS AS Provider,&#xA;       myServer.data_source COLLATE SQL_Latin1_General_CP1256_CI_AS AS DataSource,&#xA;       myServer.location COLLATE SQL_Latin1_General_CP1256_CI_AS AS Location,&#xA;       myServer.provider_string COLLATE SQL_Latin1_General_CP1256_CI_AS AS ProviderString,&#xA;       myServer.catalog COLLATE SQL_Latin1_General_CP1256_CI_AS AS DatabaseDefault,&#xA;       myServer.connect_timeout AS ConnectTimeout,&#xA;       myServer.query_timeout AS QueryTimeout,&#xA;       myServer.is_linked AS IsLinked,&#xA;       myServer.is_remote_login_enabled AS IsRemoteLoginEnabled,&#xA;       myServer.is_rpc_out_enabled AS IsRpcOutEnabled,&#xA;       myServer.is_data_access_enabled AS IsDataAccessEnabled,&#xA;       myServer.is_collation_compatible AS IsCollationCompatible,&#xA;       myServer.uses_remote_collation AS UsesRemoteCollation,&#xA;       myServer.collation_name COLLATE SQL_Latin1_General_CP1256_CI_AS AS CollationName,&#xA;       myServer.lazy_schema_validation AS LazySchemaValidation,&#xA;       myServer.is_system AS IsSystem,&#xA;       myServer.is_publisher AS IsPublisher,&#xA;       myServer.is_subscriber AS IsSubscriber,&#xA;       myServer.is_distributor AS IsDistributor,&#xA;       myServer.is_nonsql_subscriber AS IsNonSqlSubscriber,&#xA;       myServer.is_remote_proc_transaction_promotion_enabled AS IsRemoteProcTransactionPromotionEnabled,&#xA;       myServer.is_rda_server AS IsRdaServer,&#xA;       myLinkServerLogin.local_principal_id AS LocalPrincipalId,&#xA;       myLinkServerLogin.uses_self_credential AS UsesSelfCredential,&#xA;       myServer.modify_date AS LinkServerModifyDatetime,&#xA;       myLinkServerLogin.modify_date AS LoginModifyDatetime&#xA;FROM sys.servers AS myServer&#xA;LEFT JOIN sys.linked_logins AS myLinkServerLogin ON myLinkServerLogin.server_id = myServer.server_id&#xA;WHERE myServer.name != @@SERVERNAME;&#xA;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Script_Branch">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT myServer.name COLLATE SQL_Latin1_General_CP1256_CI_AS AS LinkServerName,
+       myLinkServerLogin.remote_name COLLATE SQL_Latin1_General_CP1256_CI_AS AS LoginRemoteName,
+       myServer.product COLLATE SQL_Latin1_General_CP1256_CI_AS AS Product,
+       myServer.provider COLLATE SQL_Latin1_General_CP1256_CI_AS AS Provider,
+       myServer.data_source COLLATE SQL_Latin1_General_CP1256_CI_AS AS DataSource,
+       myServer.location COLLATE SQL_Latin1_General_CP1256_CI_AS AS Location,
+       myServer.provider_string COLLATE SQL_Latin1_General_CP1256_CI_AS AS ProviderString,
+       myServer.catalog COLLATE SQL_Latin1_General_CP1256_CI_AS AS DatabaseDefault,
+       myServer.connect_timeout AS ConnectTimeout,
+       myServer.query_timeout AS QueryTimeout,
+       myServer.is_linked AS IsLinked,
+       myServer.is_remote_login_enabled AS IsRemoteLoginEnabled,
+       myServer.is_rpc_out_enabled AS IsRpcOutEnabled,
+       myServer.is_data_access_enabled AS IsDataAccessEnabled,
+       myServer.is_collation_compatible AS IsCollationCompatible,
+       myServer.uses_remote_collation AS UsesRemoteCollation,
+       myServer.collation_name COLLATE SQL_Latin1_General_CP1256_CI_AS AS CollationName,
+       myServer.lazy_schema_validation AS LazySchemaValidation,
+       myServer.is_system AS IsSystem,
+       myServer.is_publisher AS IsPublisher,
+       myServer.is_subscriber AS IsSubscriber,
+       myServer.is_distributor AS IsDistributor,
+       myServer.is_nonsql_subscriber AS IsNonSqlSubscriber,
+       myServer.is_remote_proc_transaction_promotion_enabled AS IsRemoteProcTransactionPromotionEnabled,
+       myServer.is_rda_server AS IsRdaServer,
+       myLinkServerLogin.local_principal_id AS LocalPrincipalId,
+       myLinkServerLogin.uses_self_credential AS UsesSelfCredential,
+       myServer.modify_date AS LinkServerModifyDatetime,
+       myLinkServerLogin.modify_date AS LoginModifyDatetime
+FROM sys.servers AS myServer
+LEFT JOIN sys.linked_logins AS myLinkServerLogin ON myLinkServerLogin.server_id = myServer.server_id
+WHERE myServer.name != @@SERVERNAME;
+</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SQEL-DoTask"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{86707B3A-72B8-48BF-81F7-42BB4726E165}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQEL-DoTask">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SQEL-DoTask\DFT-DoTask"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{89539D1F-5AE2-4542-BA94-B7ECB9B5466E}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:MaxErrorCount="0"
+          DTS:ObjectName="DFT-DoTask"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              autoAdjustBufferSize="true"
+              version="1">
+              <components>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\DER"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="DER"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\DER.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output].Columns[BranchRef]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output].Columns[BranchRef]"
+                          name="BranchRef"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">@[$Package::BranchKey]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">@[$Package::BranchKey]</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\DER.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE_DST-TempDB"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[extract].[RetailTransaction_SalesTrans_Store]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable">$Package::PackageTable</property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">4</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Connections[OleDbConnection]"
+                      connectionManagerID="{17E9F8CF-E8B0-485A-B523-CEC975E9DA82}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[OLE-MaintranceMonitoringTempDB]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[BranchRef]"
+                          cachedDataType="i4"
+                          cachedName="BranchRef"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[BranchRef]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output].Columns[BranchRef]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[LinkServerName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="LinkServerName"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LinkServerName]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LinkServerName]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[LoginRemoteName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="LoginRemoteName"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LoginRemoteName]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LoginRemoteName]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[Product]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="Product"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Product]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Product]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[Provider]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="Provider"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Provider]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Provider]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[DataSource]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="DataSource"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[DataSource]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[DataSource]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[Location]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="Location"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Location]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Location]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[ProviderString]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="ProviderString"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[ProviderString]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ProviderString]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[DatabaseDefault]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="DatabaseDefault"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[DatabaseDefault]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[DatabaseDefault]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[ConnectTimeout]"
+                          cachedDataType="i4"
+                          cachedName="ConnectTimeout"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[ConnectTimeout]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ConnectTimeout]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[QueryTimeout]"
+                          cachedDataType="i4"
+                          cachedName="QueryTimeout"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[QueryTimeout]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[QueryTimeout]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsLinked]"
+                          cachedDataType="bool"
+                          cachedName="IsLinked"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsLinked]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsLinked]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsRemoteLoginEnabled]"
+                          cachedDataType="bool"
+                          cachedName="IsRemoteLoginEnabled"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsRemoteLoginEnabled]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRemoteLoginEnabled]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsRpcOutEnabled]"
+                          cachedDataType="bool"
+                          cachedName="IsRpcOutEnabled"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsRpcOutEnabled]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRpcOutEnabled]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsDataAccessEnabled]"
+                          cachedDataType="bool"
+                          cachedName="IsDataAccessEnabled"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsDataAccessEnabled]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsDataAccessEnabled]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsCollationCompatible]"
+                          cachedDataType="bool"
+                          cachedName="IsCollationCompatible"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsCollationCompatible]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsCollationCompatible]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[UsesRemoteCollation]"
+                          cachedDataType="bool"
+                          cachedName="UsesRemoteCollation"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[UsesRemoteCollation]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[UsesRemoteCollation]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[CollationName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="CollationName"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[CollationName]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CollationName]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[LazySchemaValidation]"
+                          cachedDataType="bool"
+                          cachedName="LazySchemaValidation"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LazySchemaValidation]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LazySchemaValidation]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsSystem]"
+                          cachedDataType="bool"
+                          cachedName="IsSystem"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsSystem]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsSystem]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsPublisher]"
+                          cachedDataType="bool"
+                          cachedName="IsPublisher"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsPublisher]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsPublisher]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsSubscriber]"
+                          cachedDataType="bool"
+                          cachedName="IsSubscriber"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsSubscriber]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsSubscriber]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsDistributor]"
+                          cachedDataType="bool"
+                          cachedName="IsDistributor"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsDistributor]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsDistributor]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsNonSqlSubscriber]"
+                          cachedDataType="bool"
+                          cachedName="IsNonSqlSubscriber"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsNonSqlSubscriber]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsNonSqlSubscriber]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsRemoteProcTransactionPromotionEnabled]"
+                          cachedDataType="bool"
+                          cachedName="IsRemoteProcTransactionPromotionEnabled"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsRemoteProcTransactionPromotionEnabled]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRemoteProcTransactionPromotionEnabled]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[IsRdaServer]"
+                          cachedDataType="bool"
+                          cachedName="IsRdaServer"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsRdaServer]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRdaServer]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[LocalPrincipalId]"
+                          cachedDataType="i4"
+                          cachedName="LocalPrincipalId"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LocalPrincipalId]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LocalPrincipalId]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[UsesSelfCredential]"
+                          cachedDataType="bool"
+                          cachedName="UsesSelfCredential"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[UsesSelfCredential]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[UsesSelfCredential]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[LinkServerModifyDatetime]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="LinkServerModifyDatetime"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LinkServerModifyDatetime]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LinkServerModifyDatetime]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[LoginModifyDatetime]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="LoginModifyDatetime"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LoginModifyDatetime]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LoginModifyDatetime]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[BranchRef]"
+                          dataType="i4"
+                          name="BranchRef" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          dataType="i8"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LinkServerName]"
+                          dataType="wstr"
+                          length="128"
+                          name="LinkServerName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LoginRemoteName]"
+                          dataType="wstr"
+                          length="128"
+                          name="LoginRemoteName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Product]"
+                          dataType="wstr"
+                          length="128"
+                          name="Product" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Provider]"
+                          dataType="wstr"
+                          length="128"
+                          name="Provider" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[DataSource]"
+                          dataType="wstr"
+                          length="4000"
+                          name="DataSource" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Location]"
+                          dataType="wstr"
+                          length="4000"
+                          name="Location" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[ProviderString]"
+                          dataType="wstr"
+                          length="4000"
+                          name="ProviderString" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[DatabaseDefault]"
+                          dataType="wstr"
+                          length="128"
+                          name="DatabaseDefault" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[ConnectTimeout]"
+                          dataType="i4"
+                          name="ConnectTimeout" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[QueryTimeout]"
+                          dataType="i4"
+                          name="QueryTimeout" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsLinked]"
+                          dataType="bool"
+                          name="IsLinked" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsRemoteLoginEnabled]"
+                          dataType="bool"
+                          name="IsRemoteLoginEnabled" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsRpcOutEnabled]"
+                          dataType="bool"
+                          name="IsRpcOutEnabled" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsDataAccessEnabled]"
+                          dataType="bool"
+                          name="IsDataAccessEnabled" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsCollationCompatible]"
+                          dataType="bool"
+                          name="IsCollationCompatible" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[UsesRemoteCollation]"
+                          dataType="bool"
+                          name="UsesRemoteCollation" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[CollationName]"
+                          dataType="wstr"
+                          length="128"
+                          name="CollationName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LazySchemaValidation]"
+                          dataType="bool"
+                          name="LazySchemaValidation" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsSystem]"
+                          dataType="bool"
+                          name="IsSystem" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsPublisher]"
+                          dataType="bool"
+                          name="IsPublisher" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsSubscriber]"
+                          dataType="bool"
+                          name="IsSubscriber" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsDistributor]"
+                          dataType="bool"
+                          name="IsDistributor" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsNonSqlSubscriber]"
+                          dataType="bool"
+                          name="IsNonSqlSubscriber" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsRemoteProcTransactionPromotionEnabled]"
+                          dataType="bool"
+                          name="IsRemoteProcTransactionPromotionEnabled" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[IsRdaServer]"
+                          dataType="bool"
+                          name="IsRdaServer" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LocalPrincipalId]"
+                          dataType="i4"
+                          name="LocalPrincipalId" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[UsesSelfCredential]"
+                          dataType="bool"
+                          name="UsesSelfCredential" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LinkServerModifyDatetime]"
+                          dataType="dbTimeStamp"
+                          name="LinkServerModifyDatetime" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[LoginModifyDatetime]"
+                          dataType="dbTimeStamp"
+                          name="LoginModifyDatetime" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE_SRC-Branch"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">60</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT RecID,
+       StoreID,
+       RegionID,
+       ProductID,
+       PUnitID,
+       Qty,
+       InsertDatatime,
+       LastModifiedDatatime,
+       CAST([Rowversion] AS INT) AS Jetprint_Rowversion 
+FROM [dbo].[Jetprint_Qty]
+WHERE StoreID = ?
+ORDER BY Jetprint_Rowversion</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::Script_Branch</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{2E35D63C-A702-4196-849F-B0B609E9A93F};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[OLE-Branch]"
+                      connectionManagerRefId="Package.ConnectionManagers[OLE-Branch]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LinkServerName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LinkServerName]"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LinkServerName]"
+                          name="LinkServerName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LoginRemoteName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LoginRemoteName]"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LoginRemoteName]"
+                          name="LoginRemoteName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Product]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Product]"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Product]"
+                          name="Product"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Provider]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Provider]"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Provider]"
+                          name="Provider"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[DataSource]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[DataSource]"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[DataSource]"
+                          name="DataSource"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Location]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Location]"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Location]"
+                          name="Location"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ProviderString]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[ProviderString]"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ProviderString]"
+                          name="ProviderString"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[DatabaseDefault]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[DatabaseDefault]"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[DatabaseDefault]"
+                          name="DatabaseDefault"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ConnectTimeout]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[ConnectTimeout]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ConnectTimeout]"
+                          name="ConnectTimeout"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[QueryTimeout]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[QueryTimeout]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[QueryTimeout]"
+                          name="QueryTimeout"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsLinked]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsLinked]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsLinked]"
+                          name="IsLinked"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRemoteLoginEnabled]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsRemoteLoginEnabled]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRemoteLoginEnabled]"
+                          name="IsRemoteLoginEnabled"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRpcOutEnabled]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsRpcOutEnabled]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRpcOutEnabled]"
+                          name="IsRpcOutEnabled"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsDataAccessEnabled]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsDataAccessEnabled]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsDataAccessEnabled]"
+                          name="IsDataAccessEnabled"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsCollationCompatible]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsCollationCompatible]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsCollationCompatible]"
+                          name="IsCollationCompatible"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[UsesRemoteCollation]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[UsesRemoteCollation]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[UsesRemoteCollation]"
+                          name="UsesRemoteCollation"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CollationName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[CollationName]"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CollationName]"
+                          name="CollationName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LazySchemaValidation]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LazySchemaValidation]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LazySchemaValidation]"
+                          name="LazySchemaValidation"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsSystem]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsSystem]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsSystem]"
+                          name="IsSystem"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsPublisher]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsPublisher]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsPublisher]"
+                          name="IsPublisher"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsSubscriber]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsSubscriber]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsSubscriber]"
+                          name="IsSubscriber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsDistributor]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsDistributor]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsDistributor]"
+                          name="IsDistributor"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsNonSqlSubscriber]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsNonSqlSubscriber]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsNonSqlSubscriber]"
+                          name="IsNonSqlSubscriber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRemoteProcTransactionPromotionEnabled]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsRemoteProcTransactionPromotionEnabled]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRemoteProcTransactionPromotionEnabled]"
+                          name="IsRemoteProcTransactionPromotionEnabled"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRdaServer]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsRdaServer]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[IsRdaServer]"
+                          name="IsRdaServer"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LocalPrincipalId]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LocalPrincipalId]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LocalPrincipalId]"
+                          name="LocalPrincipalId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[UsesSelfCredential]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[UsesSelfCredential]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[UsesSelfCredential]"
+                          name="UsesSelfCredential"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LinkServerModifyDatetime]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LinkServerModifyDatetime]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LinkServerModifyDatetime]"
+                          name="LinkServerModifyDatetime"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LoginModifyDatetime]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LoginModifyDatetime]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[LoginModifyDatetime]"
+                          name="LoginModifyDatetime"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LinkServerName]"
+                          dataType="wstr"
+                          length="128"
+                          name="LinkServerName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LoginRemoteName]"
+                          dataType="wstr"
+                          length="128"
+                          name="LoginRemoteName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Product]"
+                          dataType="wstr"
+                          length="128"
+                          name="Product" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Provider]"
+                          dataType="wstr"
+                          length="128"
+                          name="Provider" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[DataSource]"
+                          dataType="wstr"
+                          length="4000"
+                          name="DataSource" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Location]"
+                          dataType="wstr"
+                          length="4000"
+                          name="Location" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[ProviderString]"
+                          dataType="wstr"
+                          length="4000"
+                          name="ProviderString" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[DatabaseDefault]"
+                          dataType="wstr"
+                          length="128"
+                          name="DatabaseDefault" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[ConnectTimeout]"
+                          dataType="i4"
+                          name="ConnectTimeout" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[QueryTimeout]"
+                          dataType="i4"
+                          name="QueryTimeout" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsLinked]"
+                          dataType="bool"
+                          name="IsLinked" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsRemoteLoginEnabled]"
+                          dataType="bool"
+                          name="IsRemoteLoginEnabled" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsRpcOutEnabled]"
+                          dataType="bool"
+                          name="IsRpcOutEnabled" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsDataAccessEnabled]"
+                          dataType="bool"
+                          name="IsDataAccessEnabled" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsCollationCompatible]"
+                          dataType="bool"
+                          name="IsCollationCompatible" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[UsesRemoteCollation]"
+                          dataType="bool"
+                          name="UsesRemoteCollation" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[CollationName]"
+                          dataType="wstr"
+                          length="128"
+                          name="CollationName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LazySchemaValidation]"
+                          dataType="bool"
+                          name="LazySchemaValidation" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsSystem]"
+                          dataType="bool"
+                          name="IsSystem" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsPublisher]"
+                          dataType="bool"
+                          name="IsPublisher" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsSubscriber]"
+                          dataType="bool"
+                          name="IsSubscriber" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsDistributor]"
+                          dataType="bool"
+                          name="IsDistributor" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsNonSqlSubscriber]"
+                          dataType="bool"
+                          name="IsNonSqlSubscriber" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsRemoteProcTransactionPromotionEnabled]"
+                          dataType="bool"
+                          name="IsRemoteProcTransactionPromotionEnabled" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[IsRdaServer]"
+                          dataType="bool"
+                          name="IsRdaServer" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LocalPrincipalId]"
+                          dataType="i4"
+                          name="LocalPrincipalId" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[UsesSelfCredential]"
+                          dataType="bool"
+                          name="UsesSelfCredential" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LinkServerModifyDatetime]"
+                          dataType="dbTimeStamp"
+                          name="LinkServerModifyDatetime" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[LoginModifyDatetime]"
+                          dataType="dbTimeStamp"
+                          name="LoginModifyDatetime" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LinkServerName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LinkServerName]"
+                          name="LinkServerName" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LoginRemoteName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LoginRemoteName]"
+                          name="LoginRemoteName" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Product]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Product]"
+                          name="Product" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Provider]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Provider]"
+                          name="Provider" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[DataSource]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[DataSource]"
+                          name="DataSource" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Location]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Location]"
+                          name="Location" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ProviderString]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ProviderString]"
+                          name="ProviderString" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[DatabaseDefault]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[DatabaseDefault]"
+                          name="DatabaseDefault" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ConnectTimeout]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ConnectTimeout]"
+                          name="ConnectTimeout" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[QueryTimeout]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[QueryTimeout]"
+                          name="QueryTimeout" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsLinked]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsLinked]"
+                          name="IsLinked" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsRemoteLoginEnabled]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsRemoteLoginEnabled]"
+                          name="IsRemoteLoginEnabled" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsRpcOutEnabled]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsRpcOutEnabled]"
+                          name="IsRpcOutEnabled" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsDataAccessEnabled]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsDataAccessEnabled]"
+                          name="IsDataAccessEnabled" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsCollationCompatible]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsCollationCompatible]"
+                          name="IsCollationCompatible" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[UsesRemoteCollation]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[UsesRemoteCollation]"
+                          name="UsesRemoteCollation" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[CollationName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[CollationName]"
+                          name="CollationName" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LazySchemaValidation]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LazySchemaValidation]"
+                          name="LazySchemaValidation" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsSystem]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsSystem]"
+                          name="IsSystem" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsPublisher]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsPublisher]"
+                          name="IsPublisher" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsSubscriber]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsSubscriber]"
+                          name="IsSubscriber" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsDistributor]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsDistributor]"
+                          name="IsDistributor" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsNonSqlSubscriber]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsNonSqlSubscriber]"
+                          name="IsNonSqlSubscriber" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsRemoteProcTransactionPromotionEnabled]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsRemoteProcTransactionPromotionEnabled]"
+                          name="IsRemoteProcTransactionPromotionEnabled" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsRdaServer]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[IsRdaServer]"
+                          name="IsRdaServer" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LocalPrincipalId]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LocalPrincipalId]"
+                          name="LocalPrincipalId" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[UsesSelfCredential]"
+                          dataType="bool"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[UsesSelfCredential]"
+                          name="UsesSelfCredential" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LinkServerModifyDatetime]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LinkServerModifyDatetime]"
+                          name="LinkServerModifyDatetime" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LoginModifyDatetime]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[LoginModifyDatetime]"
+                          name="LoginModifyDatetime" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\SQEL-DoTask\DFT-DoTask.Paths[Derived Column Output]"
+                  endId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\SQEL-DoTask\DFT-DoTask.Paths[OLE DB Source Output]"
+                  endId="Package\SQEL-DoTask\DFT-DoTask\DER.Inputs[Derived Column Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="137,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask"
+          TopLeft="43.5,56.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="228,204"
+          Size="228,247"
+          Id="Package\SQEL-DoTask"
+          TopLeft="209.722222222222,47.944444444444" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\SQEL-DoTask\DFT-DoTask">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="159,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch"
+          TopLeft="313,83" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB"
+          TopLeft="312,300" />
+        <NodeLayout
+          Size="99,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\DER"
+          TopLeft="342.5,177.5" />
+        <EdgeLayout
+          Id="Package\SQEL-DoTask\DFT-DoTask.Paths[OLE DB Source Output]"
+          TopLeft="392.25,125">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.5"
+              Start="0,0"
+              End="0,45">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SQEL-DoTask\DFT-DoTask.Paths[Derived Column Output]"
+          TopLeft="393.75,219.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,80.5"
+              Start="0,0"
+              End="0,73">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,73" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

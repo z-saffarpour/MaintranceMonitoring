@@ -1,0 +1,1909 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/13/2020 1:38:30 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="OK001P6273"
+  DTS:CreatorName="Saffarpour.Zahra"
+  DTS:DTSID="{3625CB53-32F8-4661-8BCC-B3FB691B3CE0}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.694.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="MaintranceJob_JobHistory_DoTask"
+  DTS:PackageType="5"
+  DTS:VersionBuild="637"
+  DTS:VersionGUID="{2329A76C-5F48-4CE6-9E26-DDEBF557BC3B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OLE-Branch]"
+      DTS:CreationName="OLEDB"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{5A56F3ED-AF02-4BE8-8249-9CE25E9A2689}"
+      DTS:ObjectName="OLE-Branch">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Data Source=" +  @[$Package::BranchServerIP]  +";"+ (UPPER( @[$Package::BranchAuthenticationType]  ) == "SQL"?"User ID="+ @[$Package::BranchUserName] +";Password=" + @[$Package::BranchPassword] :"Integrated Security=SSPI")+";Initial Catalog="+ @[$Package::BranchDatabase] +";Provider=SQLNCLI11.1;Auto Translate=False;Application Name=SSIS-SqlDeep_MaintranceMonitoring-"+ @[$Package::PackageName] +";"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=myIP\myInstance,myPort;Initial Catalog=msdb;Integrated Security=SSPI;Provider=SQLNCLI11.1;Auto Translate=False;Application Name=SSIS-SqlDeep_MaintranceMonitoring-JobHistory_HQ;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:Description="Windows,SQL"
+      DTS:DTSID="{ACC00A0C-3CDA-4110-92F6-DCDEF86528F1}"
+      DTS:ObjectName="BranchAuthenticationType"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">myAuthentication</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{6202CCE9-7DA2-4077-94CE-117ED0550A2E}"
+      DTS:ObjectName="BranchDatabase"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">msdb</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:DTSID="{D576B64D-0E60-4B0A-80E8-981AC514F61A}"
+      DTS:ObjectName="BranchKey"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">1</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{A02C22F4-97C0-4B32-86AC-EAE746851135}"
+      DTS:ObjectName="BranchPassword"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">myPassword</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{11C5D782-21FE-44CC-A90C-117B61FCA8A8}"
+      DTS:ObjectName="BranchServerIP"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">myIP\myInstance,myPort</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{D4BF1336-8152-4E1A-ADB8-BD2EB6187F4D}"
+      DTS:ObjectName="BranchUserName"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">myUsername</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{79A43CDD-19C1-4616-9424-4DBD17313521}"
+      DTS:ObjectName="PackageName"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">JobHistory_HQ</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{B94846C9-DEA1-4C94-8F10-B77D4EDE9AF6}"
+      DTS:ObjectName="PackageTable"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">[MaintranceJob].[JobHistory_HQ]</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:DTSID="{28EDCABE-74F1-4C3C-BAEA-B8E5755A9E42}"
+      DTS:ObjectName="RetainDays"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">30</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SQEL-DoTask"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{82E148FE-BCEF-4D73-A2EE-88F59121A316}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQEL-DoTask">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SQEL-DoTask\DFT-DoTask"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{425ac210-55e2-43a2-a6e3-185c0a3ce138}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:MaxErrorCount="0"
+          DTS:ObjectName="DFT-DoTask"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:DTSID="{ee2c2b00-4576-4750-a518-67b4bb4865cb}"
+              DTS:EvaluateAsExpression="True"
+              DTS:Expression="&quot;SET NOCOUNT ON;&#xA;SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;&#xA;&#xA;SELECT myJobHistory.instance_id AS InstanceId,&#xA;       myJob.job_id AS JobId,&#xA;       myJob.name COLLATE SQL_Latin1_General_CP1256_CI_AS AS JobName,&#xA;       CONVERT(DATE, CONVERT(VARCHAR, run_date), 112) AS RunDate,&#xA;       CONVERT(TIME(0),&#xA;               DATEADD(   S,&#xA;                          (run_time / 10000) * 60 * 60 /* hours */&#xA;                          + ((run_time - (run_time / 10000) * 10000) / 100) * 60 /* mins */&#xA;                          + (run_time - (run_time / 100) * 100), /* secs */&#xA;                          CONVERT(DATETIME, RTRIM(run_date), 112)&#xA;                      )&#xA;              ) AS RunTime,&#xA;       myJobHistory.run_status AS JobStatus,&#xA;       myCategory.name COLLATE SQL_Latin1_General_CP1256_CI_AS AS CategoryName,&#xA;       myCategory.category_type AS CategoryCode,&#xA;       myJobHistory.step_id AS Step,&#xA;       myJobHistory.step_name COLLATE SQL_Latin1_General_CP1256_CI_AS AS StepName,&#xA;&#x9;   myJobHistory.message COLLATE SQL_Latin1_General_CP1256_CI_AS AS Message,&#xA;       --myJobHistory.run_duration / 10000 * 60 + myJobHistory.run_duration / 100 % 100 + myJobHistory.run_duration % 100/ 60.0 AS Duration,&#xA;&#x9;   ((myJobHistory.run_duration/1000000)*86400) + (((myJobHistory.run_duration-((myJobHistory.run_duration/1000000)*1000000))/10000)*3600) + (((myJobHistory.run_duration-((myJobHistory.run_duration/10000)*10000))/100)*60) + (myJobHistory.run_duration-(myJobHistory.run_duration/100)*100) AS Duration,&#xA;&#x9;   SUBSTRING(myJobHistory.message, NULLIF(CHARINDEX('Execution ID: ', myJobHistory.message),0)+14 ,PATINDEX('%[^0-9]%',SUBSTRING(myJobHistory.message, NULLIF(CHARINDEX('Execution ID: ', myJobHistory.message),0)+14 ,20))-1) AS ExecutionID&#xA;FROM dbo.sysjobhistory AS myJobHistory&#xA;INNER JOIN dbo.sysjobs AS myJob ON myJobHistory.job_id = myJob.job_id&#xA;INNER JOIN dbo.syscategories AS myCategory ON myCategory.category_id = myJob.category_id&#xA;WHERE CONVERT(DATETIME, RTRIM(run_date), 112) &gt;= DATEADD(d, -1*&quot;+ (DT_WSTR, 10) @[$Package::RetainDays] +&quot;, CONVERT(DATE, GETDATE()))&quot;"
+              DTS:IncludeInDebugDump="2345"
+              DTS:Namespace="User"
+              DTS:ObjectName="Script_Branch">
+              <DTS:VariableValue
+                DTS:DataType="8">SET NOCOUNT ON;
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+SELECT myJobHistory.instance_id AS InstanceId,
+       myJob.job_id AS JobId,
+       myJob.name COLLATE SQL_Latin1_General_CP1256_CI_AS AS JobName,
+       CONVERT(DATE, CONVERT(VARCHAR, run_date), 112) AS RunDate,
+       CONVERT(TIME(0),
+               DATEADD(   S,
+                          (run_time / 10000) * 60 * 60 /* hours */
+                          + ((run_time - (run_time / 10000) * 10000) / 100) * 60 /* mins */
+                          + (run_time - (run_time / 100) * 100), /* secs */
+                          CONVERT(DATETIME, RTRIM(run_date), 112)
+                      )
+              ) AS RunTime,
+       myJobHistory.run_status AS JobStatus,
+       myCategory.name COLLATE SQL_Latin1_General_CP1256_CI_AS AS CategoryName,
+       myCategory.category_type AS CategoryCode,
+       myJobHistory.step_id AS Step,
+       myJobHistory.step_name COLLATE SQL_Latin1_General_CP1256_CI_AS AS StepName,
+	   myJobHistory.message COLLATE SQL_Latin1_General_CP1256_CI_AS AS Message,
+       --myJobHistory.run_duration / 10000 * 60 + myJobHistory.run_duration / 100 % 100 + myJobHistory.run_duration % 100/ 60.0 AS Duration,
+	   ((myJobHistory.run_duration/1000000)*86400) + (((myJobHistory.run_duration-((myJobHistory.run_duration/1000000)*1000000))/10000)*3600) + (((myJobHistory.run_duration-((myJobHistory.run_duration/10000)*10000))/100)*60) + (myJobHistory.run_duration-(myJobHistory.run_duration/100)*100) AS Duration,
+	   SUBSTRING(myJobHistory.message, NULLIF(CHARINDEX('Execution ID: ', myJobHistory.message),0)+14 ,PATINDEX('%[^0-9]%',SUBSTRING(myJobHistory.message, NULLIF(CHARINDEX('Execution ID: ', myJobHistory.message),0)+14 ,20))-1) AS ExecutionID
+FROM dbo.sysjobhistory AS myJobHistory
+INNER JOIN dbo.sysjobs AS myJob ON myJobHistory.job_id = myJob.job_id
+INNER JOIN dbo.syscategories AS myCategory ON myCategory.category_id = myJob.category_id
+WHERE CONVERT(DATETIME, RTRIM(run_date), 112) &gt;= DATEADD(d, -1*30, CONVERT(DATE, GETDATE()))</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:ObjectData>
+            <pipeline
+              autoAdjustBufferSize="true"
+              version="1">
+              <components>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\ALL"
+                  componentClassID="Microsoft.UnionAll"
+                  contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+                  name="ALL"
+                  version="1">
+                  <inputs>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1]"
+                      name="Union All Input 1">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[InstanceId]"
+                          cachedDataType="i4"
+                          cachedName="InstanceId"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[InstanceId]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[InstanceId]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[JobId]"
+                          cachedDataType="guid"
+                          cachedName="JobId"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobId]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobId]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[JobName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="JobName"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobName]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[RunDate]"
+                          cachedDataType="dbDate"
+                          cachedName="RunDate"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[RunDate]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunDate]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[RunTime]"
+                          cachedDataType="dbTime2"
+                          cachedName="RunTime"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[RunTime]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunTime]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[Step]"
+                          cachedDataType="i4"
+                          cachedName="Step"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Step]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Step]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[StepName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="StepName"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[StepName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[StepName]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[CategoryName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="CategoryName"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CategoryName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryName]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[CategoryCode]"
+                          cachedDataType="ui1"
+                          cachedName="CategoryCode"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CategoryCode]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryCode]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[JobStatus]"
+                          cachedDataType="i4"
+                          cachedName="JobStatus"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobStatus]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobStatus]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[Message_New]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="Message_New"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Output].Columns[Message_New]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Message]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[ExecutionID]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="ExecutionID"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ExecutionID]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[ExecutionID]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1].Columns[Duration]"
+                          cachedDataType="i4"
+                          cachedName="Duration"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Duration]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Duration]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2]"
+                      hasSideEffects="true"
+                      name="Union All Input 2">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[InstanceId]"
+                          cachedDataType="i4"
+                          cachedName="InstanceId"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[InstanceId]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[InstanceId]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[JobId]"
+                          cachedDataType="guid"
+                          cachedName="JobId"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobId]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobId]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[JobName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="JobName"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobName]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[RunDate]"
+                          cachedDataType="dbDate"
+                          cachedName="RunDate"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[RunDate]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunDate]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[RunTime]"
+                          cachedDataType="dbTime2"
+                          cachedName="RunTime"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[RunTime]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunTime]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[Step]"
+                          cachedDataType="i4"
+                          cachedName="Step"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Step]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Step]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[StepName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="StepName"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[StepName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[StepName]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[CategoryName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="CategoryName"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CategoryName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryName]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[CategoryCode]"
+                          cachedDataType="ui1"
+                          cachedName="CategoryCode"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CategoryCode]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryCode]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[JobStatus]"
+                          cachedDataType="i4"
+                          cachedName="JobStatus"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobStatus]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobStatus]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[Message_New]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="Message_New"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Output].Columns[Message_New]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Message]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[ExecutionID]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="ExecutionID"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ExecutionID]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[ExecutionID]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2].Columns[Duration]"
+                          cachedDataType="i4"
+                          cachedName="Duration"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Duration]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Duration]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 3]"
+                      dangling="true"
+                      hasSideEffects="true"
+                      name="Union All Input 3">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1]"
+                      name="Union All Output 1">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[InstanceId]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[InstanceId]"
+                          name="InstanceId" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobId]"
+                          dataType="guid"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobId]"
+                          name="JobId" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobName]"
+                          name="JobName" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunDate]"
+                          dataType="dbDate"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunDate]"
+                          name="RunDate" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunTime]"
+                          dataType="dbTime2"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunTime]"
+                          name="RunTime" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Step]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Step]"
+                          name="Step" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[StepName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[StepName]"
+                          name="StepName" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryName]"
+                          name="CategoryName" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryCode]"
+                          dataType="ui1"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryCode]"
+                          name="CategoryCode" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobStatus]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobStatus]"
+                          name="JobStatus" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Message]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Message]"
+                          name="Message" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[ExecutionID]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[ExecutionID]"
+                          name="ExecutionID" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Duration]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Duration]"
+                          name="Duration" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split"
+                  componentClassID="Microsoft.ConditionalSplit"
+                  contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+                  name="Conditional Split"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Inputs[Conditional Split Input]"
+                      description="Input to the Conditional Split Transformation"
+                      name="Conditional Split Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Inputs[Conditional Split Input].Columns[JobStatus]"
+                          cachedDataType="i4"
+                          cachedName="JobStatus"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobStatus]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Outputs[Success_Flow]"
+                      description="Output 1 of the Conditional Split Transformation"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      exclusionGroup="1"
+                      name="Success_Flow"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Inputs[Conditional Split Input]"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                          name="Expression">#{Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobStatus]} == 1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Specifies the friendly version of the expression. This expression version uses column names."
+                          expressionType="Notify"
+                          name="FriendlyExpression">JobStatus == 1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                          name="EvaluationOrder">0</property>
+                      </properties>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Outputs[Regular_Flow]"
+                      description="Default Output of the Conditional Split Transformation"
+                      exclusionGroup="1"
+                      name="Regular_Flow"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Inputs[Conditional Split Input]">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsDefaultOut">true</property>
+                      </properties>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Outputs[Conditional Split Error Output]"
+                      description="Error Output of the Conditional Split Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Conditional Split Error Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Inputs[Conditional Split Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\DER"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="DER"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\DER.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output].Columns[BranchRef]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output].Columns[BranchRef]"
+                          name="BranchRef"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">@[$Package::BranchKey]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">@[$Package::BranchKey]</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\DER.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\DER-Other"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="DER-Other"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Inputs[Derived Column Input].Columns[Message]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="Message"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Message]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Output].Columns[Message_New]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Output].Columns[Message_New]"
+                          name="Message_New"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">#{Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Message]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">Message</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\DER-Success"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="DER-Success"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Output].Columns[Message_New]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Output].Columns[Message_New]"
+                          name="Message_New"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,4000)""</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,4000)""</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE_DST-TempDB"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[extract].[RetailTransaction_SalesTrans_Store]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable">$Package::PackageTable</property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">4</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Connections[OleDbConnection]"
+                      connectionManagerID="{17E9F8CF-E8B0-485A-B523-CEC975E9DA82}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[OLE-MaintranceMonitoringTempDB]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[BranchRef]"
+                          cachedDataType="i4"
+                          cachedName="BranchRef"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[BranchRef]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output].Columns[BranchRef]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[InstanceId]"
+                          cachedDataType="i4"
+                          cachedName="InstanceId"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[InstanceId]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[InstanceId]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[JobId]"
+                          cachedDataType="guid"
+                          cachedName="JobId"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[JobId]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobId]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[JobName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="JobName"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[JobName]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobName]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[RunDate]"
+                          cachedDataType="dbDate"
+                          cachedName="RunDate"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[RunDate]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunDate]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[RunTime]"
+                          cachedDataType="dbTime2"
+                          cachedName="RunTime"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[RunTime]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[RunTime]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[Duration]"
+                          cachedDataType="i4"
+                          cachedName="Duration"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Duration]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Duration]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[Message]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="Message"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Message]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Message]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[StepName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="StepName"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[StepName]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[StepName]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[Step]"
+                          cachedDataType="i4"
+                          cachedName="Step"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Step]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[Step]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[CategoryCode]"
+                          cachedDataType="ui1"
+                          cachedName="CategoryCode"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[CategoryCode]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryCode]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[CategoryName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="CategoryName"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[CategoryName]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[CategoryName]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[ExecutionID]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="ExecutionID"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[ExecutionId]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[ExecutionID]" />
+                        <inputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].Columns[JobStatus]"
+                          cachedDataType="i4"
+                          cachedName="JobStatus"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[JobStatus]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1].Columns[JobStatus]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[BranchRef]"
+                          dataType="i4"
+                          name="BranchRef" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[InstanceId]"
+                          dataType="i4"
+                          name="InstanceId" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[JobId]"
+                          dataType="guid"
+                          name="JobId" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[JobName]"
+                          dataType="wstr"
+                          length="128"
+                          name="JobName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[RunDate]"
+                          dataType="dbDate"
+                          name="RunDate" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[RunTime]"
+                          dataType="dbTime2"
+                          name="RunTime" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[JobStatus]"
+                          dataType="ui1"
+                          name="JobStatus" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Step]"
+                          dataType="i4"
+                          name="Step" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[StepName]"
+                          dataType="wstr"
+                          length="128"
+                          name="StepName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Message]"
+                          dataType="wstr"
+                          length="4000"
+                          name="Message" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[Duration]"
+                          dataType="numeric"
+                          name="Duration"
+                          precision="18"
+                          scale="6" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[CategoryName]"
+                          dataType="wstr"
+                          length="128"
+                          name="CategoryName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[CategoryCode]"
+                          dataType="ui1"
+                          name="CategoryCode" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[ExecutionId]"
+                          dataType="i8"
+                          name="ExecutionId" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input].ExternalColumns[SubcomponentName]"
+                          dataType="wstr"
+                          length="4000"
+                          name="SubcomponentName" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE_SRC-Branch"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">60</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT RecID,
+       StoreID,
+       RegionID,
+       ProductID,
+       PUnitID,
+       Qty,
+       InsertDatatime,
+       LastModifiedDatatime,
+       CAST([Rowversion] AS INT) AS Jetprint_Rowversion 
+FROM [dbo].[Jetprint_Qty]
+WHERE StoreID = ?
+ORDER BY Jetprint_Rowversion</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::Script_Branch</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{2E35D63C-A702-4196-849F-B0B609E9A93F};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[OLE-Branch]"
+                      connectionManagerRefId="Package.ConnectionManagers[OLE-Branch]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ExecutionID]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[ExecutionID]"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[ExecutionID]"
+                          name="ExecutionID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[InstanceId]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[InstanceId]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[InstanceId]"
+                          name="InstanceId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobId]"
+                          dataType="guid"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[JobId]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobId]"
+                          name="JobId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[JobName]"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobName]"
+                          name="JobName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[RunDate]"
+                          dataType="dbDate"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[RunDate]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[RunDate]"
+                          name="RunDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[RunTime]"
+                          dataType="dbTime2"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[RunTime]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[RunTime]"
+                          name="RunTime"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Step]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Step]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Step]"
+                          name="Step"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[StepName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[StepName]"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[StepName]"
+                          name="StepName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Message]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Message]"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Message]"
+                          name="Message"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Duration]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Duration]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[Duration]"
+                          name="Duration"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CategoryName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[CategoryName]"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CategoryName]"
+                          name="CategoryName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CategoryCode]"
+                          dataType="ui1"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[CategoryCode]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[CategoryCode]"
+                          name="CategoryCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobStatus]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[JobStatus]"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].Columns[JobStatus]"
+                          name="JobStatus"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[ExecutionID]"
+                          dataType="wstr"
+                          length="4000"
+                          name="ExecutionID" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[InstanceId]"
+                          dataType="i4"
+                          name="InstanceId" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[JobId]"
+                          dataType="guid"
+                          name="JobId" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[JobName]"
+                          dataType="wstr"
+                          length="128"
+                          name="JobName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[RunDate]"
+                          dataType="dbDate"
+                          name="RunDate" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[RunTime]"
+                          dataType="dbTime2"
+                          name="RunTime" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Step]"
+                          dataType="i4"
+                          name="Step" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[StepName]"
+                          dataType="wstr"
+                          length="128"
+                          name="StepName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Message]"
+                          dataType="wstr"
+                          length="4000"
+                          name="Message" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[Duration]"
+                          dataType="i4"
+                          name="Duration" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[CategoryName]"
+                          dataType="wstr"
+                          length="128"
+                          name="CategoryName" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[CategoryCode]"
+                          dataType="ui1"
+                          name="CategoryCode" />
+                        <externalMetadataColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output].ExternalColumns[JobStatus]"
+                          dataType="i4"
+                          name="JobStatus" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[InstanceId]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[InstanceId]"
+                          name="InstanceId" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[JobId]"
+                          dataType="guid"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[JobId]"
+                          name="JobId" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[JobName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[JobName]"
+                          name="JobName" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[RunDate]"
+                          dataType="dbDate"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[RunDate]"
+                          name="RunDate" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[RunTime]"
+                          dataType="dbTime2"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[RunTime]"
+                          name="RunTime" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[JobStatus]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[JobStatus]"
+                          name="JobStatus" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[CategoryName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[CategoryName]"
+                          name="CategoryName" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[CategoryCode]"
+                          dataType="ui1"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[CategoryCode]"
+                          name="CategoryCode" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Step]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Step]"
+                          name="Step" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[StepName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[StepName]"
+                          name="StepName" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Message]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Message]"
+                          name="Message" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Duration]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[Duration]"
+                          name="Duration" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ExecutionID]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ExecutionID]"
+                          name="ExecutionID" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\SQEL-DoTask\DFT-DoTask.Paths[Derived Column Output]"
+                  endId="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\SQEL-DoTask\DFT-DoTask\DER.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\SQEL-DoTask\DFT-DoTask.Paths[Derived Column Output1]"
+                  endId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 1]"
+                  name="Derived Column Output"
+                  startId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\SQEL-DoTask\DFT-DoTask.Paths[Derived Column Output2]"
+                  endId="Package\SQEL-DoTask\DFT-DoTask\ALL.Inputs[Union All Input 2]"
+                  name="Derived Column Output"
+                  startId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\SQEL-DoTask\DFT-DoTask.Paths[OLE DB Source Output]"
+                  endId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Inputs[Conditional Split Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\SQEL-DoTask\DFT-DoTask.Paths[Regular_Flow]"
+                  endId="Package\SQEL-DoTask\DFT-DoTask\DER-Other.Inputs[Derived Column Input]"
+                  name="Regular_Flow"
+                  startId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Outputs[Regular_Flow]" />
+                <path
+                  refId="Package\SQEL-DoTask\DFT-DoTask.Paths[Success_Flow]"
+                  endId="Package\SQEL-DoTask\DFT-DoTask\DER-Success.Inputs[Derived Column Input]"
+                  name="Success_Flow"
+                  startId="Package\SQEL-DoTask\DFT-DoTask\Conditional Split.Outputs[Success_Flow]" />
+                <path
+                  refId="Package\SQEL-DoTask\DFT-DoTask.Paths[Union All Output 1]"
+                  endId="Package\SQEL-DoTask\DFT-DoTask\DER.Inputs[Derived Column Input]"
+                  name="Union All Output 1"
+                  startId="Package\SQEL-DoTask\DFT-DoTask\ALL.Outputs[Union All Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="137,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask"
+          TopLeft="35,58.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="208,206"
+          Size="208,249"
+          Id="Package\SQEL-DoTask"
+          TopLeft="209.722222222222,47.944444444444" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\SQEL-DoTask\DFT-DoTask">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="99,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\DER"
+          TopLeft="396,439.5" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB"
+          TopLeft="362,541.5" />
+        <NodeLayout
+          Size="129,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\DER-Other"
+          TopLeft="511,241.5" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch"
+          TopLeft="348,35.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\Conditional Split"
+          TopLeft="350,137.5" />
+        <NodeLayout
+          Size="96,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\ALL"
+          TopLeft="397.5,337.5" />
+        <NodeLayout
+          Size="140,42"
+          Id="Package\SQEL-DoTask\DFT-DoTask\DER-Success"
+          TopLeft="240.5,239.5" />
+        <EdgeLayout
+          Id="Package\SQEL-DoTask\DFT-DoTask.Paths[Union All Output 1]"
+          TopLeft="445.5,379.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SQEL-DoTask\DFT-DoTask.Paths[Success_Flow]"
+          TopLeft="403,179.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-92.5,60"
+              Start="0,0"
+              End="-92.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.367816091954" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.367816091954"
+                    Point2="0,24.367816091954"
+                    Point3="-4,24.367816091954" />
+                  <mssgle:LineSegment
+                    End="-88.5,24.367816091954" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-88.5,24.367816091954"
+                    Point2="-92.5,24.367816091954"
+                    Point3="-92.5,28.367816091954" />
+                  <mssgle:LineSegment
+                    End="-92.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-77.16970703125,29.367816091954,61.8394140625,11.0625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SQEL-DoTask\DFT-DoTask.Paths[Regular_Flow]"
+          TopLeft="452,179.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="123.5,62"
+              Start="0,0"
+              End="123.5,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.1800766283525" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.1800766283525"
+                    Point2="0,25.1800766283525"
+                    Point3="4,25.1800766283525" />
+                  <mssgle:LineSegment
+                    End="119.5,25.1800766283525" />
+                  <mssgle:CubicBezierSegment
+                    Point1="119.5,25.1800766283525"
+                    Point2="123.5,25.1800766283525"
+                    Point3="123.5,29.1800766283525" />
+                  <mssgle:LineSegment
+                    End="123.5,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="31.42595703125,30.1800766283525,60.6480859375,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SQEL-DoTask\DFT-DoTask.Paths[OLE DB Source Output]"
+          TopLeft="427.5,77.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SQEL-DoTask\DFT-DoTask.Paths[Derived Column Output2]"
+          TopLeft="575.5,283.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-115.333333333333,54"
+              Start="0,0"
+              End="-115.333333333333,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.8688524590164" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.8688524590164"
+                    Point2="0,31.8688524590164"
+                    Point3="-4,31.8688524590164" />
+                  <mssgle:LineSegment
+                    End="-111.333333333333,31.8688524590164" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-111.333333333333,31.8688524590164"
+                    Point2="-115.333333333333,31.8688524590164"
+                    Point3="-115.333333333333,35.8688524590164" />
+                  <mssgle:LineSegment
+                    End="-115.333333333333,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SQEL-DoTask\DFT-DoTask.Paths[Derived Column Output1]"
+          TopLeft="310.5,281.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="120.333333333333,56"
+              Start="0,0"
+              End="120.333333333333,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.0491803278689" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.0491803278689"
+                    Point2="0,33.0491803278689"
+                    Point3="4,33.0491803278689" />
+                  <mssgle:LineSegment
+                    End="116.333333333333,33.0491803278689" />
+                  <mssgle:CubicBezierSegment
+                    Point1="116.333333333333,33.0491803278689"
+                    Point2="120.333333333333,33.0491803278689"
+                    Point3="120.333333333333,37.0491803278689" />
+                  <mssgle:LineSegment
+                    End="120.333333333333,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SQEL-DoTask\DFT-DoTask.Paths[Derived Column Output]"
+          TopLeft="445.5,481.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SQEL-DoTask\DFT-DoTask\OLE_DST-TempDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SQEL-DoTask\DFT-DoTask\OLE_SRC-Branch">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

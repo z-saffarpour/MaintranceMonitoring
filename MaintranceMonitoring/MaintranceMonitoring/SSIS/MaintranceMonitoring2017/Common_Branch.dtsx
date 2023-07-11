@@ -1,0 +1,437 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/22/2020 10:39:46 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="OK001P6273"
+  DTS:CreatorName="GIG\saffarpour.zahra"
+  DTS:DTSID="{B3C30982-07E7-49B5-9B6E-B1C47A6A7827}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.694.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Common_Branch"
+  DTS:PackageType="5"
+  DTS:VersionBuild="180"
+  DTS:VersionGUID="{49543E8C-FC4E-425D-AE69-A1128E090ADF}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OLE_ERP_IntegrationDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{FE456403-E267-4CB6-91F9-EB9D9745757B}"
+      DTS:ObjectName="OLE_ERP_IntegrationDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=GIG-DC1-P451\NODE;Initial Catalog=IntegrationDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OLE_PAP_DataCollator]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{1F4031E3-C612-49F4-A3CA-3FB0D7AE385F}"
+      DTS:ObjectName="OLE_PAP_DataCollator">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=ReportDB2017\Node;Initial Catalog=OKDynamicsAX;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Seperator"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{B16C57AA-4D17-40FA-BE18-18589F51154F}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Seperator">
+      <DTS:Variables />
+      <DTS:Executables />
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SEQC-Branch_Store"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:DelayValidation="True"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{6D824D4D-1FAD-4344-9AF9-9BFE1ABAB173}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQC-Branch_Store">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{F0061017-117A-42E9-B8F0-46CD04E14FCA}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="Item_BranchTypeID">
+          <DTS:VariableValue
+            DTS:DataType="3">1</DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{6783DAAC-BFD2-4C11-9668-32E3D980EE5B}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="Item_BranchTypeName">
+          <DTS:VariableValue
+            DTS:DataType="8">Store</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQC-Branch_Store\SQL-BranchType"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1B3F8FC0-1815-43F5-8A02-9545F82D9645}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL-BranchType"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{15564C30-0311-4A42-A1A6-CF4CFA8C0C30}"
+              SQLTask:SqlStatementSource="SELECT ID FROM common.BranchType WHERE Name = ?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::Item_BranchTypeID" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::Item_BranchTypeName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SEQC-Branch_WHS"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:DelayValidation="True"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{8BE2755E-A41A-4A8C-A340-FBCBA6BAEA4C}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQC-Branch_WHS">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{2CE072EE-95A4-473E-B9CD-5E9F2479C6E1}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="Item_BranchTypeID">
+          <DTS:VariableValue
+            DTS:DataType="3">0</DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{3015546C-C036-42B9-96FA-6A059FEDA342}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="Item_BranchTypeName">
+          <DTS:VariableValue
+            DTS:DataType="8">WHS</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQC-Branch_WHS\SQL-BranchType"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{BBE873C2-78E1-469B-8D3B-D06CA89FA030}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL-BranchType"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{15564C30-0311-4A42-A1A6-CF4CFA8C0C30}"
+              SQLTask:SqlStatementSource="SELECT ID FROM common.BranchType WHERE Name = ?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::Item_BranchTypeID" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::Item_BranchTypeName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL-Alter_PartitionFuncation_PartitionSchema"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C942E3A7-904E-4E4C-96D4-77F6976B7D91}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL-Alter_PartitionFuncation_PartitionSchema"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{15564C30-0311-4A42-A1A6-CF4CFA8C0C30}"
+          SQLTask:SqlStatementSource="DECLARE @PrintOnly BIT;&#xA;SET @PrintOnly = 0;&#xA;&#xA;DROP TABLE IF EXISTS #PartitionRangeValue&#xA;SELECT ID&#xA;INTO #PartitionRangeValue&#xA;FROM Common.Branch AS myBranch&#xA;WHERE myBranch.ID NOT IN&#xA;      (&#xA;          SELECT CAST(myPartitionRangeValues.value AS INT)&#xA;          FROM sys.partition_range_values AS myPartitionRangeValues&#xA;          INNER JOIN sys.partition_functions AS myPartitionFunctions ON myPartitionFunctions.function_id = myPartitionRangeValues.function_id&#xA;          WHERE myPartitionFunctions.name = 'PF_Branch'&#xA;      )&#xA;IF EXISTS(SELECT 1 FROM #PartitionRangeValue)&#xA;BEGIN&#xA;&#x9;DECLARE @myID INT;&#xA;&#x9;DECLARE @myPFScript NVARCHAR(MAX);&#xA;&#x9;DECLARE @myPSScript NVARCHAR(MAX);&#xA;&#x9;DECLARE myCursor CURSOR&#xA;&#x9;FOR&#xA;&#x9;&#x9;SELECT ID&#xA;&#x9;&#x9;FROM #PartitionRangeValue&#xA;&#x9;OPEN myCursor;&#xA;&#x9;FETCH NEXT FROM myCursor INTO @myID;&#xA;&#x9;WHILE @@FETCH_STATUS = 0&#xA;&#x9;BEGIN &#xA;&#x9;&#x9;SET @myPFScript = ''&#xA;&#x9;&#x9;SET @myPSScript = ''&#xA;&#x9;&#x9;SET @myPFScript = 'ALTER PARTITION SCHEME [PS_Branch] NEXT USED [FG_Data];'&#xA;&#x9;&#x9;SET @myPSScript = 'ALTER PARTITION FUNCTION [PF_Branch]() SPLIT RANGE('+ CAST(@myID AS VARCHAR(10)) + ');'&#xA;&#xA;&#x9;&#x9;IF @PrintOnly = 0&#xA;&#x9;&#x9;BEGIN&#xA;&#x9;&#x9;&#x9;EXECUTE sp_executesql @myPFScript&#xA;&#x9;&#x9;&#x9;EXECUTE sp_executesql @myPSScript&#xA;&#x9;&#x9;END&#xA;&#x9;&#x9;ELSE&#xA;&#x9;&#x9;BEGIN&#xA;&#x9;&#x9;&#x9;PRINT @myPFScript&#xA;&#x9;&#x9;&#x9;PRINT @myPSScript&#xA;&#x9;&#x9;END&#xA;&#x9;&#x9;FETCH NEXT FROM myCursor INTO @myID;&#xA;&#x9;END&#xA;&#x9;CLOSE myCursor;&#xA;&#x9;DEALLOCATE myCursor;&#xA;END" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{2A9EEAE1-BA56-4F48-8D85-164B285CF53B}"
+      DTS:From="Package\Seperator"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SEQC-Branch_Store" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{1C34F4AA-B515-4292-8F26-3312BD784281}"
+      DTS:From="Package\Seperator"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SEQC-Branch_WHS" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{4BB4C2BD-E24A-4E37-8DF6-76AC67461767}"
+      DTS:From="Package\SEQC-Branch_Store"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL-Alter_PartitionFuncation_PartitionSchema" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{113DCD07-1A05-4F31-8F04-B69D8F75A9D2}"
+      DTS:From="Package\SEQC-Branch_WHS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\SQL-Alter_PartitionFuncation_PartitionSchema" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="False"
+          PanelSize="205,55"
+          Size="205,43"
+          Id="Package\Seperator"
+          TopLeft="426.5,3.5" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\SEQC-Branch_Store\SQL-BranchType"
+          TopLeft="75,7.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="294,204"
+          Size="294,247"
+          Id="Package\SEQC-Branch_Store"
+          TopLeft="184.5,100.75" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\SEQC-Branch_WHS\SQL-BranchType"
+          TopLeft="74,4.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="292,210"
+          Size="292,253"
+          Id="Package\SEQC-Branch_WHS"
+          TopLeft="609.5,99.75" />
+        <NodeLayout
+          Size="296,42"
+          Id="Package\SQL-Alter_PartitionFuncation_PartitionSchema"
+          TopLeft="399.5,460.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="496.166666666667,46.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-164.666666666667,54.25"
+              Start="0,0"
+              End="-164.666666666667,46.75">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.9520813165537" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.9520813165537"
+                    Point2="0,21.9520813165537"
+                    Point3="-4,21.9520813165537" />
+                  <mssgle:LineSegment
+                    End="-160.666666666667,21.9520813165537" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-160.666666666667,21.9520813165537"
+                    Point2="-164.666666666667,21.9520813165537"
+                    Point3="-164.666666666667,25.9520813165537" />
+                  <mssgle:LineSegment
+                    End="-164.666666666667,46.75" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-100.326575520833,26.9520813165537,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="561.833333333333,46.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="193.666666666667,53.25"
+              Start="0,0"
+              End="193.666666666667,45.75">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5474346563408" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5474346563408"
+                    Point2="0,21.5474346563408"
+                    Point3="4,21.5474346563408" />
+                  <mssgle:LineSegment
+                    End="189.666666666667,21.5474346563408" />
+                  <mssgle:CubicBezierSegment
+                    Point1="189.666666666667,21.5474346563408"
+                    Point2="193.666666666667,21.5474346563408"
+                    Point3="193.666666666667,25.5474346563408" />
+                  <mssgle:LineSegment
+                    End="193.666666666667,45.75" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="78.8400911458334,26.5474346563408,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="331.5,347.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="168,112.75"
+              Start="0,0"
+              End="168,105.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.2862903225806" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,63.2862903225806"
+                    Point2="0,67.2862903225806"
+                    Point3="4,67.2862903225806" />
+                  <mssgle:LineSegment
+                    End="164,67.2862903225806" />
+                  <mssgle:CubicBezierSegment
+                    Point1="164,67.2862903225806"
+                    Point2="168,67.2862903225806"
+                    Point3="168,71.2862903225806" />
+                  <mssgle:LineSegment
+                    End="168,105.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="66.0067578125,72.2862903225806,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="755.5,352.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-160,107.75"
+              Start="0,0"
+              End="-160,100.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.3024193548387" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,60.3024193548387"
+                    Point2="0,64.3024193548387"
+                    Point3="-4,64.3024193548387" />
+                  <mssgle:LineSegment
+                    End="-156,64.3024193548387" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-156,64.3024193548387"
+                    Point2="-160,64.3024193548387"
+                    Point3="-160,68.3024193548387" />
+                  <mssgle:LineSegment
+                    End="-160,100.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-97.9932421875,69.3024193548387,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <PrecedenceConstraint
+    design-time-name="Package.PrecedenceConstraints[Constraint]">
+    <ShowAnnotation>ConstraintOptions</ShowAnnotation>
+  </PrecedenceConstraint>
+  <PrecedenceConstraint
+    design-time-name="Package.PrecedenceConstraints[Constraint 1]">
+    <ShowAnnotation>ConstraintOptions</ShowAnnotation>
+  </PrecedenceConstraint>
+  <PrecedenceConstraint
+    design-time-name="Package.PrecedenceConstraints[Constraint 2]">
+    <ShowAnnotation>ConstraintOptions</ShowAnnotation>
+  </PrecedenceConstraint>
+  <PrecedenceConstraint
+    design-time-name="Package.PrecedenceConstraints[Constraint 3]">
+    <ShowAnnotation>ConstraintOptions</ShowAnnotation>
+  </PrecedenceConstraint>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
