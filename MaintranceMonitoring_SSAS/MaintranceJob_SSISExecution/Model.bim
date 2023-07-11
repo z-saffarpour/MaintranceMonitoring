@@ -1,0 +1,2668 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1200,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "name": "OLE-Monitor_MaintranceMonitoring",
+        "connectionString": "Provider=SQLNCLI11;Data Source=SRV70001\\NODE;Initial Catalog=MaintranceMonitoring;Integrated Security=SSPI;Persist Security Info=false;Application Name=SSAS-SqlDeep_MaintranceMonitoring;",
+        "impersonationMode": "impersonateServiceAccount",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "Branch",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "common_BranchTypeRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "common_BranchTypeRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "BranchName",
+            "dataType": "string",
+            "sourceColumn": "BranchName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "BranchNumber",
+            "dataType": "string",
+            "sourceColumn": "BranchNumber",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "BranchSiteId",
+            "dataType": "string",
+            "sourceColumn": "BranchSiteId"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Branch",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       common_BranchTypeRef,",
+                "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                "       BranchName,",
+                "       BranchNumber",
+                "FROM [Common].[Branch] WITH (READPAST)",
+                "WHERE Enabled = 1",
+                "      AND EnabledSSISExecution = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       common_BranchTypeRef,",
+                  "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                  "       BranchName,",
+                  "       BranchNumber",
+                  "FROM [Common].[Branch] WITH (READPAST)",
+                  "WHERE Enabled = 1",
+                  "      AND EnabledSSISExecution = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledSSISExecution = 1;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Branch"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledSSISExecution = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "BranchType",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "BranchType",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [Common].[BranchType] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [Common].[BranchType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [Common].[BranchType] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "BranchType"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [Common].[BranchType] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "dataCategory": "Time",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "GregorianDate",
+            "dataType": "dateTime",
+            "isKey": true,
+            "sourceColumn": "GregorianDate",
+            "formatString": "General Date",
+            "sortByColumn": "ID_Sort_Desc",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "PersianYearInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianYearInt",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "PersianMonthNo",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "PersianMonthNo",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDayInMonth",
+            "dataType": "int64",
+            "sourceColumn": "PersianDayInMonth",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDayOfWeekInt",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "PersianDayOfWeekInt",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDate",
+            "dataType": "string",
+            "sourceColumn": "PersianDate",
+            "sortByColumn": "ID_Sort_Desc",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "PersianYearMonthInt",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "PersianYearMonthInt",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianYearMonthStr",
+            "dataType": "string",
+            "sourceColumn": "PersianYearMonthStr",
+            "sortByColumn": "PersianYearMonthInt",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "PersianWeekOfMonthNo",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "PersianWeekOfMonthNo",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianWeekOfYearNo",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "PersianWeekOfYearNo",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianSeasonInt",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "PersianSeasonInt",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianMonthName",
+            "dataType": "string",
+            "sourceColumn": "PersianMonthName",
+            "sortByColumn": "PersianMonthNo",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianDayOfWeekName",
+            "dataType": "string",
+            "sourceColumn": "PersianDayOfWeekName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianWeekOfMonthName",
+            "dataType": "string",
+            "sourceColumn": "PersianWeekOfMonthName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianWeekOfYearName",
+            "dataType": "string",
+            "sourceColumn": "PersianWeekOfYearName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianSeason",
+            "dataType": "string",
+            "sourceColumn": "PersianSeason",
+            "sortByColumn": "PersianSeasonInt",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "ID_Sort_Desc",
+            "dataType": "int64",
+            "isHidden": true,
+            "isNullable": false,
+            "sourceColumn": "ID_Sort_Desc"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDate",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "DECLARE @myMinID INT",
+                "DECLARE @myMaxID INT",
+                "SELECT @myMinID = MIN( Common_Date_StartRef ),@myMaxID = MAX( Common_Date_StartRef ) FROM MaintranceJob.SSISExecution WITH (READPAST)",
+                "SELECT ID,",
+                "       ID * -1 AS ID_Sort_Desc,",
+                "       GregorianDate,",
+                "       PersianDate,",
+                "       PersianYearInt,",
+                "       PersianMonthNo,",
+                "       PersianDayInMonth,",
+                "       PersianDayOfWeekInt,",
+                "       PersianYearMonthInt,",
+                "       PersianYearMonthStr,",
+                "       PersianWeekOfMonthNo,",
+                "       PersianWeekOfYearNo,",
+                "       PersianSeasonInt,",
+                "       PersianMonthName,",
+                "       PersianDayOfWeekName,",
+                "       PersianWeekOfMonthName,",
+                "       PersianWeekOfYearName,",
+                "       PersianSeason",
+                "FROM [Common].[DimDate] WITH (READPAST)",
+                "WHERE ID >= @myMinID",
+                "      AND ID <= @myMaxID;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+                  "DECLARE @myMaxID INT",
+                  "SELECT @myMinID = MIN( Common_Date_StartRef ),@myMaxID = MAX( Common_Date_StartRef ) FROM MaintranceJob.SSISExecution WITH (READPAST)",
+                  "SELECT ID,",
+                  "       ID * -1 AS ID_Sort_Desc,",
+                  "       GregorianDate,",
+                  "       PersianDate,",
+                  "       PersianYearInt,",
+                  "       PersianMonthNo,",
+                  "       PersianDayInMonth,",
+                  "       PersianDayOfWeekInt,",
+                  "       PersianYearMonthInt,",
+                  "       PersianYearMonthStr,",
+                  "       PersianWeekOfMonthNo,",
+                  "       PersianWeekOfYearNo,",
+                  "       PersianSeasonInt,",
+                  "       PersianMonthName,",
+                  "       PersianDayOfWeekName,",
+                  "       PersianWeekOfMonthName,",
+                  "       PersianWeekOfYearName,",
+                  "       PersianSeason",
+                  "FROM [Common].[DimDate] WITH (READPAST)",
+                  "WHERE ID >= @myMinID",
+                  "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Date_StartRef ),@myMaxID = MAX( Common_Date_StartRef ) FROM MaintranceJob.SSISExecution WITH (READPAST)",
+              "SELECT ID,",
+              "       ID * -1 AS ID_Sort_Desc,",
+              "       GregorianDate,",
+              "       PersianDate,",
+              "       PersianYearInt,",
+              "       PersianMonthNo,",
+              "       PersianDayInMonth,",
+              "       PersianDayOfWeekInt,",
+              "       PersianYearMonthInt,",
+              "       PersianYearMonthStr,",
+              "       PersianWeekOfMonthNo,",
+              "       PersianWeekOfYearNo,",
+              "       PersianSeasonInt,",
+              "       PersianMonthName,",
+              "       PersianDayOfWeekName,",
+              "       PersianWeekOfMonthName,",
+              "       PersianWeekOfYearName,",
+              "       PersianSeason",
+              "FROM [Common].[DimDate] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimDate"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Date_StartRef ),@myMaxID = MAX( Common_Date_StartRef ) FROM MaintranceJob.SSISExecution WITH (READPAST)",
+              "SELECT ID,",
+              "       ID * -1 AS ID_Sort_Desc,",
+              "       GregorianDate,",
+              "       PersianDate,",
+              "       PersianYearInt,",
+              "       PersianMonthNo,",
+              "       PersianDayInMonth,",
+              "       PersianDayOfWeekInt,",
+              "       PersianYearMonthInt,",
+              "       PersianYearMonthStr,",
+              "       PersianWeekOfMonthNo,",
+              "       PersianWeekOfYearNo,",
+              "       PersianSeasonInt,",
+              "       PersianMonthName,",
+              "       PersianDayOfWeekName,",
+              "       PersianWeekOfMonthName,",
+              "       PersianWeekOfYearName,",
+              "       PersianSeason",
+              "FROM [Common].[DimDate] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimTime",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Hour24",
+            "dataType": "int64",
+            "sourceColumn": "Hour24",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Minute",
+            "dataType": "int64",
+            "sourceColumn": "Minute",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Second",
+            "dataType": "int64",
+            "sourceColumn": "Second",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "FullTimeString24",
+            "dataType": "string",
+            "sourceColumn": "FullTimeString24",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "FullTime",
+            "dataType": "dateTime",
+            "sourceColumn": "FullTime",
+            "formatString": "General Date",
+            "sourceProviderType": "145"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimTime",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "DECLARE @myMinID INT",
+                "DECLARE @myMaxID INT",
+                "SELECT @myMinID = MIN( Common_Time_StartRef ),@myMaxID = MAX( Common_Time_StartRef ) FROM MaintranceJob.SSISExecution WITH (READPAST)",
+                "SELECT ID,",
+                "       Hour24,",
+                "       Minute,",
+                "       Second,",
+                "       FullTimeString24,",
+                "       FullTime",
+                "FROM [Common].[DimTime] WITH (READPAST)",
+                "WHERE ID >= @myMinID",
+                "      AND ID <= @myMaxID;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+                  "DECLARE @myMaxID INT",
+                  "SELECT @myMinID = MIN( Common_Time_StartRef ),@myMaxID = MAX( Common_Time_StartRef ) FROM MaintranceJob.SSISExecution WITH (READPAST)",
+                  "SELECT ID,",
+                  "       Hour24,",
+                  "       Minute,",
+                  "       Second,",
+                  "       FullTimeString24,",
+                  "       FullTime",
+                  "FROM [Common].[DimTime] WITH (READPAST)",
+                  "WHERE ID >= @myMinID",
+                  "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Time_StartRef ),@myMaxID = MAX( Common_Time_StartRef ) FROM MaintranceJob.SSISExecution WITH (READPAST)",
+              "SELECT ID,",
+              "       Hour24,",
+              "       Minute,",
+              "       Second,",
+              "       FullTimeString24,",
+              "       FullTime",
+              "FROM [Common].[DimTime] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimTime"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Time_StartRef ),@myMaxID = MAX( Common_Time_StartRef ) FROM MaintranceJob.SSISExecution WITH (READPAST)",
+              "SELECT ID,",
+              "       Hour24,",
+              "       Minute,",
+              "       Second,",
+              "       FullTimeString24,",
+              "       FullTime",
+              "FROM [Common].[DimTime] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "JobStatus",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "JobStatus",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [MaintranceJob].[JobStatus] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [MaintranceJob].[JobStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceJob].[JobStatus] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "JobStatus"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceJob"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceJob].[JobStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SSISExecution",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "BigInt"
+          },
+          {
+            "name": "Common_BranchRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_BranchRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_Date_StartRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Date_StartRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_Time_StartRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Time_StartRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceJob_SSISExecutionFolderRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "MaintranceJob_SSISExecutionFolderRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceJob_SSISExecutionProjectRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "MaintranceJob_SSISExecutionProjectRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceJob_SSISExecutionPackageRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "MaintranceJob_SSISExecutionPackageRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceJob_SSISExecutionStatusRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "MaintranceJob_SSISExecutionStatusRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "SSISExecutionDuration",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Duration",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "ExecutionId",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ExecutionId",
+            "sourceProviderType": "BigInt"
+          },
+          {
+            "name": "SSISExecution",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "SSISExecution",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "JobName",
+            "dataType": "string",
+            "sourceColumn": "JobName"
+          },
+          {
+            "name": "CategoryCode",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "CategoryCode"
+          },
+          {
+            "name": "CategoryName",
+            "dataType": "string",
+            "sourceColumn": "CategoryName"
+          },
+          {
+            "name": "Step",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Step"
+          },
+          {
+            "name": "StepName",
+            "dataType": "string",
+            "sourceColumn": "StepName"
+          },
+          {
+            "name": "MaintranceJob_JobStatusRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "MaintranceJob_JobStatusRef"
+          },
+          {
+            "type": "calculated",
+            "name": "Branch",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(Branch[BranchName])"
+          },
+          {
+            "type": "calculated",
+            "name": "Execution Start Date",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(DimDate[PersianDate])"
+          },
+          {
+            "type": "calculated",
+            "name": "Execution Stat Time",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(DimTime[FullTimeString24])"
+          },
+          {
+            "type": "calculated",
+            "name": "Job Status",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(JobStatus[Caption])"
+          },
+          {
+            "type": "calculated",
+            "name": "Execution Folder",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(SSISExecutionFolder[Caption])"
+          },
+          {
+            "type": "calculated",
+            "name": "Execution Project",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(SSISExecutionProject[Caption])"
+          },
+          {
+            "type": "calculated",
+            "name": "Execution Package",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(SSISExecutionPackage[Caption])"
+          },
+          {
+            "type": "calculated",
+            "name": "Execution Status",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(SSISExecutionStatus[Caption])"
+          },
+          {
+            "type": "calculated",
+            "name": "StatusColor",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(SSISExecutionStatus[StatusColor])"
+          },
+          {
+            "name": "SSISExecution_LastRef",
+            "dataType": "string",
+            "sourceColumn": "SSISExecution_LastRef"
+          },
+          {
+            "type": "calculated",
+            "name": "SSISExecutionStatus Last Color",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(SSISExecution_Last[SSISExecutionStatus Color])"
+          },
+          {
+            "type": "calculated",
+            "name": "SSISExecutionStatus Last",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": " RELATED(SSISExecution_Last[SSISExecutionStatus])"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SSISExecution",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY myExecution.SSISExecution ORDER BY myExecution.InsertDatetime ) AS RowNumber,",
+                "           myExecution.Common_BranchRef,",
+                "           myExecution.Common_Date_StartRef,",
+                "           myExecution.Common_Time_StartRef,",
+                "           myExecution.MaintranceJob_SSISExecutionFolderRef,",
+                "           myExecution.MaintranceJob_SSISExecutionProjectRef,",
+                "           myExecution.MaintranceJob_SSISExecutionPackageRef,",
+                "           myExecution.MaintranceJob_SSISExecutionStatusRef,",
+                "           myExecution.Duration,",
+                "           myExecution.ExecutionId,",
+                "           myExecution.SSISExecution,",
+                "           ISNULL( myJobHistory.JobName, N'[Unknow]' ) AS JobName,",
+                "           myJobHistory.CategoryCode,",
+                "           ISNULL( myJobHistory.CategoryName, N'[Unknow]' ) AS CategoryName,",
+                "           myJobHistory.Step,",
+                "           IIF(myJobHistory.Step IS NULL, N'[Unknow]', CONCAT( myJobHistory.Step, '-', myJobHistory.StepName )) AS StepName,",
+                "           myJobHistory.MaintranceJob_JobStatusRef",
+                "    FROM MaintranceJob.SSISExecution AS myExecution WITH (READPAST)",
+                "    LEFT JOIN MaintranceJob.JobHistory AS myJobHistory WITH (READPAST) ON myJobHistory.SSISExecution = myExecution.SSISExecution",
+                "    INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = myExecution.Common_BranchRef",
+                "    WHERE myBranch.Enabled = 1",
+                ")",
+                "SELECT ROW_NUMBER() OVER (ORDER BY Common_BranchRef, Common_Date_StartRef DESC, Common_Time_StartRef ) AS ID,",
+                "       Common_BranchRef,",
+                "       Common_Date_StartRef,",
+                "       Common_Time_StartRef,",
+                "       MaintranceJob_SSISExecutionFolderRef,",
+                "       MaintranceJob_SSISExecutionProjectRef,",
+                "       MaintranceJob_SSISExecutionPackageRef,",
+                "       MaintranceJob_SSISExecutionStatusRef,",
+                "       Duration,",
+                "       ExecutionId,",
+                "       SSISExecution,",
+                "       JobName,",
+                "       CategoryCode,",
+                "       CategoryName,",
+                "       Step,",
+                "       StepName,",
+                "       MaintranceJob_JobStatusRef,",
+                "       CONCAT( Common_BranchRef, '_', MaintranceJob_SSISExecutionFolderRef, '_', MaintranceJob_SSISExecutionProjectRef, '_', MaintranceJob_SSISExecutionPackageRef, '_', Common_Date_StartRef ) AS SSISExecution_LastRef",
+                "FROM myCTE",
+                "WHERE myCTE.RowNumber = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>;WITH myCTE",
+                  "AS",
+                  "(",
+                  "    SELECT ROW_NUMBER() OVER (PARTITION BY myExecution.SSISExecution ORDER BY myExecution.InsertDatetime ) AS RowNumber,",
+                  "           myExecution.Common_BranchRef,",
+                  "           myExecution.Common_Date_StartRef,",
+                  "           myExecution.Common_Time_StartRef,",
+                  "           myExecution.MaintranceJob_SSISExecutionFolderRef,",
+                  "           myExecution.MaintranceJob_SSISExecutionProjectRef,",
+                  "           myExecution.MaintranceJob_SSISExecutionPackageRef,",
+                  "           myExecution.MaintranceJob_SSISExecutionStatusRef,",
+                  "           myExecution.Duration,",
+                  "           myExecution.ExecutionId,",
+                  "           myExecution.SSISExecution,",
+                  "           ISNULL( myJobHistory.JobName, N'[Unknow]' ) AS JobName,",
+                  "           myJobHistory.CategoryCode,",
+                  "           ISNULL( myJobHistory.CategoryName, N'[Unknow]' ) AS CategoryName,",
+                  "           myJobHistory.Step,",
+                  "           IIF(myJobHistory.Step IS NULL, N'[Unknow]', CONCAT( myJobHistory.Step, '-', myJobHistory.StepName )) AS StepName,",
+                  "           myJobHistory.MaintranceJob_JobStatusRef",
+                  "    FROM MaintranceJob.SSISExecution AS myExecution WITH (READPAST)",
+                  "    LEFT JOIN MaintranceJob.JobHistory AS myJobHistory WITH (READPAST) ON myJobHistory.SSISExecution = myExecution.SSISExecution",
+                  "    INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = myExecution.Common_BranchRef",
+                  "    WHERE myBranch.Enabled = 1",
+                  ")",
+                  "SELECT ROW_NUMBER() OVER (ORDER BY Common_BranchRef, Common_Date_StartRef DESC, Common_Time_StartRef ) AS ID,",
+                  "       Common_BranchRef,",
+                  "       Common_Date_StartRef,",
+                  "       Common_Time_StartRef,",
+                  "       MaintranceJob_SSISExecutionFolderRef,",
+                  "       MaintranceJob_SSISExecutionProjectRef,",
+                  "       MaintranceJob_SSISExecutionPackageRef,",
+                  "       MaintranceJob_SSISExecutionStatusRef,",
+                  "       Duration,",
+                  "       ExecutionId,",
+                  "       SSISExecution,",
+                  "       JobName,",
+                  "       CategoryCode,",
+                  "       CategoryName,",
+                  "       Step,",
+                  "       StepName,",
+                  "       MaintranceJob_JobStatusRef,",
+                  "       CONCAT( Common_BranchRef, '_', MaintranceJob_SSISExecutionFolderRef, '_', MaintranceJob_SSISExecutionProjectRef, '_', MaintranceJob_SSISExecutionPackageRef, '_', Common_Date_StartRef ) AS SSISExecution_LastRef",
+                  "FROM myCTE",
+                  "WHERE myCTE.RowNumber = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "measures": [
+          {
+            "name": "Duration(m)",
+            "expression": "SUM(SSISExecution[SSISExecutionDuration])"
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              ";WITH myCTE",
+              "AS",
+              "(",
+              "    SELECT ROW_NUMBER() OVER (PARTITION BY myExecution.SSISExecution ORDER BY myExecution.InsertDatetime ) AS RowNumber,",
+              "           myExecution.Common_BranchRef,",
+              "           myExecution.Common_Date_StartRef,",
+              "           myExecution.Common_Time_StartRef,",
+              "           myExecution.MaintranceJob_SSISExecutionFolderRef,",
+              "           myExecution.MaintranceJob_SSISExecutionProjectRef,",
+              "           myExecution.MaintranceJob_SSISExecutionPackageRef,",
+              "           myExecution.MaintranceJob_SSISExecutionStatusRef,",
+              "           myExecution.Duration,",
+              "           myExecution.ExecutionId,",
+              "           myExecution.SSISExecution,",
+              "           ISNULL( myJobHistory.JobName, N'[Unknow]' ) AS JobName,",
+              "           myJobHistory.CategoryCode,",
+              "           ISNULL( myJobHistory.CategoryName, N'[Unknow]' ) AS CategoryName,",
+              "           myJobHistory.Step,",
+              "           IIF(myJobHistory.Step IS NULL, N'[Unknow]', CONCAT( myJobHistory.Step, '-', myJobHistory.StepName )) AS StepName,",
+              "           myJobHistory.MaintranceJob_JobStatusRef",
+              "    FROM MaintranceJob.SSISExecution AS myExecution WITH (READPAST)",
+              "    LEFT JOIN MaintranceJob.JobHistory AS myJobHistory WITH (READPAST) ON myJobHistory.SSISExecution = myExecution.SSISExecution",
+              "    INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = myExecution.Common_BranchRef",
+              "    WHERE myBranch.Enabled = 1",
+              ")",
+              "SELECT ROW_NUMBER() OVER (ORDER BY Common_BranchRef, Common_Date_StartRef DESC, Common_Time_StartRef ) AS ID,",
+              "       Common_BranchRef,",
+              "       Common_Date_StartRef,",
+              "       Common_Time_StartRef,",
+              "       MaintranceJob_SSISExecutionFolderRef,",
+              "       MaintranceJob_SSISExecutionProjectRef,",
+              "       MaintranceJob_SSISExecutionPackageRef,",
+              "       MaintranceJob_SSISExecutionStatusRef,",
+              "       Duration,",
+              "       ExecutionId,",
+              "       SSISExecution,",
+              "       JobName,",
+              "       CategoryCode,",
+              "       CategoryName,",
+              "       Step,",
+              "       StepName,",
+              "       MaintranceJob_JobStatusRef,",
+              "       CONCAT( Common_BranchRef, '_', MaintranceJob_SSISExecutionFolderRef, '_', MaintranceJob_SSISExecutionProjectRef, '_', MaintranceJob_SSISExecutionPackageRef, '_', Common_Date_StartRef ) AS SSISExecution_LastRef",
+              "FROM myCTE",
+              "WHERE myCTE.RowNumber = 1;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SSISExecution"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceJob"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>;WITH myCTE",
+              "AS",
+              "(",
+              "    SELECT ROW_NUMBER() OVER (PARTITION BY myExecution.SSISExecution ORDER BY myExecution.InsertDatetime ) AS RowNumber,",
+              "           myExecution.Common_BranchRef,",
+              "           myExecution.Common_Date_StartRef,",
+              "           myExecution.Common_Time_StartRef,",
+              "           myExecution.MaintranceJob_SSISExecutionFolderRef,",
+              "           myExecution.MaintranceJob_SSISExecutionProjectRef,",
+              "           myExecution.MaintranceJob_SSISExecutionPackageRef,",
+              "           myExecution.MaintranceJob_SSISExecutionStatusRef,",
+              "           myExecution.Duration,",
+              "           myExecution.ExecutionId,",
+              "           myExecution.SSISExecution,",
+              "           ISNULL( myJobHistory.JobName, N'[Unknow]' ) AS JobName,",
+              "           myJobHistory.CategoryCode,",
+              "           ISNULL( myJobHistory.CategoryName, N'[Unknow]' ) AS CategoryName,",
+              "           myJobHistory.Step,",
+              "           IIF(myJobHistory.Step IS NULL, N'[Unknow]', CONCAT( myJobHistory.Step, '-', myJobHistory.StepName )) AS StepName,",
+              "           myJobHistory.MaintranceJob_JobStatusRef",
+              "    FROM MaintranceJob.SSISExecution AS myExecution WITH (READPAST)",
+              "    LEFT JOIN MaintranceJob.JobHistory AS myJobHistory WITH (READPAST) ON myJobHistory.SSISExecution = myExecution.SSISExecution",
+              "    INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = myExecution.Common_BranchRef",
+              "    WHERE myBranch.Enabled = 1",
+              ")",
+              "SELECT ROW_NUMBER() OVER (ORDER BY Common_BranchRef, Common_Date_StartRef DESC, Common_Time_StartRef ) AS ID,",
+              "       Common_BranchRef,",
+              "       Common_Date_StartRef,",
+              "       Common_Time_StartRef,",
+              "       MaintranceJob_SSISExecutionFolderRef,",
+              "       MaintranceJob_SSISExecutionProjectRef,",
+              "       MaintranceJob_SSISExecutionPackageRef,",
+              "       MaintranceJob_SSISExecutionStatusRef,",
+              "       Duration,",
+              "       ExecutionId,",
+              "       SSISExecution,",
+              "       JobName,",
+              "       CategoryCode,",
+              "       CategoryName,",
+              "       Step,",
+              "       StepName,",
+              "       MaintranceJob_JobStatusRef,",
+              "       CONCAT( Common_BranchRef, '_', MaintranceJob_SSISExecutionFolderRef, '_', MaintranceJob_SSISExecutionProjectRef, '_', MaintranceJob_SSISExecutionPackageRef, '_', Common_Date_StartRef ) AS SSISExecution_LastRef",
+              "FROM myCTE",
+              "WHERE myCTE.RowNumber = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SSISExecutionFolder",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SSISExecutionFolder",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [MaintranceJob].[SSISExecutionFolder] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [MaintranceJob].[SSISExecutionFolder] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceJob].[SSISExecutionFolder] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SSISExecutionFolder"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceJob"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceJob].[SSISExecutionFolder] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SSISExecutionPackage",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SSISExecutionPackage",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [MaintranceJob].[SSISExecutionPackage] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [MaintranceJob].[SSISExecutionPackage] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceJob].[SSISExecutionPackage] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SSISExecutionPackage"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceJob"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceJob].[SSISExecutionPackage] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SSISExecutionProject",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SSISExecutionProject",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption",
+                "FROM [MaintranceJob].[SSISExecutionProject] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption",
+                  "FROM [MaintranceJob].[SSISExecutionProject] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceJob].[SSISExecutionProject] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SSISExecutionProject"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceJob"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption",
+              "FROM [MaintranceJob].[SSISExecutionProject] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SSISExecutionStatus",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "StatusColor",
+            "dataType": "string",
+            "sourceColumn": "StatusColor"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SSISExecutionStatus",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption,",
+                "       CASE",
+                "           WHEN Code = 3 THEN '#118DFF' --Blue",
+                "           WHEN Code = 4 THEN 'Red'     --Red",
+                "           WHEN Code = 6 THEN 'Orange'",
+                "           WHEN Code = 7 THEN 'LightGreen'",
+                "           ELSE 'Yellow'",
+                "       END StatusColor",
+                "FROM [MaintranceJob].[SSISExecutionStatus] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption,",
+                  "       CASE",
+                  "           WHEN Code = 3 THEN '#118DFF' --Blue",
+                  "           WHEN Code = 4 THEN 'Red'     --Red",
+                  "           WHEN Code = 6 THEN 'Orange'",
+                  "           WHEN Code = 7 THEN 'LightGreen'",
+                  "           ELSE 'Yellow'",
+                  "       END StatusColor",
+                  "FROM [MaintranceJob].[SSISExecutionStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption,",
+              "       CASE",
+              "           WHEN Code = 3 THEN '#118DFF' --Blue",
+              "           WHEN Code = 4 THEN 'Red'     --Red",
+              "           WHEN Code = 6 THEN 'Orange'",
+              "           WHEN Code = 7 THEN 'LightGreen'",
+              "           ELSE 'Yellow'",
+              "       END StatusColor",
+              "FROM [MaintranceJob].[SSISExecutionStatus] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SSISExecutionStatus"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceJob"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption,",
+              "       CASE",
+              "           WHEN Code = 3 THEN '#118DFF' --Blue",
+              "           WHEN Code = 4 THEN 'Red'     --Red",
+              "           WHEN Code = 6 THEN 'Orange'",
+              "           WHEN Code = 7 THEN 'LightGreen'",
+              "           ELSE 'Yellow'",
+              "       END StatusColor",
+              "FROM [MaintranceJob].[SSISExecutionStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SSISExecutionDetails",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ID",
+            "sourceProviderType": "BigInt"
+          },
+          {
+            "name": "Common_BranchRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_BranchRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_Date_MessageRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Date_MessageRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_Time_MessageRef",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Common_Time_MessageRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "ExecutionId",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ExecutionId",
+            "sourceProviderType": "BigInt"
+          },
+          {
+            "name": "SSISExecution",
+            "dataType": "string",
+            "sourceColumn": "SSISExecution",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "MessageType",
+            "dataType": "int64",
+            "sourceColumn": "MessageType",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "MessageSourceType",
+            "dataType": "int64",
+            "sourceColumn": "MessageSourceType",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "EventName",
+            "dataType": "string",
+            "sourceColumn": "EventName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "MessageSourceName",
+            "dataType": "string",
+            "sourceColumn": "MessageSourceName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "MessageSourceTypeDescription",
+            "dataType": "string",
+            "sourceColumn": "MessageSourceTypeDescription",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Message",
+            "dataType": "string",
+            "sourceColumn": "Message",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "SubcomponentName",
+            "dataType": "string",
+            "sourceColumn": "SubcomponentName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "EventPackagePath",
+            "dataType": "string",
+            "sourceColumn": "EventPackagePath",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "EventExecutionPath",
+            "dataType": "string",
+            "sourceColumn": "EventExecutionPath",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "type": "calculated",
+            "name": "Execution Folder",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(SSISExecution[Execution Folder])"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SSISExecutionDetails",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ROW_NUMBER()OVER (ORDER BY myExecutionDetails.Common_BranchRef, myExecutionDetails.Common_Date_MessageRef DESC, myExecutionDetails.Common_Time_MessageRef ) AS ID,",
+                "       myExecutionDetails.Common_BranchRef,",
+                "       myExecutionDetails.Common_Date_MessageRef,",
+                "       myExecutionDetails.Common_Time_MessageRef,",
+                "       myExecutionDetails.ExecutionId,",
+                "       myExecutionDetails.SSISExecution,",
+                "       myExecutionDetails.MessageType,",
+                "       myExecutionDetails.MessageSourceType,",
+                "       myExecutionDetails.EventName,",
+                "       myExecutionDetails.MessageSourceName,",
+                "       myExecutionDetails.MessageSourceTypeDescription,",
+                "       myExecutionDetails.Message,",
+                "       myExecutionDetails.SubcomponentName,",
+                "       myExecutionDetails.EventPackagePath,",
+                "       myExecutionDetails.EventExecutionPath",
+                "FROM [MaintranceJob].[SSISExecutionDetails] AS myExecutionDetails WITH (READPAST)",
+                "INNER JOIN MaintranceJob.SSISExecution AS mySSISExecution WITH(READPAST) ON mySSISExecution.SSISExecution = myExecutionDetails.SSISExecution",
+                "INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = myExecutionDetails.Common_BranchRef",
+                "WHERE myBranch.Enabled = 1"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ROW_NUMBER()OVER (ORDER BY myExecutionDetails.Common_BranchRef, myExecutionDetails.Common_Date_MessageRef DESC, myExecutionDetails.Common_Time_MessageRef ) AS ID,",
+                  "       myExecutionDetails.Common_BranchRef,",
+                  "       myExecutionDetails.Common_Date_MessageRef,",
+                  "       myExecutionDetails.Common_Time_MessageRef,",
+                  "       myExecutionDetails.ExecutionId,",
+                  "       myExecutionDetails.SSISExecution,",
+                  "       myExecutionDetails.MessageType,",
+                  "       myExecutionDetails.MessageSourceType,",
+                  "       myExecutionDetails.EventName,",
+                  "       myExecutionDetails.MessageSourceName,",
+                  "       myExecutionDetails.MessageSourceTypeDescription,",
+                  "       myExecutionDetails.Message,",
+                  "       myExecutionDetails.SubcomponentName,",
+                  "       myExecutionDetails.EventPackagePath,",
+                  "       myExecutionDetails.EventExecutionPath",
+                  "FROM [MaintranceJob].[SSISExecutionDetails] AS myExecutionDetails WITH (READPAST)",
+                  "INNER JOIN MaintranceJob.SSISExecution AS mySSISExecution WITH(READPAST) ON mySSISExecution.SSISExecution = myExecutionDetails.SSISExecution",
+                  "INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = myExecutionDetails.Common_BranchRef",
+                  "WHERE myBranch.Enabled = 1</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ROW_NUMBER()OVER (ORDER BY myExecutionDetails.Common_BranchRef, myExecutionDetails.Common_Date_MessageRef DESC, myExecutionDetails.Common_Time_MessageRef ) AS ID,",
+              "       myExecutionDetails.Common_BranchRef,",
+              "       myExecutionDetails.Common_Date_MessageRef,",
+              "       myExecutionDetails.Common_Time_MessageRef,",
+              "       myExecutionDetails.ExecutionId,",
+              "       myExecutionDetails.SSISExecution,",
+              "       myExecutionDetails.MessageType,",
+              "       myExecutionDetails.MessageSourceType,",
+              "       myExecutionDetails.EventName,",
+              "       myExecutionDetails.MessageSourceName,",
+              "       myExecutionDetails.MessageSourceTypeDescription,",
+              "       myExecutionDetails.Message,",
+              "       myExecutionDetails.SubcomponentName,",
+              "       myExecutionDetails.EventPackagePath,",
+              "       myExecutionDetails.EventExecutionPath",
+              "FROM [MaintranceJob].[SSISExecutionDetails] AS myExecutionDetails WITH (READPAST)",
+              "INNER JOIN MaintranceJob.SSISExecution AS mySSISExecution WITH(READPAST) ON mySSISExecution.SSISExecution = myExecutionDetails.SSISExecution",
+              "INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = myExecutionDetails.Common_BranchRef",
+              "WHERE myBranch.Enabled = 1"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SSISExecutionDetails"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "MaintranceJob"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ROW_NUMBER()OVER (ORDER BY myExecutionDetails.Common_BranchRef, myExecutionDetails.Common_Date_MessageRef DESC, myExecutionDetails.Common_Time_MessageRef ) AS ID,",
+              "       myExecutionDetails.Common_BranchRef,",
+              "       myExecutionDetails.Common_Date_MessageRef,",
+              "       myExecutionDetails.Common_Time_MessageRef,",
+              "       myExecutionDetails.ExecutionId,",
+              "       myExecutionDetails.SSISExecution,",
+              "       myExecutionDetails.MessageType,",
+              "       myExecutionDetails.MessageSourceType,",
+              "       myExecutionDetails.EventName,",
+              "       myExecutionDetails.MessageSourceName,",
+              "       myExecutionDetails.MessageSourceTypeDescription,",
+              "       myExecutionDetails.Message,",
+              "       myExecutionDetails.SubcomponentName,",
+              "       myExecutionDetails.EventPackagePath,",
+              "       myExecutionDetails.EventExecutionPath",
+              "FROM [MaintranceJob].[SSISExecutionDetails] AS myExecutionDetails WITH (READPAST)",
+              "INNER JOIN MaintranceJob.SSISExecution AS mySSISExecution WITH(READPAST) ON mySSISExecution.SSISExecution = myExecutionDetails.SSISExecution",
+              "INNER JOIN Common.Branch AS myBranch WITH (READPAST) ON myBranch.ID = myExecutionDetails.Common_BranchRef",
+              "WHERE myBranch.Enabled = 1</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Branch_SSISExecutionDetails",
+        "isHidden": true,
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "common_BranchTypeRef",
+            "dataType": "int64",
+            "sourceColumn": "common_BranchTypeRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "BranchName",
+            "dataType": "string",
+            "sourceColumn": "BranchName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "BranchNumber",
+            "dataType": "string",
+            "sourceColumn": "BranchNumber",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "BranchSiteId",
+            "dataType": "string",
+            "sourceColumn": "BranchSiteId"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Branch_SSISExecutionDetails",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       common_BranchTypeRef,",
+                "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                "       BranchName,",
+                "       BranchNumber",
+                "FROM [Common].[Branch] WITH (READPAST)",
+                "WHERE Enabled = 1",
+                "      AND EnabledSSISExecution = 1;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       common_BranchTypeRef,",
+                  "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+                  "       BranchName,",
+                  "       BranchNumber",
+                  "FROM [Common].[Branch] WITH (READPAST)",
+                  "WHERE Enabled = 1",
+                  "      AND EnabledSSISExecution = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledSSISExecution = 1;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Branch"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       common_BranchTypeRef,",
+              "       CONCAT( REPLICATE( '0', 3 - LEN( RegionNo )), RegionNo ) AS BranchSiteId,",
+              "       BranchName,",
+              "       BranchNumber",
+              "FROM [Common].[Branch] WITH (READPAST)",
+              "WHERE Enabled = 1",
+              "      AND EnabledSSISExecution = 1;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimDate_SSISExecutionDetails",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "GregorianDate",
+            "dataType": "dateTime",
+            "sourceColumn": "GregorianDate",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "PersianYearInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianYearInt",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "PersianMonthNo",
+            "dataType": "int64",
+            "sourceColumn": "PersianMonthNo",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDayInMonth",
+            "dataType": "int64",
+            "sourceColumn": "PersianDayInMonth",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDayOfWeekInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianDayOfWeekInt",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "PersianDate",
+            "dataType": "string",
+            "sourceColumn": "PersianDate",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "PersianYearMonthInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianYearMonthInt",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianYearMonthStr",
+            "dataType": "string",
+            "sourceColumn": "PersianYearMonthStr",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "PersianWeekOfMonthNo",
+            "dataType": "int64",
+            "sourceColumn": "PersianWeekOfMonthNo",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianWeekOfYearNo",
+            "dataType": "int64",
+            "sourceColumn": "PersianWeekOfYearNo",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianSeasonInt",
+            "dataType": "int64",
+            "sourceColumn": "PersianSeasonInt",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "PersianMonthName",
+            "dataType": "string",
+            "sourceColumn": "PersianMonthName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianDayOfWeekName",
+            "dataType": "string",
+            "sourceColumn": "PersianDayOfWeekName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianWeekOfMonthName",
+            "dataType": "string",
+            "sourceColumn": "PersianWeekOfMonthName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianWeekOfYearName",
+            "dataType": "string",
+            "sourceColumn": "PersianWeekOfYearName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "PersianSeason",
+            "dataType": "string",
+            "sourceColumn": "PersianSeason",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "ID_Sort_Desc",
+            "dataType": "int64",
+            "sourceColumn": "ID_Sort_Desc"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDate_SSISExecutionDetails",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "DECLARE @myMinID INT",
+                "DECLARE @myMaxID INT",
+                "SELECT @myMinID = MIN( Common_Date_MessageRef ),@myMaxID = MAX( Common_Date_MessageRef ) FROM MaintranceJob.SSISExecutionDetails WITH (READPAST)",
+                "SELECT ID,",
+                "       ID * -1 AS ID_Sort_Desc,",
+                "       GregorianDate,",
+                "       PersianDate,",
+                "       PersianYearInt,",
+                "       PersianMonthNo,",
+                "       PersianDayInMonth,",
+                "       PersianDayOfWeekInt,",
+                "       PersianYearMonthInt,",
+                "       PersianYearMonthStr,",
+                "       PersianWeekOfMonthNo,",
+                "       PersianWeekOfYearNo,",
+                "       PersianSeasonInt,",
+                "       PersianMonthName,",
+                "       PersianDayOfWeekName,",
+                "       PersianWeekOfMonthName,",
+                "       PersianWeekOfYearName,",
+                "       PersianSeason",
+                "FROM [Common].[DimDate] WITH (READPAST)",
+                "WHERE ID >= @myMinID",
+                "      AND ID <= @myMaxID;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+                  "DECLARE @myMaxID INT",
+                  "SELECT @myMinID = MIN( Common_Date_MessageRef ),@myMaxID = MAX( Common_Date_MessageRef ) FROM MaintranceJob.SSISExecutionDetails WITH (READPAST)",
+                  "SELECT ID,",
+                  "       ID * -1 AS ID_Sort_Desc,",
+                  "       GregorianDate,",
+                  "       PersianDate,",
+                  "       PersianYearInt,",
+                  "       PersianMonthNo,",
+                  "       PersianDayInMonth,",
+                  "       PersianDayOfWeekInt,",
+                  "       PersianYearMonthInt,",
+                  "       PersianYearMonthStr,",
+                  "       PersianWeekOfMonthNo,",
+                  "       PersianWeekOfYearNo,",
+                  "       PersianSeasonInt,",
+                  "       PersianMonthName,",
+                  "       PersianDayOfWeekName,",
+                  "       PersianWeekOfMonthName,",
+                  "       PersianWeekOfYearName,",
+                  "       PersianSeason",
+                  "FROM [Common].[DimDate] WITH (READPAST)",
+                  "WHERE ID >= @myMinID",
+                  "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Date_MessageRef ),@myMaxID = MAX( Common_Date_MessageRef ) FROM MaintranceJob.SSISExecutionDetails WITH (READPAST)",
+              "SELECT ID,",
+              "       ID * -1 AS ID_Sort_Desc,",
+              "       GregorianDate,",
+              "       PersianDate,",
+              "       PersianYearInt,",
+              "       PersianMonthNo,",
+              "       PersianDayInMonth,",
+              "       PersianDayOfWeekInt,",
+              "       PersianYearMonthInt,",
+              "       PersianYearMonthStr,",
+              "       PersianWeekOfMonthNo,",
+              "       PersianWeekOfYearNo,",
+              "       PersianSeasonInt,",
+              "       PersianMonthName,",
+              "       PersianDayOfWeekName,",
+              "       PersianWeekOfMonthName,",
+              "       PersianWeekOfYearName,",
+              "       PersianSeason",
+              "FROM [Common].[DimDate] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimDate"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Date_MessageRef ),@myMaxID = MAX( Common_Date_MessageRef ) FROM MaintranceJob.SSISExecutionDetails WITH (READPAST)",
+              "SELECT ID,",
+              "       ID * -1 AS ID_Sort_Desc,",
+              "       GregorianDate,",
+              "       PersianDate,",
+              "       PersianYearInt,",
+              "       PersianMonthNo,",
+              "       PersianDayInMonth,",
+              "       PersianDayOfWeekInt,",
+              "       PersianYearMonthInt,",
+              "       PersianYearMonthStr,",
+              "       PersianWeekOfMonthNo,",
+              "       PersianWeekOfYearNo,",
+              "       PersianSeasonInt,",
+              "       PersianMonthName,",
+              "       PersianDayOfWeekName,",
+              "       PersianWeekOfMonthName,",
+              "       PersianWeekOfYearName,",
+              "       PersianSeason",
+              "FROM [Common].[DimDate] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimTime_SSISExecutionDetails",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Hour24",
+            "dataType": "int64",
+            "sourceColumn": "Hour24",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Minute",
+            "dataType": "int64",
+            "sourceColumn": "Minute",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Second",
+            "dataType": "int64",
+            "sourceColumn": "Second",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "FullTimeString24",
+            "dataType": "string",
+            "sourceColumn": "FullTimeString24",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "FullTime",
+            "dataType": "dateTime",
+            "sourceColumn": "FullTime",
+            "formatString": "General Date",
+            "sourceProviderType": "145"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimTime_SSISExecutionDetails",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "DECLARE @myMinID INT",
+                "DECLARE @myMaxID INT",
+                "SELECT @myMinID = MIN( Common_Time_MessageRef ),@myMaxID = MAX( Common_Time_MessageRef ) FROM MaintranceJob.SSISExecutionDetails WITH (READPAST)",
+                "SELECT ID,",
+                "       Hour24,",
+                "       Minute,",
+                "       Second,",
+                "       FullTimeString24,",
+                "       FullTime",
+                "FROM [Common].[DimTime] WITH (READPAST)",
+                "WHERE ID >= @myMinID",
+                "      AND ID <= @myMaxID;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+                  "DECLARE @myMaxID INT",
+                  "SELECT @myMinID = MIN( Common_Time_MessageRef ),@myMaxID = MAX( Common_Time_MessageRef ) FROM MaintranceJob.SSISExecutionDetails WITH (READPAST)",
+                  "SELECT ID,",
+                  "       Hour24,",
+                  "       Minute,",
+                  "       Second,",
+                  "       FullTimeString24,",
+                  "       FullTime",
+                  "FROM [Common].[DimTime] WITH (READPAST)",
+                  "WHERE ID >= @myMinID",
+                  "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Time_MessageRef ),@myMaxID = MAX( Common_Time_MessageRef ) FROM MaintranceJob.SSISExecutionDetails WITH (READPAST)",
+              "SELECT ID,",
+              "       Hour24,",
+              "       Minute,",
+              "       Second,",
+              "       FullTimeString24,",
+              "       FullTime",
+              "FROM [Common].[DimTime] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimTime"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>DECLARE @myMinID INT",
+              "DECLARE @myMaxID INT",
+              "SELECT @myMinID = MIN( Common_Time_MessageRef ),@myMaxID = MAX( Common_Time_MessageRef ) FROM MaintranceJob.SSISExecutionDetails WITH (READPAST)",
+              "SELECT ID,",
+              "       Hour24,",
+              "       Minute,",
+              "       Second,",
+              "       FullTimeString24,",
+              "       FullTime",
+              "FROM [Common].[DimTime] WITH (READPAST)",
+              "WHERE ID >= @myMinID",
+              "      AND ID <= @myMaxID;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "System",
+        "columns": [
+          {
+            "name": "RefreshDatetime",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshDatetime",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "name": "PersianRefreshDatetime",
+            "dataType": "string",
+            "sourceColumn": "PersianRefreshDatetime",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "RefreshDate",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshDate",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "name": "PersianRefreshDate",
+            "dataType": "string",
+            "sourceColumn": "PersianRefreshDate",
+            "sourceProviderType": "VarChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "System",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT GETDATE() AS RefreshDatetime,",
+                "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+                "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+                "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT GETDATE() AS RefreshDatetime,",
+                  "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+                  "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+                  "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT GETDATE() AS RefreshDatetime,",
+              "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+              "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+              "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "System"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT GETDATE() AS RefreshDatetime,",
+              "       FORMAT( GETDATE(), 'yyyy-MM-dd HH:mm:ss', 'fa-ir' ) AS PersianRefreshDatetime,",
+              "       CAST(GETDATE() AS DATE) AS RefreshDate,",
+              "       FORMAT( CAST(GETDATE() AS DATE), 'yyyy-MM-dd', 'fa-ir' ) AS PersianRefreshDate;</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "UserSecurity",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_BranchRef",
+            "dataType": "int64",
+            "sourceColumn": "Common_BranchRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Domain",
+            "dataType": "string",
+            "sourceColumn": "Domain",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "LoginName",
+            "dataType": "string",
+            "sourceColumn": "LoginName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Username",
+            "dataType": "string",
+            "sourceColumn": "Username",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "InsertDatetime",
+            "dataType": "dateTime",
+            "sourceColumn": "InsertDatetime",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "UserSecurity",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [Common].[UserSecurity].* FROM [Common].[UserSecurity] ",
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [Common].[UserSecurity].* FROM [Common].[UserSecurity] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "UserSecurity"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "Common"
+          }
+        ]
+      },
+      {
+        "name": "SSISExecutionStatus_Last",
+        "isHidden": true,
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Caption",
+            "dataType": "string",
+            "sourceColumn": "Caption",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "StatusColor",
+            "dataType": "string",
+            "sourceColumn": "StatusColor",
+            "sourceProviderType": "VarChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SSISExecutionStatus_Last",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "SELECT ID,",
+                "       Caption,",
+                "       CASE",
+                "           WHEN Code = 3 THEN '#118DFF' --Blue",
+                "           WHEN Code = 4 THEN 'Red'     --Red",
+                "           WHEN Code = 6 THEN 'Orange'",
+                "           WHEN Code = 7 THEN 'LightGreen'",
+                "           ELSE 'Yellow'",
+                "       END StatusColor",
+                "FROM [MaintranceJob].[SSISExecutionStatus] WITH (READPAST);"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+                  "       Caption,",
+                  "       CASE",
+                  "           WHEN Code = 3 THEN '#118DFF' --Blue",
+                  "           WHEN Code = 4 THEN 'Red'     --Red",
+                  "           WHEN Code = 6 THEN 'Orange'",
+                  "           WHEN Code = 7 THEN 'LightGreen'",
+                  "           ELSE 'Yellow'",
+                  "       END StatusColor",
+                  "FROM [MaintranceJob].[SSISExecutionStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT ID,",
+              "       Caption,",
+              "       CASE",
+              "           WHEN Code = 3 THEN '#118DFF' --Blue",
+              "           WHEN Code = 4 THEN 'Red'     --Red",
+              "           WHEN Code = 6 THEN 'Orange'",
+              "           WHEN Code = 7 THEN 'LightGreen'",
+              "           ELSE 'Yellow'",
+              "       END StatusColor",
+              "FROM [MaintranceJob].[SSISExecutionStatus] WITH (READPAST);"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SSISExecutionStatus_Last"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT ID,",
+              "       Caption,",
+              "       CASE",
+              "           WHEN Code = 3 THEN '#118DFF' --Blue",
+              "           WHEN Code = 4 THEN 'Red'     --Red",
+              "           WHEN Code = 6 THEN 'Orange'",
+              "           WHEN Code = 7 THEN 'LightGreen'",
+              "           ELSE 'Yellow'",
+              "       END StatusColor",
+              "FROM [MaintranceJob].[SSISExecutionStatus] WITH (READPAST);</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SSISExecution_Last",
+        "columns": [
+          {
+            "name": "Common_BranchRef",
+            "dataType": "int64",
+            "sourceColumn": "Common_BranchRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Common_Date_StartRef",
+            "dataType": "int64",
+            "sourceColumn": "Common_Date_StartRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceJob_SSISExecutionFolderRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceJob_SSISExecutionFolderRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceJob_SSISExecutionProjectRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceJob_SSISExecutionProjectRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceJob_SSISExecutionPackageRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceJob_SSISExecutionPackageRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MaintranceJob_SSISExecutionStatusRef",
+            "dataType": "int64",
+            "sourceColumn": "MaintranceJob_SSISExecutionStatusRef",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "ID",
+            "dataType": "string",
+            "sourceColumn": "ID"
+          },
+          {
+            "type": "calculated",
+            "name": "SSISExecutionStatus Color",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(SSISExecutionStatus_Last[StatusColor])"
+          },
+          {
+            "type": "calculated",
+            "name": "SSISExecutionStatus",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "RELATED(SSISExecutionStatus_Last[Caption])"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SSISExecution_Last",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                ";WITH myStatusCTE",
+                "AS",
+                "(",
+                "    SELECT ROW_NUMBER() OVER (PARTITION BY Common_BranchRef, MaintranceJob_SSISExecutionFolderRef, MaintranceJob_SSISExecutionProjectRef, MaintranceJob_SSISExecutionPackageRef, myExecution.Common_Date_StartRef ORDER BY myExecution.Common_Time_StartRef DESC ) AS RowNumber,",
+                "\t\t   myExecution.Common_BranchRef,",
+                "           myExecution.Common_Date_StartRef,",
+                "           myExecution.MaintranceJob_SSISExecutionFolderRef,",
+                "           myExecution.MaintranceJob_SSISExecutionProjectRef,",
+                "           myExecution.MaintranceJob_SSISExecutionPackageRef,",
+                "           myExecution.MaintranceJob_SSISExecutionStatusRef",
+                "    FROM MaintranceJob.SSISExecution AS myExecution WITH (READPAST)",
+                ")",
+                "SELECT CONCAT( Common_BranchRef, '_', MaintranceJob_SSISExecutionFolderRef, '_', MaintranceJob_SSISExecutionProjectRef, '_', MaintranceJob_SSISExecutionPackageRef,'_',myStatusCTE.Common_Date_StartRef ) AS ID,",
+                "       Common_BranchRef,",
+                "       Common_Date_StartRef,",
+                "       MaintranceJob_SSISExecutionFolderRef,",
+                "       MaintranceJob_SSISExecutionProjectRef,",
+                "       MaintranceJob_SSISExecutionPackageRef,",
+                "       MaintranceJob_SSISExecutionStatusRef",
+                "FROM myStatusCTE",
+                "WHERE RowNumber = 1"
+              ],
+              "dataSource": "OLE-Monitor_MaintranceMonitoring"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>;WITH myStatusCTE",
+                  "AS",
+                  "(",
+                  "    SELECT ROW_NUMBER() OVER (PARTITION BY Common_BranchRef, MaintranceJob_SSISExecutionFolderRef, MaintranceJob_SSISExecutionProjectRef, MaintranceJob_SSISExecutionPackageRef, myExecution.Common_Date_StartRef ORDER BY myExecution.Common_Time_StartRef DESC ) AS RowNumber,",
+                  "\t\t   myExecution.Common_BranchRef,",
+                  "           myExecution.Common_Date_StartRef,",
+                  "           myExecution.MaintranceJob_SSISExecutionFolderRef,",
+                  "           myExecution.MaintranceJob_SSISExecutionProjectRef,",
+                  "           myExecution.MaintranceJob_SSISExecutionPackageRef,",
+                  "           myExecution.MaintranceJob_SSISExecutionStatusRef",
+                  "    FROM MaintranceJob.SSISExecution AS myExecution WITH (READPAST)",
+                  ")",
+                  "SELECT CONCAT( Common_BranchRef, '_', MaintranceJob_SSISExecutionFolderRef, '_', MaintranceJob_SSISExecutionProjectRef, '_', MaintranceJob_SSISExecutionPackageRef,'_',myStatusCTE.Common_Date_StartRef ) AS ID,",
+                  "       Common_BranchRef,",
+                  "       Common_Date_StartRef,",
+                  "       MaintranceJob_SSISExecutionFolderRef,",
+                  "       MaintranceJob_SSISExecutionProjectRef,",
+                  "       MaintranceJob_SSISExecutionPackageRef,",
+                  "       MaintranceJob_SSISExecutionStatusRef",
+                  "FROM myStatusCTE",
+                  "WHERE RowNumber = 1</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              ";WITH myStatusCTE",
+              "AS",
+              "(",
+              "    SELECT ROW_NUMBER() OVER (PARTITION BY Common_BranchRef, MaintranceJob_SSISExecutionFolderRef, MaintranceJob_SSISExecutionProjectRef, MaintranceJob_SSISExecutionPackageRef, myExecution.Common_Date_StartRef ORDER BY myExecution.Common_Time_StartRef DESC ) AS RowNumber,",
+              "\t\t   myExecution.Common_BranchRef,",
+              "           myExecution.Common_Date_StartRef,",
+              "           myExecution.MaintranceJob_SSISExecutionFolderRef,",
+              "           myExecution.MaintranceJob_SSISExecutionProjectRef,",
+              "           myExecution.MaintranceJob_SSISExecutionPackageRef,",
+              "           myExecution.MaintranceJob_SSISExecutionStatusRef",
+              "    FROM MaintranceJob.SSISExecution AS myExecution WITH (READPAST)",
+              ")",
+              "SELECT CONCAT( Common_BranchRef, '_', MaintranceJob_SSISExecutionFolderRef, '_', MaintranceJob_SSISExecutionProjectRef, '_', MaintranceJob_SSISExecutionPackageRef,'_',myStatusCTE.Common_Date_StartRef ) AS ID,",
+              "       Common_BranchRef,",
+              "       Common_Date_StartRef,",
+              "       MaintranceJob_SSISExecutionFolderRef,",
+              "       MaintranceJob_SSISExecutionProjectRef,",
+              "       MaintranceJob_SSISExecutionPackageRef,",
+              "       MaintranceJob_SSISExecutionStatusRef",
+              "FROM myStatusCTE",
+              "WHERE RowNumber = 1"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SSISExecution_Last"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>;WITH myStatusCTE",
+              "AS",
+              "(",
+              "    SELECT ROW_NUMBER() OVER (PARTITION BY Common_BranchRef, MaintranceJob_SSISExecutionFolderRef, MaintranceJob_SSISExecutionProjectRef, MaintranceJob_SSISExecutionPackageRef, myExecution.Common_Date_StartRef ORDER BY myExecution.Common_Time_StartRef DESC ) AS RowNumber,",
+              "\t\t   myExecution.Common_BranchRef,",
+              "           myExecution.Common_Date_StartRef,",
+              "           myExecution.MaintranceJob_SSISExecutionFolderRef,",
+              "           myExecution.MaintranceJob_SSISExecutionProjectRef,",
+              "           myExecution.MaintranceJob_SSISExecutionPackageRef,",
+              "           myExecution.MaintranceJob_SSISExecutionStatusRef",
+              "    FROM MaintranceJob.SSISExecution AS myExecution WITH (READPAST)",
+              ")",
+              "SELECT CONCAT( Common_BranchRef, '_', MaintranceJob_SSISExecutionFolderRef, '_', MaintranceJob_SSISExecutionProjectRef, '_', MaintranceJob_SSISExecutionPackageRef,'_',myStatusCTE.Common_Date_StartRef ) AS ID,",
+              "       Common_BranchRef,",
+              "       Common_Date_StartRef,",
+              "       MaintranceJob_SSISExecutionFolderRef,",
+              "       MaintranceJob_SSISExecutionProjectRef,",
+              "       MaintranceJob_SSISExecutionPackageRef,",
+              "       MaintranceJob_SSISExecutionStatusRef",
+              "FROM myStatusCTE",
+              "WHERE RowNumber = 1</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "04a5dde5-25c0-4cc1-9914-74f75d119159",
+        "fromTable": "SSISExecutionDetails",
+        "fromColumn": "Common_BranchRef",
+        "toTable": "Branch_SSISExecutionDetails",
+        "toColumn": "ID"
+      },
+      {
+        "name": "21d3674e-8ea4-4721-9c98-b89bb0a8ee40",
+        "fromTable": "SSISExecutionDetails",
+        "fromColumn": "Common_Date_MessageRef",
+        "toTable": "DimDate_SSISExecutionDetails",
+        "toColumn": "ID"
+      },
+      {
+        "name": "030206c2-7fa2-4508-a2ba-49a3e4a25eac",
+        "fromTable": "SSISExecutionDetails",
+        "fromColumn": "Common_Time_MessageRef",
+        "toTable": "DimTime_SSISExecutionDetails",
+        "toColumn": "ID"
+      },
+      {
+        "name": "c852db78-c892-4f62-8b47-a54bf0fa61a0",
+        "fromTable": "SSISExecutionDetails",
+        "fromColumn": "SSISExecution",
+        "toTable": "SSISExecution",
+        "toColumn": "SSISExecution"
+      },
+      {
+        "name": "51e0f2bc-0299-44ee-aa51-fa8f7357029b",
+        "fromTable": "Branch",
+        "fromColumn": "common_BranchTypeRef",
+        "toTable": "BranchType",
+        "toColumn": "ID"
+      },
+      {
+        "name": "0e022f8e-5683-458e-a227-9f03256674c5",
+        "fromTable": "SSISExecution",
+        "fromColumn": "Common_BranchRef",
+        "toTable": "Branch",
+        "toColumn": "ID"
+      },
+      {
+        "name": "bb2ecc78-17f3-45cf-b296-7a576dad8121",
+        "fromTable": "SSISExecution",
+        "fromColumn": "Common_Date_StartRef",
+        "toTable": "DimDate",
+        "toColumn": "ID"
+      },
+      {
+        "name": "936207c7-0413-43fa-b2e4-d542535eac05",
+        "fromTable": "SSISExecution",
+        "fromColumn": "MaintranceJob_JobStatusRef",
+        "toTable": "JobStatus",
+        "toColumn": "ID"
+      },
+      {
+        "name": "5e98ec6c-1397-451d-8f99-219394759a04",
+        "fromTable": "SSISExecution",
+        "fromColumn": "Common_Time_StartRef",
+        "toTable": "DimTime",
+        "toColumn": "ID"
+      },
+      {
+        "name": "b2c03743-3600-4714-9403-283b2c52d98a",
+        "fromTable": "SSISExecution",
+        "fromColumn": "MaintranceJob_SSISExecutionFolderRef",
+        "toTable": "SSISExecutionFolder",
+        "toColumn": "ID"
+      },
+      {
+        "name": "78364282-333b-44b8-9fac-730fe5667c50",
+        "fromTable": "SSISExecution",
+        "fromColumn": "MaintranceJob_SSISExecutionPackageRef",
+        "toTable": "SSISExecutionPackage",
+        "toColumn": "ID"
+      },
+      {
+        "name": "954d13d9-c329-4607-ac22-ca2e5722f14e",
+        "fromTable": "SSISExecution",
+        "fromColumn": "MaintranceJob_SSISExecutionProjectRef",
+        "toTable": "SSISExecutionProject",
+        "toColumn": "ID"
+      },
+      {
+        "name": "8c84ac07-55d5-4095-8088-cab5d4e88ec1",
+        "fromTable": "SSISExecution",
+        "fromColumn": "MaintranceJob_SSISExecutionStatusRef",
+        "toTable": "SSISExecutionStatus",
+        "toColumn": "ID"
+      },
+      {
+        "name": "c1fa4dd2-8418-4247-82d5-906e3c215be1",
+        "fromTable": "UserSecurity",
+        "fromColumn": "ID",
+        "toTable": "Branch",
+        "toColumn": "ID"
+      },
+      {
+        "name": "6fadcab9-6850-4a71-a738-fc6083f0a2ae",
+        "fromTable": "SSISExecution_Last",
+        "fromColumn": "MaintranceJob_SSISExecutionStatusRef",
+        "toTable": "SSISExecutionStatus_Last",
+        "toColumn": "ID"
+      },
+      {
+        "name": "c616a068-d2ff-442d-940a-f15c3f655a9b",
+        "fromTable": "SSISExecution",
+        "fromColumn": "SSISExecution_LastRef",
+        "toTable": "SSISExecution_Last",
+        "toColumn": "ID"
+      }
+    ],
+    "roles": [
+      {
+        "name": "Read_ALL",
+        "modelPermission": "read",
+        "members": [
+        ]
+      },
+      {
+        "name": "Read_Limited",
+        "modelPermission": "read",
+        "members": [
+        ],
+        "tablePermissions": [
+          {
+            "name": "Branch",
+            "filterExpression": "Branch[ID]=LOOKUPVALUE(UserSecurity[Common_BranchRef], UserSecurity[Username], USERNAME(), UserSecurity[Common_BranchRef], Branch[ID])"
+          },
+          {
+            "name": "UserSecurity",
+            "filterExpression": "FALSE()"
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}

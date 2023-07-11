@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>MaintranceMonitoringTempDB2017</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{fd5b826c-ebd5-4090-9f03-455a8aac4cf3}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql140DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>MaintranceMonitoringTempDB</RootNamespace>
+    <AssemblyName>MaintranceMonitoringTempDB</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1256_CI_AS</DefaultCollation>
+    <DefaultFilegroup>FG_Data</DefaultFilegroup>
+    <AutoCreateStatisticsIncremental>True</AutoCreateStatisticsIncremental>
+    <AutoUpdateStatisticsAsynchronously>True</AutoUpdateStatisticsAsynchronously>
+    <PageVerify>CHECKSUM</PageVerify>
+    <DacApplicationName>MaintranceMonitoringTempDB</DacApplicationName>
+    <DacVersion>2.0.0.0</DacVersion>
+    <GenerateCreateScript>True</GenerateCreateScript>
+    <IncludeSchemaNameInFileName>False</IncludeSchemaNameInFileName>
+    <QueryStoreCaptureMode>All</QueryStoreCaptureMode>
+    <QueryStoreDesiredState>Off</QueryStoreDesiredState>
+    <QueryStoreFlushInterval>900</QueryStoreFlushInterval>
+    <QueryStoreStatsInterval>60</QueryStoreStatsInterval>
+    <QueryStoreMaxPlansPerQuery>200</QueryStoreMaxPlansPerQuery>
+    <QueryStoreStaleQueryThreshold>367</QueryStoreStaleQueryThreshold>
+    <QueryStoreMaxStorageSize>100</QueryStoreMaxStorageSize>
+    <DbScopedConfigLegacyCardinalityEstimation>Off</DbScopedConfigLegacyCardinalityEstimation>
+    <DbScopedConfigMaxDOP>0</DbScopedConfigMaxDOP>
+    <DbScopedConfigParameterSniffing>On</DbScopedConfigParameterSniffing>
+    <DbScopedConfigOptimizerHotfixes>Off</DbScopedConfigOptimizerHotfixes>
+    <DelayedDurability>DISABLED</DelayedDurability>
+    <MemoryOptimizedElevateToSnapshot>False</MemoryOptimizedElevateToSnapshot>
+    <Containment>None</Containment>
+    <IsNestedTriggersOn>True</IsNestedTriggersOn>
+    <IsTransformNoiseWordsOn>False</IsTransformNoiseWordsOn>
+    <TwoDigitYearCutoff>2049</TwoDigitYearCutoff>
+    <NonTransactedFileStreamAccess>OFF</NonTransactedFileStreamAccess>
+    <TargetRecoveryTimePeriod>0</TargetRecoveryTimePeriod>
+    <TargetRecoveryTimeUnit>SECONDS</TargetRecoveryTimeUnit>
+    <IsChangeTrackingOn>False</IsChangeTrackingOn>
+    <IsChangeTrackingAutoCleanupOn>True</IsChangeTrackingAutoCleanupOn>
+    <ChangeTrackingRetentionPeriod>2</ChangeTrackingRetentionPeriod>
+    <ChangeTrackingRetentionUnit>Days</ChangeTrackingRetentionUnit>
+    <IsEncryptionOn>False</IsEncryptionOn>
+    <IsBrokerPriorityHonored>False</IsBrokerPriorityHonored>
+    <Trustworthy>False</Trustworthy>
+    <ServiceBrokerOption>DisableBroker</ServiceBrokerOption>
+    <DateCorrelationOptimizationOn>False</DateCorrelationOptimizationOn>
+    <Parameterization>SIMPLE</Parameterization>
+    <AllowSnapshotIsolation>False</AllowSnapshotIsolation>
+    <ReadCommittedSnapshot>False</ReadCommittedSnapshot>
+    <VardecimalStorageFormatOn>True</VardecimalStorageFormatOn>
+    <SupplementalLoggingOn>False</SupplementalLoggingOn>
+    <CompatibilityMode>150</CompatibilityMode>
+    <AnsiNullDefault>True</AnsiNullDefault>
+    <AnsiNulls>True</AnsiNulls>
+    <AnsiPadding>True</AnsiPadding>
+    <AnsiWarnings>True</AnsiWarnings>
+    <ArithAbort>True</ArithAbort>
+    <ConcatNullYieldsNull>True</ConcatNullYieldsNull>
+    <QuotedIdentifier>True</QuotedIdentifier>
+    <NumericRoundAbort>False</NumericRoundAbort>
+    <RecursiveTriggersEnabled>False</RecursiveTriggersEnabled>
+    <DatabaseChaining>False</DatabaseChaining>
+    <DatabaseState>ONLINE</DatabaseState>
+    <CloseCursorOnCommitEnabled>False</CloseCursorOnCommitEnabled>
+    <DefaultCursor>LOCAL</DefaultCursor>
+    <AutoClose>False</AutoClose>
+    <AutoCreateStatistics>True</AutoCreateStatistics>
+    <AutoShrink>False</AutoShrink>
+    <AutoUpdateStatistics>True</AutoUpdateStatistics>
+    <TornPageDetection>False</TornPageDetection>
+    <DatabaseAccess>MULTI_USER</DatabaseAccess>
+    <Recovery>FULL</Recovery>
+    <EnableFullTextSearch>True</EnableFullTextSearch>
+    <TargetDatabase>MaintranceMonitoringTempDB2017</TargetDatabase>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <SqlTargetName>MaintranceMonitoringTempDB</SqlTargetName>
+    <DataRetentionEnabled>False</DataRetentionEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="MaintranceBackup\" />
+    <Folder Include="MaintranceBackup\Tables\" />
+    <Folder Include="MaintranceDatabase\" />
+    <Folder Include="MaintranceDatabase\Tables\" />
+    <Folder Include="MaintranceInstance\" />
+    <Folder Include="MaintranceInstance\Tables\" />
+    <Folder Include="MaintranceJob\" />
+    <Folder Include="MaintranceJob\Tables\" />
+    <Folder Include="MaintranceReplication\" />
+    <Folder Include="MaintranceReplication\Tables\" />
+    <Folder Include="Storage\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="MaintranceBackup\Tables\Branch_Backupset_Store.sql" />
+    <Build Include="MaintranceBackup\Tables\Backupset_Store.sql" />
+    <Build Include="MaintranceBackup\Tables\Backupset_WHS.sql" />
+    <Build Include="MaintranceBackup\Tables\Branch_Backupset_WHS.sql" />
+    <Build Include="MaintranceBackup\Tables\Branch_Backupset_HQ.sql" />
+    <Build Include="MaintranceBackup\Tables\Backupset_HQ.sql" />
+    <Build Include="MaintranceDatabase\Tables\Branch_SQLDatabase_Store.sql" />
+    <Build Include="MaintranceDatabase\Tables\SQLDatabase_Store.sql" />
+    <Build Include="MaintranceDatabase\Tables\SQLDatabase_WHS.sql" />
+    <Build Include="MaintranceDatabase\Tables\Branch_SQLDatabase_WHS.sql" />
+    <Build Include="MaintranceDatabase\Tables\Branch_SQLDatabase_HQ.sql" />
+    <Build Include="MaintranceDatabase\Tables\SQLDatabase_HQ.sql" />
+    <Build Include="MaintranceInstance\Tables\SQLInstance_Store.sql" />
+    <Build Include="MaintranceInstance\Tables\Branch_SQLInstance_Store.sql" />
+    <Build Include="MaintranceInstance\Tables\SQLInstance_WHS.sql" />
+    <Build Include="MaintranceInstance\Tables\Branch_SQLInstance_WHS.sql" />
+    <Build Include="MaintranceInstance\Tables\Branch_SQLInstance_HQ.sql" />
+    <Build Include="MaintranceInstance\Tables\SQLInstance_HQ.sql" />
+    <Build Include="MaintranceJob\Tables\Branch_JobActivity_HQ.sql" />
+    <Build Include="MaintranceJob\Tables\Branch_JobHistory_Store.sql" />
+    <Build Include="MaintranceJob\Tables\Branch_JobHistory_WHS.sql" />
+    <Build Include="MaintranceJob\Tables\JobActivity_HQ.sql" />
+    <Build Include="MaintranceJob\Tables\JobHistory_Store.sql" />
+    <Build Include="MaintranceJob\Tables\JobHistory_WHS.sql" />
+    <Build Include="MaintranceJob\Tables\Branch_JobHistory_HQ.sql" />
+    <Build Include="MaintranceJob\Tables\JobHistory_HQ.sql" />
+    <Build Include="MaintranceReplication\Tables\DistributionAgent_Store.sql" />
+    <Build Include="MaintranceReplication\Tables\Branch_DistributionAgent_Store.sql" />
+    <Build Include="MaintranceReplication\Tables\Branch_DistributionAgent_HQ.sql" />
+    <Build Include="MaintranceReplication\Tables\DistributionAgent_HQ.sql" />
+    <Build Include="MaintranceJob\Tables\SSISExecutionDetails_HQ.sql" />
+    <Build Include="MaintranceJob\Tables\SSISExecution_HQ.sql" />
+    <Build Include="MaintranceJob\Tables\SSISExecution_Details_HQ.sql" />
+    <Build Include="Storage\FG_Data.sql" />
+    <Build Include="Security\db_execute.sql" />
+    <Build Include="Security\db_viewdefinition.sql" />
+    <Build Include="Security\MaintranceBackup.sql" />
+    <Build Include="Security\MaintranceDatabase.sql" />
+    <Build Include="Security\MaintranceInstance.sql" />
+    <Build Include="Security\MaintranceJob.sql" />
+    <Build Include="Security\MaintranceReplication.sql" />
+    <Build Include="ExtendedProperties.sql" />
+    <Build Include="MaintranceJob\Tables\SSISExecutionDetails_WHS.sql" />
+    <Build Include="MaintranceJob\Tables\SSISExecutionDetails_Store.sql" />
+    <Build Include="MaintranceJob\Tables\SSISExecution_WHS.sql" />
+    <Build Include="MaintranceJob\Tables\SSISExecution_Store.sql" />
+    <Build Include="MaintranceJob\Tables\SSISExecution_Details_WHS.sql" />
+    <Build Include="MaintranceJob\Tables\JobActivity_WHS.sql" />
+    <Build Include="MaintranceJob\Tables\Branch_SSISExecution_WHS.sql" />
+    <Build Include="MaintranceJob\Tables\Branch_SSISExecution_HQ.sql" />
+    <Build Include="MaintranceJob\Tables\Branch_JobActivity_WHS.sql" />
+    <Build Include="MaintranceInstance\Tables\LinkServer_WHS.sql" />
+    <Build Include="MaintranceInstance\Tables\LinkServer_Store.sql" />
+    <Build Include="MaintranceInstance\Tables\LinkServer_HQ.sql" />
+    <Build Include="MaintranceInstance\Tables\Branch_LinkServer_WHS.sql" />
+    <Build Include="MaintranceInstance\Tables\Branch_LinkServer_Store.sql" />
+    <Build Include="MaintranceInstance\Tables\Branch_LinkServer_HQ.sql" />
+    <Build Include="MaintranceBackup\Tables\RestoreHistory_HQ.sql" />
+    <Build Include="MaintranceBackup\Tables\Branch_SSISExecution_HQ.sql" />
+    <Build Include="MaintranceBackup\Tables\Branch_RestoreHistory_HQ.sql" />
+  </ItemGroup>
+</Project>

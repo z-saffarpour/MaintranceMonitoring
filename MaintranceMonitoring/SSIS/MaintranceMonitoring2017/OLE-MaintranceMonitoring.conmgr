@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="OLE-MaintranceMonitoring"
+  DTS:DTSID="{15564C30-0311-4A42-A1A6-CF4CFA8C0C30}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=SRV70001\NODE;Initial Catalog=MaintranceMonitoring;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-SqlDeep_MaintranceMonitoring;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

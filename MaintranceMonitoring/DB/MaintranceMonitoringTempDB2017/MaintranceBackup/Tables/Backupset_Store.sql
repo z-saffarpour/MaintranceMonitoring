@@ -1,0 +1,27 @@
+﻿CREATE TABLE [MaintranceBackup].[Backupset_Store] (
+    [ID]                   BIGINT         IDENTITY (1, 1) NOT NULL,
+    [BranchRef]            INT            NULL,
+    [MachineName]          NVARCHAR (128) NOT NULL,
+    [ServerName]           NVARCHAR (128) NOT NULL,
+    [DatabaseName]         NVARCHAR (128) NOT NULL,
+    [RecoveryModel]        NVARCHAR (60)  NOT NULL,
+    [DatabaseVersion]      INT            NOT NULL,
+    [IsSingleUser]         BIT            NOT NULL,
+    [BackupSetId]          INT            NOT NULL,
+    [MediaSetId]           INT            NOT NULL,
+    [BackupName]           NVARCHAR (128) NULL,
+    [BackupType]           CHAR (1)       NOT NULL,
+    [BackupDescription]    NVARCHAR (255) NULL,
+    [FirstLSN]             NUMERIC (25)   NOT NULL,
+    [LastLSN]              NUMERIC (25)   NOT NULL,
+    [CheckpointLSN]        NUMERIC (25)   NOT NULL,
+    [DatabaseBackupLSN]    NUMERIC (25)   NOT NULL,
+    [BackupStartDatetime]  DATETIME       NOT NULL,
+    [BackupFinishDatetime] DATETIME       NOT NULL,
+    [ExpirationDate]       DATETIME       NULL,
+    [BackupSize]           NUMERIC (20)   NOT NULL,
+    [CompressedBackupSize] NUMERIC (20)   NOT NULL,
+    [IsCopyOnly]           BIT            NOT NULL,
+    [HasBackupChecksums]   BIT            NOT NULL
+);
+
